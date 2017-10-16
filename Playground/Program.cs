@@ -1,5 +1,6 @@
 ﻿using Playground.Parallel;
 using System;
+using System.Collections.Generic;
 
 namespace Playground
 {
@@ -8,6 +9,9 @@ namespace Playground
         static void Main(string[] args)
         {
             Console.Read();
+
+            LinkedList<int> list = new LinkedList<int>();
+            
         }
 
         static void Parallel()

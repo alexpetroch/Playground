@@ -1,8 +1,8 @@
 ﻿namespace Playground.DataStructures
 {
-    internal class LinkedList<T>
+    public class LinkedList<T>
     {
-        internal class Node
+        public class Node
         {
             public Node Next;
             public T Value;
@@ -10,6 +10,9 @@
 
         Node _head;
         Node _tail;
+
+        public Node Head => _head;
+        public Node Tail => _tail;
 
         public Node Add (T value)
         {
@@ -24,6 +27,66 @@
             _tail.Next = node;
             _tail = node;
             return node;
+        }
+
+        public void Remove(T value)
+        {
+            if (_tail == null)
+            {
+                return;
+            }
+
+            if(_head.Value.Equals(value))
+            {
+                if(_head.Equals(_tail))
+                {
+                    _tail = _tail.Next;
+                }
+
+                _head = _head.Next;
+                return;
+            }
+
+            var node = _head.Next;
+            var prev = _head;
+            while (node != null)
+            {
+                if(node.Value.Equals(value))
+                {                    
+                    prev.Next = node.Next;
+
+                    if(node.Equals(_tail))
+                    {
+                        _tail = prev;
+                    }
+
+                    break;
+                }
+
+                prev = node;
+                node = node.Next;
+            }
+        }
+
+        public Node Find(T value)
+        {
+            if (_head == null)
+            {
+                return null;
+            }            
+
+            var node = _head;
+            while (node != null)
+            {
+                if (node.Value.Equals(value))
+                {
+                    return node;
+                }
+
+                node = node.Next;
+            }
+
+            return null;
         }
 
         public void Reverse()
