@@ -1,4 +1,4 @@
-﻿namespace Playground.DataStructures
+﻿namespace Playground.DataStructure
 {
     public class DoublyLinkedList<T>
     {

@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="DataStructure\DoublyLinkedList.cs" />
     <Compile Include="DataStructure\LinkedList.cs" />
+    <Compile Include="DataStructure\Queue.cs" />
+    <Compile Include="DataStructure\Stack.cs" />
     <Compile Include="Parallel\TaskParallel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
-using Playground.DataStructures;
+using Playground.DataStructure;
+using System;
 
 namespace Tests
 {
@@ -54,6 +55,57 @@ namespace Tests
             list.Remove(2);
             list.Remove(1);
             list.Add(1);
+        }
+
+        [Test]
+        public static void Stack()
+        {
+            Stack<int> stack = new Stack<int>();
+            Assert.Throws<InvalidOperationException>(() => stack.Pop());
+
+            stack.Push(1);
+            Assert.That(stack.Peek() == 1);
+
+            stack.Push(2);
+            stack.Push(3);
+            stack.Push(4);
+            Assert.That(stack.Pop() == 4);
+            Assert.That(stack.Pop() == 3);
+            stack.Push(3);
+            Assert.That(stack.Pop() == 3);
+            Assert.That(stack.Pop() == 2);
+            Assert.That(stack.Pop() == 1);
+
+            Assert.Throws<InvalidOperationException>(() => stack.Peek());
+            Assert.Throws<InvalidOperationException>(() => stack.Pop());
+        }
+
+        [Test]
+        public static void Queue()
+        {
+            Queue<int> queue = new Queue<int>();
+            Assert.Throws<InvalidOperationException>(() => queue.Dequeue());
+
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            Assert.That(queue.Peek() == 1);
+            Assert.That(queue.Dequeue() == 1);
+            Assert.That(queue.Dequeue() == 2);
+
+            queue.Enqueue(1);
+            queue.Enqueue(2);
+            queue.Enqueue(3);
+            queue.Enqueue(4);
+            
+            Assert.That(queue.Dequeue() == 1);
+            queue.Enqueue(1);
+            Assert.That(queue.Dequeue() == 2);
+            Assert.That(queue.Dequeue() == 3);
+            Assert.That(queue.Dequeue() == 4);
+            Assert.That(queue.Dequeue() == 1);
+
+            Assert.Throws<InvalidOperationException>(() => queue.Peek());
+            Assert.Throws<InvalidOperationException>(() => queue.Dequeue());
         }
     }
 }
