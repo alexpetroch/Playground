@@ -2,7 +2,7 @@
 
 namespace Playground.DataStructure
 {
-    public class Queue<T>
+    public class Queue<T> : IQueue<T>
     {
         T[] items = new T[3];
         int head = -1;
@@ -38,5 +38,45 @@ namespace Playground.DataStructure
             return items[tail];
         }
 
+    }
+
+    public class QueueL<T> : IQueue<T>
+    {
+        LinkedList<T> _list = new LinkedList<T>();
+
+        public void Enqueue(T value)
+        {
+            _list.Add(value);
+        }
+
+        public T Dequeue()
+        {
+            if (_list.Head == null)
+            {
+                throw new InvalidOperationException("queue is empty");
+            }
+
+            T value = _list.Head.Value;
+            _list.RemoveFirst();
+            return value;
+        }
+
+        public T Peek()
+        {
+            if (_list.Head == null)
+            {
+                throw new InvalidOperationException("queue is empty");
+            }
+
+            return _list.Head.Value;
+        }
+
+    }
+
+    public interface IQueue<T>
+    {
+        void Enqueue(T value);
+        T Dequeue();
+        T Peek();
     }
 }

@@ -22,6 +22,17 @@ namespace Tests
 
             Assert.That(dlist.Head.Value == 4);
             Assert.That(dlist.Tail.Value == 1);
+
+            dlist.Reverse();
+
+            dlist.Remove(3);
+            var node = dlist.Find(2);
+            Assert.That(node.Next.Value == 4);
+
+            node = dlist.Find(1);
+            dlist.Remove(node);
+
+            Assert.That(dlist.Head.Value == 2);            
         }
 
         [Test]
@@ -61,6 +72,14 @@ namespace Tests
         public static void Stack()
         {
             Stack<int> stack = new Stack<int>();
+            StackTest(stack);
+
+            StackL<int> stackL = new StackL<int>();
+            StackTest(stackL);
+        }
+
+        private static void StackTest(IStack<int> stack)
+        {
             Assert.Throws<InvalidOperationException>(() => stack.Pop());
 
             stack.Push(1);
@@ -84,6 +103,14 @@ namespace Tests
         public static void Queue()
         {
             Queue<int> queue = new Queue<int>();
+            QueueTest(queue);
+
+            QueueL<int> queueL = new QueueL<int>();
+            QueueTest(queueL);
+        }
+
+        private static void QueueTest(IQueue<int> queue)
+        {
             Assert.Throws<InvalidOperationException>(() => queue.Dequeue());
 
             queue.Enqueue(1);
@@ -96,7 +123,7 @@ namespace Tests
             queue.Enqueue(2);
             queue.Enqueue(3);
             queue.Enqueue(4);
-            
+
             Assert.That(queue.Dequeue() == 1);
             queue.Enqueue(1);
             Assert.That(queue.Dequeue() == 2);

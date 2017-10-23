@@ -1,4 +1,6 @@
-﻿namespace Playground.DataStructure
+﻿using System;
+
+namespace Playground.DataStructure
 {
     public class DoublyLinkedList<T>
     {
@@ -33,6 +35,61 @@
             _tail = node;
 
             return _tail;
+        }
+
+        public Node Find(T value)
+        {
+            if (_head == null)
+            {
+                return null;
+            }
+
+            var node = _head;
+            while (node != null)
+            {
+                if (node.Value.Equals(value))
+                {
+                    return node;
+                }
+
+                node = node.Next;
+            }
+
+            return null;
+        }
+
+        public void Remove (Node node)
+        {            
+            if(node == null)
+            {
+                throw new ArgumentNullException("node");
+            }
+
+            if(node == _head)
+            {
+                _head = node.Next;
+                return;
+            }
+
+            if(node == _tail)
+            {
+                _tail = node.Prev;
+                return;
+            }
+
+
+            node.Prev.Next = node.Next;
+            node.Next.Prev = node.Prev;
+        }
+
+        public void Remove(T value)
+        {
+            var node = Find(value);
+
+            if(node != null)
+            {
+                Remove(node);
+            }
         }
 
         public void Reverse()

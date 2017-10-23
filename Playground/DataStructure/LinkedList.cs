@@ -1,4 +1,6 @@
-﻿namespace Playground.DataStructure
+﻿using System;
+
+namespace Playground.DataStructure
 {
     public class LinkedList<T>
     {
@@ -27,6 +29,30 @@
             _tail.Next = node;
             _tail = node;
             return node;
+        }
+
+        public void AddFirst(T value)
+        {
+            if (_head == null)
+            {
+                _head = new Node() { Value = value };
+                _tail = _head;
+                return;
+            }
+
+            var node = new Node() { Value = value };
+            node.Next = _head;
+            _head = node;
+        }
+
+        public void RemoveFirst()
+        {
+            if (_head == null)
+            {
+                throw new InvalidOperationException("No elements");
+            }
+
+            _head = _head.Next;
         }
 
         public void Remove(T value)

@@ -2,7 +2,7 @@
 
 namespace Playground.DataStructure
 {
-    public class Stack<T>
+    public class Stack<T> : IStack<T>
     {
         T[] items = new T[3];
         int index = -1;
@@ -36,6 +36,44 @@ namespace Playground.DataStructure
 
             return items[index];
         }
+    }
 
+    public class StackL<T>: IStack<T>
+    {
+        LinkedList<T> _list = new LinkedList<T>();
+
+        public void Push(T value)
+        {
+            _list.AddFirst(value);
+        }
+
+        public T Pop()
+        {
+            if (_list.Head == null)
+            {
+                throw new InvalidOperationException("stack is empty");
+            }
+
+            T value = _list.Head.Value;
+            _list.RemoveFirst();
+            return value;
+        }
+
+        public T Peek()
+        {
+            if (_list.Head == null)
+            {
+                throw new InvalidOperationException("stack is empty");
+            }
+
+            return _list.Head.Value;
+        }
+    }
+
+    public interface IStack<T>
+    {
+        void Push(T value);
+        T Pop();
+        T Peek();
     }
 }
