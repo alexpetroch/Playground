@@ -5,6 +5,7 @@ using System;
 namespace Tests
 {
     [TestFixture]
+    [Category("DataStructures")]
     public class DataStructures
     {
         [Test]
@@ -133,6 +134,42 @@ namespace Tests
 
             Assert.Throws<InvalidOperationException>(() => queue.Peek());
             Assert.Throws<InvalidOperationException>(() => queue.Dequeue());
+        }
+
+        [Test]
+        public static void Tree ()
+        {
+            //              10
+            //      5               15
+            //  2       7       12      17
+            //      6               13
+
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            Assert.That(tree.InOrder() == "2,5,6,7,10,12,13,15,17,");
+            Assert.That(tree.PreOrder() == "10,5,2,7,6,15,12,13,17,");
+            Assert.That(tree.PostOrder() == "2,6,7,5,13,12,17,15,10,");
         }
     }
 }
