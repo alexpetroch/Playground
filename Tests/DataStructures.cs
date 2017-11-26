@@ -171,5 +171,17 @@ namespace Tests
             Assert.That(tree.PreOrder() == "10,5,2,7,6,15,12,13,17,");
             Assert.That(tree.PostOrder() == "2,6,7,5,13,12,17,15,10,");
         }
+
+        [Test]
+        public static void Trie()
+        {
+            Trie trie = new Trie();
+            trie.Insert("hello");
+            trie.Insert("by");
+            trie.Insert("bye");
+
+            Assert.That(trie.Find("by") == true);
+            Assert.That(trie.Find("bye1") == false);
+        }
     }
 }
