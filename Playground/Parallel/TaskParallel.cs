@@ -17,9 +17,6 @@ namespace Playground.Parallel
                 Thread.Sleep(5000);
                 return 10;
             }, TaskContinuationOptions.NotOnFaulted);
-
-
-            success.Start();
         }
 
         private Task<string> DoWork()

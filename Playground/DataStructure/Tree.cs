@@ -75,6 +75,33 @@ namespace Playground.DataStructure
             return sb.ToString();
         }
 
+
+        // Breath First Search
+        public string LevelOrder()
+        {
+            StringBuilder sb = new StringBuilder();
+            Queue<Node> queue = new Queue<Node>();
+            queue.Enqueue(_root);
+
+            while (!queue.IsEmpty())
+            {
+                var node = queue.Dequeue();
+                sb.Append(node.Value.ToString() + ",");
+
+                if(node.Left != null)
+                {
+                    queue.Enqueue(node.Left);
+                }
+
+                if (node.Right != null)
+                {
+                    queue.Enqueue(node.Right);
+                }
+            }
+
+            return sb.ToString();
+        }
+
         private void PostOrder(Node node, StringBuilder sb)
         {
             if (node == null)

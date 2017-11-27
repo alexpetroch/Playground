@@ -42,12 +42,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStructure\LeastRecentlyUsedCache.cs" />
+    <Compile Include="DataStructure\SimpleArray.cs" />
     <Compile Include="DataStructure\DoublyLinkedList.cs" />
     <Compile Include="DataStructure\LinkedList.cs" />
     <Compile Include="DataStructure\Queue.cs" />
     <Compile Include="DataStructure\Stack.cs" />
     <Compile Include="DataStructure\Tree.cs" />
-    <Compile Include="InterviewBit\ArrayQ.cs" />
+    <Compile Include="Interview\ArrayQ.cs" />
+    <Compile Include="Interview\Bits.cs" />
+    <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Parallel\TaskParallel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
