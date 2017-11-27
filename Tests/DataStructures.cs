@@ -217,5 +217,17 @@ namespace Tests
             cache.Set(6, 14);
             Assert.That(cache.Get(5) == -1);
         }
+
+        [Test]
+        public static void Trie()
+        {
+            Trie trie = new Trie();
+            trie.Insert("hello");
+            trie.Insert("by");
+            trie.Insert("bye");
+
+            Assert.That(trie.Find("by") == true);
+            Assert.That(trie.Find("bye1") == false);
+        }
     }
 }
