@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Playground.DataStructure;
-using Playground.InterviewBit;
-using System;
+using Playground.Interview;
 using System.Linq;
 
 namespace Tests
@@ -23,6 +22,12 @@ namespace Tests
             int[] rotate = { -1000, 5 };
             int[] result = SimpleArray.RotateCycle(orig, 1);            
             Assert.That(rotate.SequenceEqual(result));
+        }
+
+        [Test]
+        public static void StrStr()
+        {            
+            Assert.That(StringQ.StrStr("bbaabbbbbaabbaabbbbbbabbbabaabbbabbabbbbababbbabbabaaababbbaabaaaba", "babaaa") == 48);
         }
     }
 }

@@ -51,10 +51,13 @@
     <Compile Include="DataStructure\Stack.cs" />
     <Compile Include="DataStructure\Tree.cs" />
     <Compile Include="Interview\ArrayQ.cs" />
-	<Compile Include="Interview\Bits.cs" />
-	<Compile Include="Interview\MathQ.cs" />
+    <Compile Include="Interview\Bits.cs" />
+    <Compile Include="Interview\MathQ.cs" />
+    <Compile Include="Interview\StackQueueQ.cs" />
+    <Compile Include="Interview\StringQ.cs" />
+    <Compile Include="OOD\Furniture.cs" />
     <Compile Include="Parallel\TaskParallel.cs" />
-	<Compile Include="Parallel\ReaderWriterLock.cs" />
+    <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

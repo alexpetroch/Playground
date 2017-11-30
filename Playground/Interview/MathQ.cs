@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 
-namespace Playground.InterviewBit
+namespace Playground.Interview
 {
     public class MathQ
     {

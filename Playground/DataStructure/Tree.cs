@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Playground.DataStructure
 {
@@ -36,6 +39,41 @@ namespace Playground.DataStructure
             InOrder(_root, sb);
             return sb.ToString();
         }
+
+        public string InOrderWithoutRecursive()
+        {
+            if (Root == null)
+            {
+                return string.Empty;
+            }
+
+            StringBuilder sb = new StringBuilder();            
+            System.Collections.Generic.Stack<Node> stack = new System.Collections.Generic.Stack<Node>();
+            var node = Root;
+            while (node != null)
+            {
+                stack.Push(node);
+                node = node.Left;
+            }
+
+            while (stack.Count > 0)
+            {
+                node = stack.Pop();
+                sb.Append(node.Value + ",");
+
+                if (node.Right != null)
+                {                   
+                    var nodeToVisit = node.Right;
+                    while (nodeToVisit != null)
+                    {
+                        stack.Push(nodeToVisit);
+                        nodeToVisit = nodeToVisit.Left;
+                    }                   
+                }                
+            }
+
+            return sb.ToString();
+        }        
 
         private void InOrder(Node node, StringBuilder sb)
         {
@@ -112,6 +150,113 @@ namespace Playground.DataStructure
             PostOrder(node.Left, sb);
             PostOrder(node.Right, sb);
             sb.Append(node.Value.ToString() + ",");
+        }
+    }
+
+    public class BST<T> : Tree<T> where T:IComparable
+    {
+
+        public Node Search (T value)
+        {
+            var node = Root;
+            while (node != null)
+            {
+                if (node.Value.Equals(value))
+                {
+                    return node;
+                }
+                else if (value.CompareTo(node.Value) < 0)
+                {
+                    node = node.Left;
+                }
+                else
+                {
+                    node = node.Right;
+                }
+            }
+
+            return null;
+        }
+
+        public Node SearchRecurcive(T value)
+        {
+            return Search(value, Root);
+        }
+        private Node Search(T value, Node node)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+            else if(node.Value.Equals(value))
+            {
+                return node;
+            }
+
+            return Search(value, value.CompareTo(node.Value) < 0 ? node.Left : node.Right);                 
+        }
+
+        public Node Insert(T value)
+        {
+            if (Root == null)
+            {
+                Root = new Node(value);
+                return Root;
+            }
+
+            var node = Root;
+            while (node != null)
+            {
+                if (node.Value.Equals(value))
+                {
+                    return node;
+                }
+                else if (value.CompareTo(node.Value) < 0)
+                {
+                    if (node.Left == null)
+                    {
+                        node.Left = new Node(value);
+                    }
+                    node = node.Left;
+                }
+                else
+                {
+                    if (node.Right == null)
+                    {
+                        node.Right = new Node(value);
+                    }
+                    node = node.Right;
+                }
+            }
+
+            return null;
+        }
+
+        public Node InsertRecurcive(T value)
+        {
+            return Insert(value, Root);           
+        }
+        private Node Insert(T value, Node node)
+        {
+            if (node == null)
+            {
+                return new Node(value);
+            }
+
+            if (node.Value.Equals(value))
+            {
+                return node;
+            }
+            else if (value.CompareTo(node.Value) < 0)
+            {
+                node.Left = Insert(value, node.Left);
+            }
+            else
+            {
+                node.Right = Insert(value, node.Right);
+            }
+            
+            return node;
         }
     }
 }

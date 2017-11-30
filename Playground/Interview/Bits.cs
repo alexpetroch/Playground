@@ -1,4 +1,4 @@
-﻿namespace Playground.InterviewBit
+﻿namespace Playground.Interview
 {
     public class Bits
     {

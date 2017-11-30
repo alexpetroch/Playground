@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 
-namespace Playground.InterviewBit
+namespace Playground.Interview
 {
     public class ArrayQ
     {
-
         public static void SetToZeroRowsColumns(int[,] matrix)
         {
             bool[] rows = new bool[matrix.GetLength(0)];
@@ -60,7 +59,6 @@ namespace Playground.InterviewBit
                 }
             }
 
-
             for (int i = 1; i < matrix.GetLength(0); i++)
             {
                 for (int j = 1; j < matrix.GetLength(1); j++)
@@ -84,5 +82,75 @@ namespace Playground.InterviewBit
                     matrix[i, 0] = 0;
             }
         }
+
+        /// <summary>
+        /// https://codility.com/programmers/lessons/8-leader/equi_leader/
+        /// </summary>
+        public int EquiLeader(int[] A)
+        {
+            int size = 0;
+            int value = 0;
+
+            Dictionary<int, int> counts = new Dictionary<int, int>();
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (size == 0)
+                {
+                    value = A[i];
+                    size = 1;
+                }
+                else
+                {
+                    if (value == A[i])
+                    {
+                        size++;
+                    }
+                    else
+                    {
+                        size--;
+                    }
+                }
+
+                if (!counts.ContainsKey(A[i]))
+                {
+                    counts.Add(A[i], 1);
+                }
+                else
+                {
+                    counts[A[i]]++;
+                }
+            }
+
+            int leader = 0;
+            if (size > 0)
+            {
+                leader = value;
+            }
+            else
+            {
+                return 0;
+            }
+
+            int equi = 0;
+            int leftLeaders = 0;
+            int rightLeaders = counts[leader];
+
+            for (int i = 0; i < A.Length; i++)
+            {
+                if (A[i] == leader)
+                {
+                    leftLeaders++;
+                    rightLeaders--;
+                }
+
+                if (rightLeaders > (A.Length - i - 1) / 2 && leftLeaders > (i + 1) / 2)
+                {
+                    equi++;
+                }
+            }
+
+            return equi;
+        }
+
     }
 }

@@ -53,7 +53,8 @@ namespace Tests
             Assert.That(list.Tail.Value == 1);
 
             // return list back
-            list.Reverse();
+            list.ReverseRecursive();
+            Assert.That(list.Head.Value == 1);
 
             list.Remove(3);
             Assert.IsNull(list.Find(3));
@@ -172,6 +173,48 @@ namespace Tests
             Assert.That(tree.PostOrder() == "2,6,7,5,13,12,17,15,10,");
 
             Assert.That(tree.LevelOrder() == "10,5,15,2,7,12,17,6,13,");
+        }
+
+        [Test]
+        public static void BST()
+        {
+            //              10
+            //      5               15
+            //  2       7       12      17
+            //      6               13
+
+            BST<int> bst = new BST<int>
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            Assert.That(bst.InOrder() == "2,5,6,7,10,12,13,15,17,");
+            Assert.That(bst.InOrderWithoutRecursive() == "2,5,6,7,10,12,13,15,17,");
+            Assert.That(bst.Search(13) != null);
+            Assert.That(bst.Search(100) == null);
+            Assert.That(bst.SearchRecurcive(13) != null);
+            Assert.That(bst.SearchRecurcive(100) == null);
+
+            var node = bst.Insert(1);
+            var node1 = bst.InsertRecurcive(3);
         }
 
         [Test]
