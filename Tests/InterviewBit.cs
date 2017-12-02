@@ -71,6 +71,15 @@ namespace Tests
         {
             Assert.That(MathQ.Pow(2, 5) == 32);
             Assert.That(MathQ.Pow(2, 6) == 64);
+
+            Assert.That(MathQ.PowWithoutRecursion(2, 0) == 1);
+            Assert.That(MathQ.PowWithoutRecursion(2, 1) == 2);
+            Assert.That(MathQ.PowWithoutRecursion(2, 2) == 4);
+            Assert.That(MathQ.PowWithoutRecursion(2, 3) == 8);
+            Assert.That(MathQ.PowWithoutRecursion(2, 4) == 16);
+            Assert.That(MathQ.PowWithoutRecursion(2, 5) == 32);
+            Assert.That(MathQ.PowWithoutRecursion(2, 6) == 64);
+            
         }
         [Test]
         public static void ExtraBrackets()

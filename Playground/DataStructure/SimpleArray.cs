@@ -126,6 +126,37 @@ namespace Playground.DataStructure
             return end;
         }
 
+        public static int Sqrt2(int x)
+        {
+            if (x == 0 || x == 1)
+            {
+                return x;
+            }
+
+            int start = 0;
+            int end = x;
+            int ans = 1;
+            while (start <= end)
+            {
+                int middle = start + (end - start) / 2;
+                if (middle * middle == x)
+                {
+                    return middle;
+                }
+                else if (middle * middle < x)
+                {
+                    ans = middle;
+                    start = middle + 1;
+                }
+                else
+                {
+                    end = middle - 1;
+                }
+            }
+
+            return ans;
+        }
+
         public static int PowMod (int x, int y, int z)
         {
             int ans = 1;
