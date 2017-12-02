@@ -53,7 +53,8 @@ namespace Tests
             Assert.That(list.Tail.Value == 1);
 
             // return list back
-            list.Reverse();
+            list.ReverseRecursive();
+            Assert.That(list.Head.Value == 1);
 
             list.Remove(3);
             Assert.IsNull(list.Find(3));
@@ -170,6 +171,94 @@ namespace Tests
             Assert.That(tree.InOrder() == "2,5,6,7,10,12,13,15,17,");
             Assert.That(tree.PreOrder() == "10,5,2,7,6,15,12,13,17,");
             Assert.That(tree.PostOrder() == "2,6,7,5,13,12,17,15,10,");
+
+            Assert.That(tree.LevelOrder() == "10,5,15,2,7,12,17,6,13,");
+        }
+
+        [Test]
+        public static void BST()
+        {
+            //              10
+            //      5               15
+            //  2       7       12      17
+            //      6               13
+
+            BST<int> bst = new BST<int>
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            Assert.That(bst.InOrder() == "2,5,6,7,10,12,13,15,17,");
+            Assert.That(bst.InOrderWithoutRecursive() == "2,5,6,7,10,12,13,15,17,");
+            Assert.That(bst.Search(13) != null);
+            Assert.That(bst.Search(100) == null);
+            Assert.That(bst.SearchRecurcive(13) != null);
+            Assert.That(bst.SearchRecurcive(100) == null);
+
+            var node = bst.Insert(1);
+            var node1 = bst.InsertRecurcive(3);
+        }
+
+        [Test]
+        public static void BinarySearch()
+        {
+            int[] array = { 1, 2, 3, 4, 5 };
+            Assert.That(SimpleArray.BinarySearch(array, 5) == 4);
+            Assert.That(SimpleArray.BinarySearch(array, 6) == -1);
+            Assert.That(SimpleArray.BinarySearch(array, 2) == 1);
+
+            int[] array1 = { 0, 1 };
+            Assert.That(SimpleArray.BinarySearch(array1, 0) == 0);
+            Assert.That(SimpleArray.BinarySearch(array1, 1) == 1);
+
+            array = new int[]{ 5, 7, 7, 8, 8, 10};
+            Assert.That(SimpleArray.FindCount(array, 8) == 2);
+
+            Assert.That(SimpleArray.Sqrt(16) == 4);
+            Assert.That(SimpleArray.Sqrt(10) == 3);
+            Assert.That(SimpleArray.Sqrt(1) == 1);
+            Assert.That(SimpleArray.Sqrt(0) == 0);
+            Assert.That(SimpleArray.Sqrt(-1) == 0);
+            Assert.That(SimpleArray.Sqrt(2147483647) == 46340);
+            Assert.That(SimpleArray.Sqrt(930675566) == 30506);
+
+
+            Assert.That(SimpleArray.PowMod(2, 4, 2) == 0);
+            Assert.That(SimpleArray.PowMod(2, 3, 3) == 2);
+            Assert.That(SimpleArray.PowMod(2, 7, 5) == 3);
+        }
+
+        [Test]
+        public static void LRUCache()
+        {
+            LeastRecentlyUsedCache cache = new LeastRecentlyUsedCache(2);
+            cache.Set(1, 10);
+            cache.Set(5, 12);
+
+            Assert.That(cache.Get(5) == 12);
+            Assert.That(cache.Get(1) == 10);
+            Assert.That(cache.Get(10) == -1);
+
+            cache.Set(6, 14);
+            Assert.That(cache.Get(5) == -1);
         }
 
         [Test]

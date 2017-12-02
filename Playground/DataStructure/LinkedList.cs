@@ -134,5 +134,25 @@ namespace Playground.DataStructure
                 }
             }
         }
+
+        public void ReverseRecursive()
+        {
+            var node = _head;
+            _tail = _head;
+             ReverseRecursive(node, null);
+        }
+
+        private Node ReverseRecursive(Node node, Node prev)
+        {
+            if(node == null)
+            {
+                _head = prev;
+                return prev; 
+            }
+
+            ReverseRecursive(node.Next, node);
+            node.Next = prev; 
+            return prev;
+        }
     }
 }

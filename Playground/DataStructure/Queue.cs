@@ -28,6 +28,16 @@ namespace Playground.DataStructure
             return items[tail++];
         }
 
+        public bool IsEmpty()
+        {
+            if (tail < 0 || head < tail)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public T Peek()
         {
             if (tail < 0 || head < tail)
@@ -37,7 +47,6 @@ namespace Playground.DataStructure
 
             return items[tail];
         }
-
     }
 
     public class QueueL<T> : IQueue<T>

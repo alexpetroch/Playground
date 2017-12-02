@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace Playground.InterviewBit
+namespace Playground.Interview
 {
     public class ArrayQ
     {
@@ -60,7 +59,6 @@ namespace Playground.InterviewBit
                 }
             }
 
-
             for (int i = 1; i < matrix.GetLength(0); i++)
             {
                 for (int j = 1; j < matrix.GetLength(1); j++)
@@ -85,129 +83,74 @@ namespace Playground.InterviewBit
             }
         }
 
-        public static int FirstMissingPositive(int[] array)
+        /// <summary>
+        /// https://codility.com/programmers/lessons/8-leader/equi_leader/
+        /// </summary>
+        public int EquiLeader(int[] A)
         {
-            int miss = array.Length + 1;
-            int index = 0;
+            int size = 0;
+            int value = 0;
 
-            int index1 = Array.IndexOf(array, 1);
-
-            // iterate array and organize them into the following way: 1, 2, 3, etc
-            while (index < array.Length)
+            Dictionary<int, int> counts = new Dictionary<int, int>();
+            for (int i = 0; i < A.Length; i++)
             {
-                int value = array[index];
-                if (value - 1 == index && array[value - 1] == value)
+                if (size == 0)
                 {
-                    index++;
-                    continue;
-                }
-
-                if (value < array.Length && value > 0 && array[value - 1] != array[index])
-                {
-                    int temp = array[value - 1];
-                    array[value - 1] = value;
-                    array[index] = temp;
+                    value = A[i];
+                    size = 1;
                 }
                 else
-                {                   
-                    index++;
+                {
+                    if (value == A[i])
+                    {
+                        size++;
+                    }
+                    else
+                    {
+                        size--;
+                    }
+                }
+
+                if (!counts.ContainsKey(A[i]))
+                {
+                    counts.Add(A[i], 1);
+                }
+                else
+                {
+                    counts[A[i]]++;
                 }
             }
 
-            // iterate resulted array and find the first missing number    
-            for (int i = 0; i < array.Length; i++)
+            int leader = 0;
+            if (size > 0)
             {
-                if (array[i] != i + 1)
-                   return i + 1;
+                leader = value;
             }
-
-            return miss;          
-        }
-
-        public static int Fibonacci(int number)
-        {
-            // 0, 1, 1, 2, 3, 5, 8, 13, 21
-            if(number == 0)
+            else
             {
                 return 0;
             }
 
-            if (number == 1)
-            {
-                return 1;
-            }
+            int equi = 0;
+            int leftLeaders = 0;
+            int rightLeaders = counts[leader];
 
-            return Fibonacci(number - 1) + Fibonacci(number - 2);
-        }        
-
-        public static int FindFrogJump (int X, int[] A)
-        {
-            if (X < 1 || A == null || A.Length == 0)
-            {
-                return -1;
-            }
-
-            bool[] leaves = new bool[X];
             for (int i = 0; i < A.Length; i++)
             {
-                int leave = A[i];
-                if (leave > 0 && !leaves[leave - 1])
+                if (A[i] == leader)
                 {
-                    leaves[leave - 1] = true;
-                    X--;
+                    leftLeaders++;
+                    rightLeaders--;
                 }
 
-                if (X == 0)
+                if (rightLeaders > (A.Length - i - 1) / 2 && leftLeaders > (i + 1) / 2)
                 {
-                    return i;
+                    equi++;
                 }
             }
 
-            return -1;
+            return equi;
         }
 
-        public int[] MaxCounters(int N, int[] A)
-        {
-            if (N < 1)
-            {
-                return null;
-            }
-
-            int[] counters = new int[N];
-
-            int max = 0;
-            int setMax = 0;
-            for (int i = 0; i < A.Length; i++)
-            {
-                int value = A[i];
-                if (value == N + 1)
-                {
-                    setMax = max;
-                }
-                else
-                {
-                    if (setMax > 0 && counters[value - 1] < setMax)
-                    {
-                        counters[value - 1] = setMax;
-                    }
-
-                    counters[value - 1] = counters[value - 1] + 1;
-                    if (counters[value - 1] > max)
-                    {
-                        max = counters[value - 1];
-                    }
-                }
-            }
-
-            for (int i = 0; i < N; i++)
-            {
-                if (setMax > 0 && counters[i] < setMax)
-                {
-                    counters[i] = setMax;
-                }
-            }
-
-            return counters;
-        }
     }
 }
