@@ -71,6 +71,6 @@ namespace Tests
         {
             Assert.That(MathQ.Pow(2, 5) == 32);
             Assert.That(MathQ.Pow(2, 6) == 64);
-        }        
+        }            
     }
 }

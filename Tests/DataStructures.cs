@@ -182,6 +182,6 @@ namespace Tests
 
             Assert.That(trie.Find("by") == true);
             Assert.That(trie.Find("bye1") == false);
-        }
+        }       
     }
 }
