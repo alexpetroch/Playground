@@ -10,7 +10,7 @@ namespace Tests
         [Test]
         public static void SetToZeroRowsColumns()
         {
-            int[,] matrix = { { 0, 1, 0 }, { 2, 3, 4 }, { 5, 0, 6 }};
+            int[,] matrix = { { 0, 1, 0 }, { 2, 3, 4 }, { 5, 0, 6 } };
             ArrayQ.SetToZeroRowsColumns(matrix);
 
             for (int i = 0; i < matrix.GetLength(0); i++)
@@ -56,7 +56,7 @@ namespace Tests
         [Test]
         public static void ConvertToTitle()
         {
-            Assert.That(MathQ.ConvertToTitleBaseSymbol(943566) == "BAQTZ");            
+            Assert.That(MathQ.ConvertToTitleBaseSymbol(943566) == "BAQTZ");
         }
 
         [Test]
@@ -79,8 +79,9 @@ namespace Tests
             Assert.That(MathQ.PowWithoutRecursion(2, 4) == 16);
             Assert.That(MathQ.PowWithoutRecursion(2, 5) == 32);
             Assert.That(MathQ.PowWithoutRecursion(2, 6) == 64);
-            
+
         }
+
         [Test]
         public static void ExtraBrackets()
         {
@@ -89,6 +90,15 @@ namespace Tests
             Assert.That(stackQueue.Braces("((a+b))") == 1);
             Assert.That(stackQueue.Braces("((a+b)+c}") == 0);
             Assert.That(stackQueue.Braces("(a)") == 1);
+        }
+
+        [Test]
+        public static void RotateMatrix()
+        {
+            int[,] matrix0 = { { 1, 2 }, { 3, 4 } };
+            int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            ArrayQ.RotateMatrix(matrix0);
+            ArrayQ.RotateMatrix(matrix1);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
+#pragma warning disable CS0169, CS0649
+
 namespace Playground.OOD
 {
     class Airport
