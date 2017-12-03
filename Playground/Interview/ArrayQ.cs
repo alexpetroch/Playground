@@ -153,31 +153,28 @@ namespace Playground.Interview
         }
 
         public static void RotateMatrix(int[,] matrix)
-        {
-            int rows = matrix.GetLength(0);
-            int columns = matrix.GetLength(1);
-            
-            for (int i = 0, j = matrix.GetLength(0) - 1; i < j; i++, j--)
+        {           
+            for (int first = 0, last = matrix.GetLength(0) - 1; first < last; first++, last--)
             {
-                for (int k = i; k < j; k++)
+                for (int i = first; i < last; i++)
                 {
                     // save top
-                    int top = matrix[k, i];
+                    int top = matrix[first, i];
 
-                    int left = matrix[j - k, k];
                     // save to top from left
-                    matrix[k, i] = left;
+                    int left = matrix[last + first - i, first];
+                    matrix[first, i] = left;
 
-                    int bottom = matrix[j, j - k];
                     // save to left from bottom
-                    matrix[j - k, k] = matrix[j, j - k];
+                    int bottom = matrix[last, last + first - i];
+                    matrix[last + first - i, first] = bottom;
 
-                    int right = matrix[k, j];
                     // save to bottom from right
-                    matrix[j, j - k] = right;
+                    int right = matrix[i, last];
+                    matrix[last, last + first - i] = right;
 
                     // save to right from top
-                    matrix[k, j] = top;
+                    matrix[i, last] = top;
                 }
             }
 

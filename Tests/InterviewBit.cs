@@ -97,7 +97,9 @@ namespace Tests
         {
             int[,] matrix0 = { { 1, 2 }, { 3, 4 } };
             int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            ArrayQ.RotateMatrix(matrix0);
+            int[,] matrix2 = {{31, 32, 228, 333 },  { 79, 197, 241, 246 }, { 77, 84, 126, 337 }, { 110, 291, 356, 371 }   }; 
+       
+            ArrayQ.RotateMatrix(matrix2);
             ArrayQ.RotateMatrix(matrix1);
         }
     }
