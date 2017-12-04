@@ -152,5 +152,33 @@ namespace Playground.Interview
             return equi;
         }
 
+        public static void RotateMatrix(int[,] matrix)
+        {           
+            for (int first = 0, last = matrix.GetLength(0) - 1; first < last; first++, last--)
+            {
+                for (int i = first; i < last; i++)
+                {
+                    // save top
+                    int top = matrix[first, i];
+
+                    // save to top from left
+                    int left = matrix[last + first - i, first];
+                    matrix[first, i] = left;
+
+                    // save to left from bottom
+                    int bottom = matrix[last, last + first - i];
+                    matrix[last + first - i, first] = bottom;
+
+                    // save to bottom from right
+                    int right = matrix[i, last];
+                    matrix[last, last + first - i] = right;
+
+                    // save to right from top
+                    matrix[i, last] = top;
+                }
+            }
+
+
+        }
     }
 }

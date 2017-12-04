@@ -111,6 +111,33 @@ namespace Playground.Interview
             return half * half;
         }
 
+        public static int PowWithoutRecursion(int x, int y)
+        {
+            if (y < 0 || x < 0)
+            {
+                return -1;
+            }
+
+            if (y == 0)
+            {
+                return 1;
+            }
+
+            int result = 1;
+            int squire = x;
+            while (y != 0)
+            {
+                if (y % 2 == 1)
+                {
+                    result = result * squire;
+                }
+
+                squire *= squire;
+                y = y / 2;
+            }
+            return result;
+        }
+
         /// <summary>
         /// https://codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/
         /// </summary>
