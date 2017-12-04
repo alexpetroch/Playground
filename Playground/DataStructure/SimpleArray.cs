@@ -192,5 +192,113 @@ namespace Playground.DataStructure
 
             return 0;
         }
+
+        public void QuickSort(int[] array)
+        {
+            QuickSort(array, 0, array.Length - 1);
+        }
+
+        private void QuickSort(int[] array, int start, int end)
+        {
+            if(start >= end)
+            {
+                return;
+            }
+
+            int partition = Partition(array, start, end);
+            QuickSort(array, start, partition - 1);
+            QuickSort(array, partition + 1, end);
+        }
+
+        private int Partition(int[] array, int start, int end)
+        {
+            int pivot = array[start];
+            int pIndex = start + 1;
+            int temp = -1;
+
+            for (int i = start + 1; i <= end; i++)
+            {
+                if (array[i] < pivot)
+                {
+                    temp = array[i];
+                    array[i] = array[pIndex];
+                    array[pIndex] = temp;
+                    pIndex++;
+                }
+            }           
+
+            temp = array[pIndex - 1];
+            array[pIndex - 1] = pivot;
+            array[start] = temp;
+            return pIndex - 1;
+        }
+
+        public void MergeSort(int[] array)
+        {
+            int[] copy = new int[array.Length];
+            Array.Copy(array, copy, array.Length);
+            MergeSort(array, 0, array.Length - 1, copy);
+        }
+
+        private void MergeSort(int[] array, int start, int end, int[] copy)
+        {
+            if (start >= end)
+            {
+                return;
+            }
+
+            int middle = start + (end - start) / 2;
+
+            // split and sort two half after that merge
+            MergeSort(array, start, middle, copy);
+            MergeSort(array, middle + 1, end, copy);
+            SortSplitted(array, start, middle, end, copy);
+            CopyArray(array, copy, start, end);
+        }       
+
+        private void SortSplitted(int[] array, int start, int middle, int end, int[] copy)
+        {
+            int left = start;
+            int right = middle + 1;
+            int index = start;
+
+            while (left <= middle && right <= end)
+            {
+                if(array[left] < array[right])
+                {
+                    copy[index] = array[left];
+                    left++;
+                }
+                else
+                {
+                    copy[index] = array[right];
+                    right++;
+                }
+
+                index++;
+            }
+
+            while (left <= middle)
+            {
+                copy[index] = array[left];
+                left++;
+                index++;
+            }
+
+            while (right <= end)
+            {
+                copy[index] = array[right];
+                right++;
+                index++;
+            }
+        }
+
+        private void CopyArray(int[] array, int[] copy, int start, int end)
+        {
+           for (int i = start; i <= end; i++)
+            {
+                array[i] = copy[i];
+            }
+        }
     }
 }

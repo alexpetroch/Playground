@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Playground.Interview;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -81,6 +82,21 @@ namespace Tests
             Assert.That(stackQueue.Braces("((a+b))") == 1);
             Assert.That(stackQueue.Braces("((a+b)+c}") == 0);
             Assert.That(stackQueue.Braces("(a)") == 1);
+        }
+
+        [Test]
+        public static void WordBreak()
+        {
+            DynamicQ dyn = new DynamicQ();
+            string str = "myinterviewtrainer";
+            string[] input = { "trainer", "my", "interview" };
+            List<string> dic = new List<string>(input);
+            Assert.That(dyn.WordBreak(str, dic) == 1);
+
+            string str1 = "babbbbaabbaabaabaabaaabaababaaaabbbbbabbaabbabbbbababaabbabbbabbbaaabaababaaaababbbbabbbbbbaaaabaaabaabbbaaaabaaabbbaabababbbaaaabbabbbabaaabbbabaaabbbaaaaaabaabbabbaabbbbbaababbbbabbabbaabbbabaababaaaabbaabbbaabaabbbbbbaabbbaaaabbaaaaaabaabbaababbbabbbbbbaabbaabbbabbbaabbbaaaabbbaaaabbbabbaababaaabbababbaabbabbabaabbbbaaaabbaababababbbbbabbbbabbaaabbaabaaaaabbaaaaaaaaaaababaaabbbaababbbbbbbabbababbaabbaaaababbbabbaaabbbbbabbbaabbaaaaabbbbbbabbbbbabbabbbabbabbababbabaabaabbabababbababaababbaababbabaabbaaaabbbaa";
+            string[] input1 = { "bbba", "aaaa", "abaa", "aba", "aabaaa", "baabbaab", "bbbabbbaaa", "abaabbbbba", "abaa", "aba", "bbabbbbabb", "aab", "baaabbbaaa", "b", "baba", "aaba", "baaba", "abb", "aaaa", "baaabbbaa", "ab" };
+            List<string> dic1 = new List<string>(input1);
+            Assert.That(dyn.WordBreak(str1, dic1) == 0);
         }
     }
 }

@@ -52,6 +52,7 @@
     <Compile Include="DataStructure\Tree.cs" />
     <Compile Include="Interview\ArrayQ.cs" />
     <Compile Include="Interview\Bits.cs" />
+    <Compile Include="Interview\DynamicQ.cs" />
     <Compile Include="Interview\MathQ.cs" />
     <Compile Include="Interview\StackQueueQ.cs" />
     <Compile Include="Interview\StringQ.cs" />

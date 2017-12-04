@@ -272,5 +272,38 @@ namespace Tests
             Assert.That(trie.Find("by") == true);
             Assert.That(trie.Find("bye1") == false);
         }
+
+        [Test]
+        public static void Sort()
+        {
+            SimpleArray array = new SimpleArray();
+            int[] quick = { 2, 4, 1, 6, 7, 5, 3 };
+            array.QuickSort(quick);
+            for (int i = 0; i < quick.Length; i++)
+            {
+                Assert.That(quick[i] == i + 1);
+            }
+
+            int[] quick1 = { 2, 4, 8, 6, 7, 5, 3, 1 };
+            array.QuickSort(quick1);
+            for (int i = 0; i < quick1.Length; i++)
+            {
+                Assert.That(quick1[i] == i + 1);
+            }
+
+            int[] merge = { 2, 4, 1, 6, 7, 5, 3 };
+            array.MergeSort(merge);
+            for (int i = 0; i < merge.Length; i++)
+            {
+                Assert.That(merge[i] == i + 1);
+            }
+
+            int[] merge1 = { 2, 4, 8, 6, 7, 5, 3, 1 };
+            array.MergeSort(merge1);
+            for (int i = 0; i < merge1.Length; i++)
+            {
+                Assert.That(merge1[i] == i + 1);
+            }
+        }
     }
 }
