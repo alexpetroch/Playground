@@ -102,5 +102,21 @@ namespace Tests
             ArrayQ.RotateMatrix(matrix2);
             ArrayQ.RotateMatrix(matrix1);
         }
+
+        [Test]
+        public static void RotateRight()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            list.Add(91);
+            list.Add(34);
+            list.Add(18);
+            list.Add(83);
+            list.Add(38);
+            list.Add(82);
+            list.Add(21);
+            list.Add(69);
+            var node = list.RotateRight(89);
+            Assert.That(node.Value == 69);
+        }
     }
 }
