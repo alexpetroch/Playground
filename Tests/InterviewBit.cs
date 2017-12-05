@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Playground.Interview;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -97,12 +98,25 @@ namespace Tests
         {
             int[,] matrix0 = { { 1, 2 }, { 3, 4 } };
             int[,] matrix1 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
-            int[,] matrix2 = {{31, 32, 228, 333 },  { 79, 197, 241, 246 }, { 77, 84, 126, 337 }, { 110, 291, 356, 371 }   }; 
-       
+            int[,] matrix2 = { { 31, 32, 228, 333 }, { 79, 197, 241, 246 }, { 77, 84, 126, 337 }, { 110, 291, 356, 371 } };
+
             ArrayQ.RotateMatrix(matrix2);
             ArrayQ.RotateMatrix(matrix1);
         }
+        [Test]
+        public static void WordBreak()
+        {
+            DynamicQ dyn = new DynamicQ();
+            string str = "myinterviewtrainer";
+            string[] input = { "trainer", "my", "interview" };
+            List<string> dic = new List<string>(input);
+            Assert.That(dyn.WordBreak(str, dic) == 1);
 
+            string str1 = "babbbbaabbaabaabaabaaabaababaaaabbbbbabbaabbabbbbababaabbabbbabbbaaabaababaaaababbbbabbbbbbaaaabaaabaabbbaaaabaaabbbaabababbbaaaabbabbbabaaabbbabaaabbbaaaaaabaabbabbaabbbbbaababbbbabbabbaabbbabaababaaaabbaabbbaabaabbbbbbaabbbaaaabbaaaaaabaabbaababbbabbbbbbaabbaabbbabbbaabbbaaaabbbaaaabbbabbaababaaabbababbaabbabbabaabbbbaaaabbaababababbbbbabbbbabbaaabbaabaaaaabbaaaaaaaaaaababaaabbbaababbbbbbbabbababbaabbaaaababbbabbaaabbbbbabbbaabbaaaaabbbbbbabbbbbabbabbbabbabbababbabaabaabbabababbababaababbaababbabaabbaaaabbbaa";
+            string[] input1 = { "bbba", "aaaa", "abaa", "aba", "aabaaa", "baabbaab", "bbbabbbaaa", "abaabbbbba", "abaa", "aba", "bbabbbbabb", "aab", "baaabbbaaa", "b", "baba", "aaba", "baaba", "abb", "aaaa", "baaabbbaa", "ab" };
+            List<string> dic1 = new List<string>(input1);
+            Assert.That(dyn.WordBreak(str1, dic1) == 0);
+        }
         [Test]
         public static void RotateRight()
         {
