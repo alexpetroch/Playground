@@ -154,5 +154,59 @@ namespace Playground.DataStructure
             node.Next = prev; 
             return prev;
         }
+
+        public Node RotateRight(int k)
+        {
+            if (Head == null || Head.Next == null)
+            {
+                return Head;
+            }
+
+            int len = GetLength(Head);
+            if(k % len == 0)
+            {
+                return Head;
+            }
+
+            k = k % len;
+            int begin = len - k;
+
+            Node prev = null;
+            Node newHead = Head;
+            int temp = begin;
+            while (temp-- > 0)
+            {
+                prev = newHead;
+                newHead = newHead.Next;
+            }
+
+            var findLast = newHead;
+            while (findLast.Next != null)
+            {
+                findLast = findLast.Next;
+            }
+
+            findLast.Next = Head;
+            prev.Next = null;
+            return newHead;            
+        }
+
+        private int GetLength(Node node)
+        {
+            if(node == null)
+            {
+                return 0;
+            }
+
+            int len = 0;
+            var cur = node;
+            while(cur != null)
+            {
+                cur = cur.Next;
+                len++;
+            }
+
+            return len;
+        }
     }
 }
