@@ -239,11 +239,6 @@ namespace Tests
             Assert.That(SimpleArray.Sqrt(-1) == 0);
             Assert.That(SimpleArray.Sqrt(2147483647) == 46340);
             Assert.That(SimpleArray.Sqrt(930675566) == 30506);
-
-
-            Assert.That(SimpleArray.PowMod(2, 4, 2) == 0);
-            Assert.That(SimpleArray.PowMod(2, 3, 3) == 2);
-            Assert.That(SimpleArray.PowMod(2, 7, 5) == 3);
         }
 
         [Test]

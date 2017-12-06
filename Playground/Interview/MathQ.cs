@@ -138,6 +138,63 @@ namespace Playground.Interview
             return result;
         }
 
+        public static int PowMod(int x, int y, int z)
+        {
+            int ans = 1;
+            int square = x;
+            if (y == 0)
+            {
+                return 1;
+            }
+
+            while (y != 0)
+            {
+                if (y % 2 == 1)
+                {
+                    ans = ans * square;
+                }
+
+                square = (square * square) % z;
+                y = y / 2;
+
+                if (ans > z)
+                {
+                    ans = ans % z;
+                }
+            }
+
+            return ans;
+        }
+
+        public static int PowModRecursive(int x, int n, int m)
+        {
+
+            if (n == 0)
+            {
+                return x != 0 ? 1 : 0;
+            }
+
+            if (n == 1)
+            {
+                if (x < 0)
+                {
+                    return (x + m) % m;
+                }
+                else
+                {
+                    return x % m;
+                }
+            }            
+
+            if (n % 2 == 0)
+            {
+                int y = PowModRecursive(x, n / 2, m);
+                return (y * y) % m;
+            }
+
+            return ((x % m) * PowModRecursive(x, (n - 1) / 2, m)) % m;
+        }
+
         /// <summary>
         /// https://codility.com/programmers/lessons/3-time_complexity/tape_equilibrium/
         /// </summary>
@@ -169,6 +226,27 @@ namespace Playground.Interview
             }
 
             return min;
+        }
+
+        /// <summary>
+        /// https://codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/
+        /// </summary>
+        /// <param name="array"></param>
+        public static int MaxProfit (int[] array)
+        {
+            int max = 0;
+            int maxProfit = 0;
+            int min = array[0];
+
+
+            for (int i = 1; i < array.Length; i++)
+            {
+                min = Math.Min(min, array[i]);
+                maxProfit = Math.Max(0, array[i] - min);
+                max = Math.Max(max, maxProfit);
+            }
+
+            return max;
         }
     }
 }

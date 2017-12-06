@@ -29,5 +29,12 @@ namespace Tests
         {            
             Assert.That(StringQ.StrStr("bbaabbbbbaabbaabbbbbbabbbabaabbbabbabbbbababbbabbabaaababbbaabaaaba", "babaaa") == 48);
         }
+
+        [Test]
+        public static void MaxProfit()
+        {
+            int[] stocks = new int[] { 23171, 21011, 21123, 21366, 21013, 21367 };
+            Assert.That(MathQ.MaxProfit(stocks) == 356); // second and fourth elements
+        }
     }
 }

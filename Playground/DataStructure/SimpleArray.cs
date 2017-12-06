@@ -155,35 +155,7 @@ namespace Playground.DataStructure
             }
 
             return ans;
-        }
-
-        public static int PowMod (int x, int y, int z)
-        {
-            int ans = 1;
-            int square = x;
-            if (y == 0)
-            {
-                return 1;
-            }
-                
-            while (y != 0)
-            {
-                if (y % 2 == 1)
-                {
-                    ans = ans * square;
-                }
-                    
-                square = (square * square) % z;
-                y = y / 2;
-
-                if (ans > z)
-                {
-                    ans = ans % z;
-                }                    
-            }
-
-            return ans;
-        }
+        }        
 
         public static int[] RotateCycle(int[] A, int K)
         {

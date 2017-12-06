@@ -81,6 +81,9 @@ namespace Tests
             Assert.That(MathQ.PowWithoutRecursion(2, 5) == 32);
             Assert.That(MathQ.PowWithoutRecursion(2, 6) == 64);
 
+            Assert.That(MathQ.PowMod(2, 4, 2) == 0);
+            Assert.That(MathQ.PowMod(2, 3, 3) == 2);
+            Assert.That(MathQ.PowMod(2, 7, 5) == 3);
         }
 
         [Test]
@@ -117,6 +120,20 @@ namespace Tests
             string[] input1 = { "bbba", "aaaa", "abaa", "aba", "aabaaa", "baabbaab", "bbbabbbaaa", "abaabbbbba", "abaa", "aba", "bbabbbbabb", "aab", "baaabbbaaa", "b", "baba", "aaba", "baaba", "abb", "aaaa", "baaabbbaa", "ab" };
             List<string> dic1 = new List<string>(input1);
             Assert.That(dyn.WordBreak(str1, dic1) == 0);
+
+            Assert.That(dyn.WordBreakAddSpace(str, dic).Equals("my interview trainer"));
+            Assert.That(dyn.WordBreakAddSpace(str1, dic) == null);
         }
+
+        [Test]
+        public static void Subset()
+        {
+            BackTrackingQ track = new BackTrackingQ();
+            List<int> list = new List<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            var result = track.Subsets(list);
+        }        
     }
 }
