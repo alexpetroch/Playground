@@ -155,6 +155,13 @@ namespace Playground.DataStructure
 
     public class BST<T> : Tree<T> where T:IComparable
     {
+        private T _min;
+        private T _max;
+        public BST(T min, T max)
+        {
+            _min = min;
+            _max = max;
+        }
 
         public Node Search (T value)
         {
@@ -257,6 +264,28 @@ namespace Playground.DataStructure
             }
             
             return node;
+        }
+
+        public bool isValidBST()
+        {
+            return CheckValidBST(Root, _min, _max);
+        }
+
+        private bool CheckValidBST(Node node, T min, T max)
+        {
+            if (node == null)
+            {
+                return true;
+            }
+
+            if (node.Value.CompareTo(min) > 0 && node.Value.CompareTo(max) < 0 &&
+                CheckValidBST(node.Left, min, node.Value) &&
+                CheckValidBST(node.Right, node.Value, max))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

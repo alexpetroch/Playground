@@ -149,6 +149,30 @@ namespace Tests
             list.Add(2);
             list.Add(3);
             var result = track.Subsets(list);
+
+            string set = "abc";
+            List<string> results = track.GetSubsets(set);
+            Assert.That(results.Count == 8);
+
         }
+
+        [Test]
+        public static void GetIntersectionNode()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            list.Add(4);
+            list.Add(5);
+
+            Playground.DataStructure.LinkedList<int> list1 = new Playground.DataStructure.LinkedList<int>();
+            list1.Add(1);
+            list1.Add(2);
+            list1.Add(3);
+            list1.Add(4);
+            list1.Add(5);
+
+            var node = Playground.DataStructure.LinkedList<int>.GetIntersectionNode(list.Head, list1.Head);
+            Assert.That(node.Value == 4);
+        }
+        
     }
 }

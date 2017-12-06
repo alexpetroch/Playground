@@ -191,7 +191,7 @@ namespace Playground.DataStructure
             return newHead;            
         }
 
-        private int GetLength(Node node)
+        private static int GetLength(Node node)
         {
             if(node == null)
             {
@@ -208,5 +208,45 @@ namespace Playground.DataStructure
 
             return len;
         }
+
+        public static Node GetIntersectionNode(Node a, Node b)
+        {
+
+            if (a == null || b == null)
+            {
+                return null;
+            }
+
+            int aLen = GetLength(a);
+            int bLen = GetLength(b);
+
+            int diff = aLen - bLen > 0 ? aLen - bLen : bLen - aLen;
+
+            if (aLen < bLen)
+            {
+                Node temp = b;
+                b = a;
+                a = temp;
+            }
+
+            while (diff > 0)
+            {
+                a = a.Next;
+                diff--;
+            }
+
+            while (a != null && b != null)
+            {
+                if (a.Value.Equals(b.Value))
+                {
+                    return a;
+                }
+
+                a = a.Next;
+                b = b.Next;
+            }
+
+            return null;
+        }       
     }
 }

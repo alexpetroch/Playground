@@ -183,7 +183,7 @@ namespace Tests
             //  2       7       12      17
             //      6               13
 
-            BST<int> bst = new BST<int>
+            BST<int> bst = new BST<int>(int.MinValue, int.MaxValue)
             {
                 Root = new Tree<int>.Node(10)
                 {
@@ -206,6 +206,7 @@ namespace Tests
                 }
             };
 
+            Assert.That(bst.isValidBST() == true);
             Assert.That(bst.InOrder() == "2,5,6,7,10,12,13,15,17,");
             Assert.That(bst.InOrderWithoutRecursive() == "2,5,6,7,10,12,13,15,17,");
             Assert.That(bst.Search(13) != null);
@@ -215,6 +216,25 @@ namespace Tests
 
             var node = bst.Insert(1);
             var node1 = bst.InsertRecurcive(3);
+
+            //        4
+            //      /   \ 
+            //     2      5
+            //  1    5            
+            BST<int> notBST = new BST<int>(int.MinValue, int.MaxValue)
+            {
+                Root = new Tree<int>.Node(4)
+                {
+                    Left = new Tree<int>.Node(2)
+                    {
+                        Left = new Tree<int>.Node(1),
+                        Right = new Tree<int>.Node(5),
+                    },
+                    Right = new Tree<int>.Node(5)                    
+                }
+            };
+
+            Assert.That(notBST.isValidBST() == false);
         }
 
         [Test]
