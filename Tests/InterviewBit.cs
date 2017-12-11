@@ -174,7 +174,6 @@ namespace Tests
             Assert.That(node.Value == 4);
         }
 
-
         [Test]
         public void Combine()
         {
