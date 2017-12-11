@@ -180,5 +180,63 @@ namespace Playground.Interview
 
 
         }
+
+        /// <summary>
+        /// https://codility.com/programmers/lessons/15-caterpillar_method/abs_distinct/
+        /// </summary>
+        public static int AbsDistinct(int[] array)
+        {
+            if (array == null || array.Length == 0)
+            {
+                return 0;
+            }
+
+            int front = 0;
+            int back = array.Length - 1;
+            int distinct = array.Length;
+
+            while (front <= back)
+            {
+                // Remove duplicate elements from the left
+                while (front != back && front + 1 < array.Length && array[front] == array[front + 1])
+                {
+                    distinct--;
+                    front++;
+                }
+
+                // Remove duplicate elements from the right
+                while (front != back && back > 0 && array[back] == array[back - 1])
+                {
+                    distinct--;
+                    back--;
+                }
+
+                if (front == back)
+                {
+                    break;
+                }
+
+                int sum = array[front] + array[back];
+
+                if (sum == 0)
+                {
+                    distinct--;
+                    front++;
+                    back--;
+                }
+                else if (sum < 0)
+                {
+                    front++;
+                }
+                else
+                {
+                    back--;
+                }
+
+                //Console.WriteLine(string.Format("{0} {1} D{2} L{3} R{4}", front, back, distinct, left, right));
+            }
+
+            return distinct;
+        }
     }
 }

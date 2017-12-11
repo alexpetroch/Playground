@@ -173,6 +173,13 @@ namespace Tests
             var node = Playground.DataStructure.LinkedList<int>.GetIntersectionNode(list.Head, list1.Head);
             Assert.That(node.Value == 4);
         }
+
+        [Test]
+        public void Combine()
+        {
+            BackTrackingQ track = new BackTrackingQ();
+            track.Combine(3, 2);
+        }
         
     }
 }

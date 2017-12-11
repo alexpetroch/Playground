@@ -48,5 +48,39 @@ namespace Playground.Interview
                 GetSubsets(str, newSoFar, i + 1);
             }
         }
+
+
+        public List<List<int>> Combine(int A, int B)
+        {
+            if (A < B)
+            {
+                return ans;
+            }
+
+            for (int i = 1; i <= A; i++)
+            {
+                List<int> set = new List<int>();
+                set.Add(i);
+                GenerateNumber(i + 1, set, A, B);
+            }
+
+            return ans;
+        }
+
+        private void GenerateNumber(int index, List<int> soFar, int maxElement, int total)
+        {
+            if (soFar.Count == total)
+            {
+                ans.Add(soFar);
+                return;
+            }
+
+            for (int i = index; i <= maxElement; i++)
+            {
+                List<int> subSet = new List<int>(soFar);
+                subSet.Add(i);
+                GenerateNumber(i + 1, subSet, maxElement, total);
+            }
+        }
     }
 }

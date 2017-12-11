@@ -36,5 +36,14 @@ namespace Tests
             int[] stocks = new int[] { 23171, 21011, 21123, 21366, 21013, 21367 };
             Assert.That(MathQ.MaxProfit(stocks) == 356); // second and fourth elements
         }
+
+        [Test]
+        public static void AbsDistinct()
+        {
+            int[] arr = new int[] { -3, -3, 3, 3 };
+            Assert.That(ArrayQ.AbsDistinct(arr) == 1);
+
+            Assert.That(ArrayQ.AbsDistinct(new int[] { -5, -3, -1, 0, 3, 6}) == 5);
+        }
     }
 }
