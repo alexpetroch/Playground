@@ -357,10 +357,47 @@ namespace Playground.DataStructure
             return node;
         }
 
+        public Node NextGreaterSuccessor(T value)
+        {
+
+            // find node
+            // 1 case: has right node -> traverse until find the left most node
+            // 2 case: no right node -> start from head go down until find the same node with maintainf parent
+
+            var node = Search(value);
+            if(node.Right != null)
+            {
+                var nodeL = node.Right;
+                while (nodeL.Left != null)
+                {
+                    nodeL = node.Left;
+                }
+                return nodeL;
+            }
+
+            var nodeParent = Root;
+            Node nodeSeek = null;
+            while (nodeSeek != node)
+            {
+                if(nodeParent.Value.CompareTo(value) > 0)
+                {
+                    nodeSeek = nodeParent;
+                    nodeParent = nodeParent.Left;
+                }
+                else
+                {
+                    nodeParent = nodeParent.Right;
+                }
+            }
+
+            return nodeSeek;
+            
+        }
+
         public bool isValidBST()
         {
             return CheckValidBST(Root, _min, _max);
-        }
+        }        
 
         private bool CheckValidBST(Node node, T min, T max)
         {
