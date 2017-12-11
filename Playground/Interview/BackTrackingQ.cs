@@ -48,39 +48,77 @@ namespace Playground.Interview
                 GetSubsets(str, newSoFar, i + 1);
             }
         }
-
-
-        public List<List<int>> Combine(int A, int B)
+    }
+    public static Dictionary<string, string> FlattenDictionary(Dictionary<string, object> dict)
+    {
+        if (dict == null || dict.Keys.Count == 0)
         {
-            if (A < B)
+            return null;
+        }
+
+        Dictionary<string, string> res = new Dictionary<string, string>();
+        AddNesting(dict, res, string.Empty);
+        return res;
+    }
+
+    public static void AddNesting(Dictionary<string, object> dict, Dictionary<string, string> res, string addKey)
+    {
+        foreach (string key in dict.Keys)
+        {
+            Dictionary<string, object> nestedDict = dict[key] as Dictionary<string, object>;
+
+            string keyToAdd = string.Empty;
+            if (string.IsNullOrEmpty(addKey))
             {
-                return ans;
+                keyToAdd = key;
+            }
+            else
+            {
+                keyToAdd = string.IsNullOrEmpty(key) ? addKey : addKey + "." + key;
             }
 
-            for (int i = 1; i <= A; i++)
+            if (nestedDict == null)
             {
-                List<int> set = new List<int>();
-                set.Add(i);
-                GenerateNumber(i + 1, set, A, B);
+                res.Add(keyToAdd, dict[key].ToString());
+                continue;
             }
 
+            AddNesting(nestedDict, res, keyToAdd);
+        }
+    }
+
+
+    public List<List<int>> Combine(int A, int B)
+    {
+        if (A < B)
+        {
             return ans;
         }
 
-        private void GenerateNumber(int index, List<int> soFar, int maxElement, int total)
+        for (int i = 1; i <= A; i++)
         {
-            if (soFar.Count == total)
-            {
-                ans.Add(soFar);
-                return;
-            }
+            List<int> set = new List<int>();
+            set.Add(i);
+            GenerateNumber(i + 1, set, A, B);
+        }
 
-            for (int i = index; i <= maxElement; i++)
-            {
-                List<int> subSet = new List<int>(soFar);
-                subSet.Add(i);
-                GenerateNumber(i + 1, subSet, maxElement, total);
-            }
+        return ans;
+    }
+
+    private void GenerateNumber(int index, List<int> soFar, int maxElement, int total)
+    {
+        if (soFar.Count == total)
+        {
+            ans.Add(soFar);
+            return;
+        }
+
+        for (int i = index; i <= maxElement; i++)
+        {
+            List<int> subSet = new List<int>(soFar);
+            subSet.Add(i);
+            GenerateNumber(i + 1, subSet, maxElement, total);
         }
     }
+
 }

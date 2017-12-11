@@ -248,5 +248,54 @@ namespace Playground.Interview
 
             return max;
         }
+
+        /// <summary>
+        /// Max Product Subarray
+        /// </summary>
+        public static int MaxProduct(List<int> A)
+        {
+            if (A == null || A.Count == 0 || (A.Count == 1 && A[0] == 0))
+            {
+                return 0;
+            }
+
+            int max = 0;
+            int maxSoFar = 0;
+            int minSoFar = 0;
+
+            for (int i = 0; i < A.Count; i++)
+            {
+                if (A[i] > 0)
+                {
+                    maxSoFar = Math.Max(A[i], A[i] * maxSoFar);
+                    max = Math.Max(maxSoFar, max);
+                    if (minSoFar < 0)
+                    {
+                        minSoFar = minSoFar * A[i];
+                    }
+                }
+                else if (A[i] < 0)
+                {
+                    minSoFar = minSoFar == 0 ? A[i] : A[i] * minSoFar;
+                    if (minSoFar > maxSoFar)
+                    {
+                        maxSoFar = minSoFar;
+                        minSoFar = A[i];
+                        max = Math.Max(maxSoFar, max);
+                    }
+                    else
+                    {
+                        minSoFar = maxSoFar > 0 ? maxSoFar * minSoFar : minSoFar;
+                    }
+                }
+                else
+                {
+                    minSoFar = 0;
+                    maxSoFar = 0;
+                }
+            }
+
+            return max;
+        }
     }
 }
