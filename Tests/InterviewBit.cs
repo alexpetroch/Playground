@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using Playground.DataStructure;
 using Playground.Interview;
 using System.Collections.Generic;
 
@@ -198,9 +199,72 @@ namespace Tests
             list.Add(4);
             list.Add(5);
             list.Add(6);
-            var newHead = list.ReverseList(2);
+            Assert.That(list.ReverseListInGivenSize(2).Value == 2);
 
+            Playground.DataStructure.LinkedList<int> list1 = new Playground.DataStructure.LinkedList<int>();
+            list1.Add(1);
+            list1.Add(2);
+            list1.Add(3);
+            list1.Add(4);
+            list1.Add(5);
+            list1.Add(6);
+            Assert.That(list1.ReverseListInGivenSizeRecursive(list1.Head, 2).Value == 2);
         }
 
+        [Test]
+        public static void ThreeSumClosest()
+        {
+            List<int> list = new List<int>() { -1, 2, 1, -4 };
+            Assert.That(MathQ.ThreeSumClosest(list, 1) == 2);
+        }
+
+        [Test]
+        public static void BitsReverse()
+        {
+            Assert.That(Bits.Reverse(3) == 3221225472);
+            Assert.That(Bits.Reverse(4294967295) == 4294967295);
+        }
+
+        [Test]
+        public static void TreeIsBalanced()
+        {
+            BST<int> bst = new BST<int>(int.MinValue, int.MaxValue)
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            int test = bst.isBalanced(bst.Root);
+        }
+
+        [Test]
+        public static void DetectCycle()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            list.Add(1);
+            var node2 = list.Add(2);
+            list.Add(3);
+            var node4 = list.Add(4);
+            node4.Next = node2;
+
+            Assert.That(list.DetectCycle() == node2);            
+        }
     }
 }

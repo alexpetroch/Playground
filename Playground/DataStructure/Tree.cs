@@ -176,6 +176,72 @@ namespace Playground.DataStructure
 
             return isSameTree(nodeA.Right, nodeB.Right);
         }
+
+        public int MaxHeight()
+        {
+            return MaxHeight(Root);
+        }
+
+        private int MaxHeight(Node node)
+        {
+            if(node == null)
+            {
+                return 0;
+            }
+
+            int lDepth = 1 + MaxHeight(node.Left);
+            int rDepth = 1 + MaxHeight(node.Right);
+
+            return lDepth > rDepth ? lDepth : rDepth;
+        }
+
+        public int isBalanced(Node node)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            bool result = true;
+            GetHeight(node, ref result);
+            return result ? 1 : 0;
+        }
+
+        private int GetHeight(Node node, ref bool result)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            int lHeight = 1 + GetHeight(node.Left, ref result);
+            int rHeight = 1 + GetHeight(node.Right, ref result);
+
+            if (Math.Abs(lHeight - rHeight) > 1)
+            {
+                result = false;
+            }
+
+            return lHeight > rHeight ? lHeight : rHeight;
+        }
+
+        public bool isBalancedRecurcive(Node node)
+        {
+            if(node == null)
+            {
+                return true;
+            }
+
+            int lH = MaxHeight(node.Left);
+            int rH = MaxHeight(node.Right);
+
+            if(Math.Abs(lH - rH) < 2 && isBalancedRecurcive(node.Left) && isBalancedRecurcive(node.Right))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 
     public class BST<T> : Tree<T> where T:IComparable

@@ -31,6 +31,20 @@ namespace Playground.DataStructure
             return node;
         }
 
+        public Node Add(Node node)
+        {
+            if (_head == null)
+            {
+                _head = new Node() { Value = node.Value };
+                _tail = _head;
+                return _head;
+            }
+
+            _tail.Next = node;
+            _tail = node;
+            return node;
+        }
+
         public void AddFirst(T value)
         {
             if (_head == null)
@@ -155,11 +169,10 @@ namespace Playground.DataStructure
             return prev;
         }
 
-        public Node ReverseList(int k)
+        public Node ReverseListInGivenSize(int k)
         {
             var node = Head;
 
-            //ReverseRecursiveKElem(node.Next, node, 0, k, node);
             int current = 1;
             Node prevTail = null;
             Node currHead = Head;
@@ -203,7 +216,29 @@ namespace Playground.DataStructure
             return newHead;
         }
 
-        
+        public Node ReverseListInGivenSizeRecursive(Node head, int k)
+        {
+            if(head == null)
+            {
+                return null;
+            }
+
+            Node prev = null;
+            Node cur = head;
+            Node curHead = head;
+            int current = 0;
+            while (cur != null && current < k)
+            {
+                var next = cur.Next;
+                cur.Next = prev;
+                prev = cur;
+                cur = next;
+                current++;
+            }
+
+            curHead.Next = ReverseListInGivenSizeRecursive(cur, k);
+            return prev;
+        }
 
         public Node RotateRight(int k)
         {
@@ -297,6 +332,68 @@ namespace Playground.DataStructure
             }
 
             return null;
-        }       
+        }
+
+        public Node DetectCycle()
+        {
+            Node slow = Head;
+            Node fast = Head;
+            Node head = Head;
+            bool detect = false;
+
+            while (slow != null && fast != null && fast.Next != null)
+            {
+                slow = slow.Next;
+                fast = fast.Next.Next;
+
+                if (slow == fast)
+                {
+                    detect = true;
+                    break;
+                }
+            }
+
+            if (detect)
+            {
+                Node node = slow;
+                int cycleLen = 1;
+                while (node.Next != slow)
+                {
+                    node = node.Next;
+                    cycleLen++;
+                }
+
+                Node farFromHead = head;
+                int jump = 0;
+                while (farFromHead != null && jump != cycleLen)
+                {
+                    farFromHead = farFromHead.Next;
+                    jump++;
+                }
+
+                node = head;
+                while (node != farFromHead)
+                {
+                    node = node.Next;
+                    farFromHead = farFromHead.Next;
+                }
+
+                return node;
+
+                /*          
+                // Without cycle len detection
+                var node = slow;
+                while (node.next != slow.next) 
+                {
+                    node = node.next;
+                    slow = slow.next;
+                }
+
+                return node;            
+               */
+            }
+
+            return null;
+        }
     }
 }

@@ -207,6 +207,8 @@ namespace Tests
             };
 
             Assert.That(bst.isValidBST() == true);
+            Assert.That(bst.MaxHeight() == 4);
+            
             Assert.That(bst.InOrder() == "2,5,6,7,10,12,13,15,17,");
             Assert.That(bst.InOrderWithoutRecursive() == "2,5,6,7,10,12,13,15,17,");
             Assert.That(bst.Search(13) != null);
@@ -216,6 +218,9 @@ namespace Tests
 
             var node = bst.Insert(1);
             var node1 = bst.InsertRecurcive(3);
+            bst.InsertRecurcive(20);
+            bst.InsertRecurcive(25);
+            Assert.That(bst.MaxHeight() == 5);
 
             //        4
             //      /   \ 

@@ -254,7 +254,7 @@ namespace Playground.Interview
         /// </summary>
         public static int MaxProduct(List<int> A)
         {
-            if (A == null || A.Count == 0 || (A.Count == 1 && A[0] == 0))
+            if (A == null)
             {
                 return 0;
             }
@@ -267,8 +267,7 @@ namespace Playground.Interview
             {
                 if (A[i] > 0)
                 {
-                    maxSoFar = Math.Max(A[i], A[i] * maxSoFar);
-                    max = Math.Max(maxSoFar, max);
+                    maxSoFar = Math.Max(A[i], A[i] * maxSoFar);                   
                     if (minSoFar < 0)
                     {
                         minSoFar = minSoFar * A[i];
@@ -281,7 +280,6 @@ namespace Playground.Interview
                     {
                         maxSoFar = minSoFar;
                         minSoFar = A[i];
-                        max = Math.Max(maxSoFar, max);
                     }
                     else
                     {
@@ -293,9 +291,54 @@ namespace Playground.Interview
                     minSoFar = 0;
                     maxSoFar = 0;
                 }
+
+                max = Math.Max(maxSoFar, max);
             }
 
             return max;
+        }
+
+        /// <summary>
+        /// Given an array S of n integers, find three integers in S such that the sum is closest to a given number, target. 
+        /// Return the sum of the three integers.
+        /// </summary>
+        public static int ThreeSumClosest(List<int> array, int target)
+        {
+
+            if (array == null || array.Count < 3)
+            {
+                return 0;
+            }
+
+            array.Sort();
+
+            int sum = array[0] + array[1] + array[2];
+            for (int i = 0; i < array.Count; i++)
+            {
+                for (int j = i + 1, k = array.Count - 1; j < k;)
+                {
+                    int total = array[i] + array[j] + array[k];
+                    if (total > target)
+                    {
+                        k--;
+                    }
+                    else if (total < target)
+                    {
+                        j++;
+                    }
+                    else
+                    {
+                        return target;
+                    }
+
+                    if (Math.Abs(total - target) < Math.Abs(sum - target))
+                    {
+                        sum = total;
+                    }
+                }
+            }
+
+            return sum;
         }
     }
 }

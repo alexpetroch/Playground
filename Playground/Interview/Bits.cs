@@ -47,5 +47,35 @@
 
             return max;
         }
+
+        public static long Reverse(long a)
+        {
+
+            if (a < 0)
+            {
+                return 0;
+            }
+
+            int start = 0;
+            int end = 31;
+
+            long newValue = 0;
+
+            while (start < 32)
+            {
+                long check = (long)1 << start;
+                bool rev = ((long)a & check) == (long)check;
+                if (rev)
+                {
+                    long add = (long)1 << end;
+                    newValue += add;
+                }
+
+                start++;
+                end--;
+            }
+
+            return newValue;
+        }
     }
 }
