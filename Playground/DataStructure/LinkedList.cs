@@ -155,6 +155,56 @@ namespace Playground.DataStructure
             return prev;
         }
 
+        public Node ReverseList(int k)
+        {
+            var node = Head;
+
+            //ReverseRecursiveKElem(node.Next, node, 0, k, node);
+            int current = 1;
+            Node prevTail = null;
+            Node currHead = Head;
+            Node newHead = null; 
+            while (node != null)
+            {
+                if(current == k)
+                {
+                    var nextKthNode = node.Next;
+                    var it = currHead.Next;
+                    var prev = currHead;
+                    while (it != nextKthNode)
+                    {
+                        var next = it.Next;
+                        it.Next = prev;
+                        prev = it;
+                        it = next;
+                    }
+
+                    if(prevTail != null)
+                    {
+                        prevTail.Next = prev;                        
+                    }
+                    else
+                    {
+                        newHead = node;
+                    }
+
+                    current = 1;
+                    prevTail = currHead;
+                    node = nextKthNode;
+                    currHead = nextKthNode;
+                    continue;
+                }               
+
+                node = node.Next;
+                current++;
+            }
+
+            prevTail.Next = null;
+            return newHead;
+        }
+
+        
+
         public Node RotateRight(int k)
         {
             if (Head == null || Head.Next == null)

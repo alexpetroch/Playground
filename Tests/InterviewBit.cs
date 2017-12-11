@@ -173,6 +173,26 @@ namespace Tests
             var node = Playground.DataStructure.LinkedList<int>.GetIntersectionNode(list.Head, list1.Head);
             Assert.That(node.Value == 4);
         }
-        
+
+        [Test]
+        public static void MaxProduct()
+        {
+            List<int> list = new List<int>() { -2, -3, -3, 0, 1};
+            Assert.That(MathQ.MaxProduct(list) == 9);
+        }
+
+        [Test]
+        public static void ReverseListInKRange()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            list.Add(5);
+            list.Add(6);
+            var newHead = list.ReverseList(2);
+
+        }
     }
 }

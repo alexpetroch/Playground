@@ -48,5 +48,43 @@ namespace Playground.Interview
                 GetSubsets(str, newSoFar, i + 1);
             }
         }
+
+        public static Dictionary<string, string> FlattenDictionary(Dictionary<string, object> dict)
+        {
+            if (dict == null || dict.Keys.Count == 0)
+            {
+                return null;
+            }
+
+            Dictionary<string, string> res = new Dictionary<string, string>();
+            AddNesting(dict, res, string.Empty);
+            return res;
+        }
+
+        public static void AddNesting(Dictionary<string, object> dict, Dictionary<string, string> res, string addKey)
+        {          
+            foreach (string key in dict.Keys)
+            {
+                Dictionary<string, object> nestedDict = dict[key] as Dictionary<string, object>;
+
+                string keyToAdd = string.Empty;
+                if (string.IsNullOrEmpty(addKey))
+                {
+                    keyToAdd = key;
+                }
+                else
+                {
+                    keyToAdd = string.IsNullOrEmpty(key) ? addKey : addKey + "." + key;
+                }
+
+                if (nestedDict == null)
+                {                
+                    res.Add(keyToAdd, dict[key].ToString());
+                    continue;
+                }                
+
+                AddNesting(nestedDict, res, keyToAdd);
+            }
+        }
     }
 }

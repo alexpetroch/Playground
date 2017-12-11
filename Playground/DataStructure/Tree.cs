@@ -151,6 +151,31 @@ namespace Playground.DataStructure
             PostOrder(node.Right, sb);
             sb.Append(node.Value.ToString() + ",");
         }
+
+        public bool isSameTree(Node nodeA, Node nodeB)
+        {
+            if (nodeA == null && nodeB == null)
+            {
+                return true;
+            }
+
+            if ((nodeA == null && nodeB != null) || (nodeA != null && nodeB == null))
+            {
+                return false;
+            }
+
+            if (!nodeA.Value.Equals(nodeB.Value))
+            {
+                return false;
+            }
+
+            if (!isSameTree(nodeA.Left, nodeB.Right))
+            {
+                return false;
+            }
+
+            return isSameTree(nodeA.Right, nodeB.Right);
+        }
     }
 
     public class BST<T> : Tree<T> where T:IComparable

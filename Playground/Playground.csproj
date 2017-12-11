@@ -59,6 +59,7 @@
     <Compile Include="Interview\StringQ.cs" />
     <Compile Include="OOD\Airport.cs" />
     <Compile Include="OOD\Furniture.cs" />
+    <Compile Include="OOD\OnlineReaderSystem.cs" />
     <Compile Include="Parallel\TaskParallel.cs" />
     <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Program.cs" />
