@@ -45,5 +45,25 @@ namespace Tests
 
             Assert.That(ArrayQ.AbsDistinct(new int[] { -5, -3, -1, 0, 3, 6}) == 5);
         }
+
+        [Test]
+        public static void CheckOverlap()
+        {
+            OverlapSolution overlap = new OverlapSolution();
+            overlap.AddInterval(new Interval() { StartTime = 1, EndTime = 3 });
+            overlap.AddInterval(new Interval() { StartTime = 3, EndTime = 5 });
+            Assert.That(overlap.CheckOverlap() == false);
+            Assert.That(overlap.MinRooms() == 1);
+
+            overlap.AddInterval(new Interval() { StartTime = 4, EndTime = 6 });
+            Assert.That(overlap.CheckOverlap() == true);
+            Assert.That(overlap.MinRooms() == 2);
+
+            OverlapSolution overlap1 = new OverlapSolution();
+            overlap1.AddInterval(new Interval() { StartTime = 1, EndTime = 10 });
+            overlap1.AddInterval(new Interval() { StartTime = 2, EndTime = 8 });
+            overlap1.AddInterval(new Interval() { StartTime = 9, EndTime = 12 });
+            Assert.That(overlap1.MinRooms() == 2);
+        }
     }
 }
