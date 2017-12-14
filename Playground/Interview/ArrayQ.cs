@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Playground.Interview
 {
@@ -150,6 +151,16 @@ namespace Playground.Interview
             }
 
             return equi;
+        }
+
+        public static int Fibonacci(int number)
+        {
+            if(number == 0 || number == 1)
+            {
+                return number;
+            }
+
+            return Fibonacci(number - 1) + Fibonacci(number - 2);
         }
 
         public static void RotateMatrix(int[,] matrix)

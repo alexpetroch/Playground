@@ -45,15 +45,15 @@ namespace Tests
         //    Assert.That(ArrayQ.FirstMissingPositive(array1) == 2);
         //}
 
-        //[Test]
-        //public static void Fibonacchi ()
-        //{           
-        //    Assert.That(ArrayQ.Fibonacci(0) == 0);
-        //    Assert.That(ArrayQ.Fibonacci(1) == 1);
-        //    Assert.That(ArrayQ.Fibonacci(2) == 1);
-        //    Assert.That(ArrayQ.Fibonacci(3) == 2);
-        //    Assert.That(ArrayQ.Fibonacci(8) == 21);
-        //}
+        [Test]
+        public static void Fibonacchi()
+        {
+            Assert.That(ArrayQ.Fibonacci(0) == 0);
+            Assert.That(ArrayQ.Fibonacci(1) == 1);
+            Assert.That(ArrayQ.Fibonacci(2) == 1);
+            Assert.That(ArrayQ.Fibonacci(3) == 2);
+            Assert.That(ArrayQ.Fibonacci(8) == 21);
+        }
 
         [Test]
         public static void ConvertToTitle()
@@ -154,7 +154,6 @@ namespace Tests
             string set = "abc";
             List<string> results = track.GetSubsets(set);
             Assert.That(results.Count == 8);
-
         }
 
         [Test]
@@ -265,6 +264,32 @@ namespace Tests
             node4.Next = node2;
 
             Assert.That(list.DetectCycle() == node2);            
+        }
+
+        [Test]
+        public static void ClimbStairs()
+        {
+            Assert.That(DynamicQ.ClimbStairs(2) == 2);
+            Assert.That(DynamicQ.ClimbStairs(4) == 5);            
+        }
+
+        [Test]
+        public void RestoreIpAddresses()
+        {
+            var list1 = StringQ.RestoreIpAddresses("0100100");
+            Assert.That(list1.Count == 2);
+
+            var list = StringQ.RestoreIpAddresses("25525511135");
+            Assert.That(list.Count == 2);
+
+            
+        }
+
+        [Test]
+        public void SortedArrayToBST()
+        {
+            List<int> list = new List<int>() { 1, 2 };
+            var root = Tree<int>.SortedArrayToBST(list);
         }
     }
 }

@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Playground.DataStructure
 {
-    public class Tree<T>
+    public class Tree<T> 
     {
         public class Node
         {
@@ -241,6 +240,57 @@ namespace Playground.DataStructure
             }
 
             return false;
+        }
+
+        public bool HasPathSum(T sum)
+        {            
+            return HasPathSum(Root, Convert.ToInt32(sum));
+        }
+
+        public bool HasPathSum(Node node, int sum)
+        {
+            if (node == null)
+            {
+                return false;
+            }
+
+            if (node.Left == null && node.Right == null && node.Value.Equals(sum))
+            {
+                return true;
+            }
+
+            int value = Convert.ToInt32(node.Value);
+            if (HasPathSum(node.Left, sum - value))
+            {
+                return true;
+            }
+
+            return HasPathSum(node.Right, sum - value);
+        }
+
+        public static Node SortedArrayToBST(List<T> list)
+        {
+
+            int middle = list.Count / 2;
+            Node root = new Node(list[middle]);
+            root.Left = SortedArrayToBST(list, 0, middle - 1);
+            root.Right = SortedArrayToBST(list, middle + 1, list.Count - 1);
+            return root;
+        }
+
+        private static Node SortedArrayToBST(List<T> list, int start, int end)
+        {
+            if (start > end)
+            {
+                return null;
+            }
+
+
+            int middle = start + (end - start) / 2;
+            Node node = new Node(list[middle]);
+            node.Left = SortedArrayToBST(list, start, middle - 1);
+            node.Right = SortedArrayToBST(list, middle + 1, end);
+            return node;
         }
     }
 

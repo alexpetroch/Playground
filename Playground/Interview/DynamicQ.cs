@@ -99,5 +99,54 @@ namespace Playground.Interview
             _wordBreakSpaceResult.Add(word, null);
             return null;
         }
+
+        public static int ClimbStairs(int A)
+        {
+            int[] steps = new int[A + 1];
+            int total = CountStairs(0, A, steps);
+
+            int[] steps2 = new int[A + 1];
+            int total2 = CountStairs2(A, steps2);
+            return total;
+        }
+
+        private static int CountStairs(int current, int max, int[] steps)
+        {
+            if (current == max)
+            {                
+                return 1;
+            }
+            else if (current > max)
+            {
+                return 0;
+            }
+            else if (steps[current] != 0)
+            {
+                return steps[current];
+            }
+
+            steps[current] = CountStairs(current + 1, max, steps) + CountStairs(current + 2, max, steps);
+            return steps[current];
+        }
+
+        private static int CountStairs2(int current, int[] steps)
+        {
+            if (current == 0)
+            {
+                return 1;
+            }
+            else if (current < 0)
+            {
+                return 0;
+            }
+            else if (steps[current] > -1)
+            {
+                return steps[current];
+            }
+
+            steps[current] = CountStairs2(current - 1, steps) + CountStairs2(current - 2, steps);
+            return steps[current];
+        }
+
     }
 }
