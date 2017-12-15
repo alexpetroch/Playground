@@ -280,9 +280,7 @@ namespace Tests
             Assert.That(list1.Count == 2);
 
             var list = StringQ.RestoreIpAddresses("25525511135");
-            Assert.That(list.Count == 2);
-
-            
+            Assert.That(list.Count == 2);            
         }
 
         [Test]
@@ -290,6 +288,12 @@ namespace Tests
         {
             List<int> list = new List<int>() { 1, 2 };
             var root = Tree<int>.SortedArrayToBST(list);
+        }
+
+        [Test]
+        public void LongestPalindrome()
+        {
+            Assert.That(StringQ.LongestPalindrome("abbcccbbbcaaccbababcbcabca") == "bbcccbb");
         }
     }
 }

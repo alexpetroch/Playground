@@ -395,5 +395,36 @@ namespace Playground.DataStructure
 
             return null;
         }
+
+        public bool IsPalindrome ()
+        {
+            bool isPal = true;
+            IsPalindromeReverse(Head, ref isPal);
+            return isPal;
+        }
+
+        public Node IsPalindromeReverse(Node right, ref bool isPalindrome)
+        {
+            if (right == null)
+            {
+                return Head;
+            }
+
+            Node left = IsPalindromeReverse(right.Next, ref isPalindrome);
+
+            // we are in or after middle -> done
+            if (left == null || left == right || !isPalindrome)
+            {
+                left = null;
+                return left;
+            }
+
+            if (isPalindrome && !left.Value.Equals(right.Value))
+            {
+                isPalindrome = false;
+            }
+
+            return left.Next;
+        }
     }
 }

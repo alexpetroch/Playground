@@ -131,6 +131,36 @@ namespace Playground.Interview
             return false;
         }
 
+        public static string LongestPalindrome(String s)
+        {
+            int start = 0, end = 0;
+            int lenMax = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                int len1 = ExpandAroundCenter(s, i, i);
+                int len2 = ExpandAroundCenter(s, i, i + 1);
+                int len = Math.Max(len1, len2);
+                if (len > lenMax)
+                {
+                    lenMax = len;
+                    start = i - (len - 1) / 2;
+                    end = i + len / 2;
+                }
+            }
+            return s.Substring(start, end - start + 1);
+        }
+
+        private static int ExpandAroundCenter(string s, int left, int right)
+        {
+            int leftIndex = left, rightIndex = right;
+            while (leftIndex >= 0 && rightIndex < s.Length && s[leftIndex] == s[rightIndex])
+            {
+                leftIndex--;
+                rightIndex++;
+            }
+            return rightIndex - leftIndex - 1;
+        }
+
         private static bool CanGenerate(int len, int leftDots)
         {           
             return 3 * leftDots >= len;

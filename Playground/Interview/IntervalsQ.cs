@@ -26,7 +26,7 @@ namespace Playground.Interview
     // [2, 3] [1, 4] -> [1 4] [2 3] -> overlap
     // [1 2] -> no overlap because of 1 element
     // [1 3] [2 4]  [4  6] [5 7]  - 2 rooms
-    // [1  5] [ 2 4] [ 2 3] - 3 rooms [6 9] still 3 rooms enough
+    // [1  4] [ 2 6] [ 4 6] - 2 
 
     // Solution: the intervals should be sorted.
     // 
@@ -68,13 +68,7 @@ namespace Playground.Interview
 
         public bool CheckOverlap()
         {
-            if (intervals.Count == 1)
-            {
-                return false;
-            }
-
            intervals.Sort(new IntervalComparison()); 
-
             for (int i = 1; i < intervals.Count; i++) 
             {
                 if (intervals[i - 1].EndTime > intervals[i].StartTime)
@@ -88,11 +82,6 @@ namespace Playground.Interview
 
         public int MinRooms()
         {
-            if (intervals.Count == 1)
-            {
-                return 1;
-            }
-
             intervals.Sort(new IntervalComparison()); 
 
             // Stable -> Merge
@@ -131,20 +120,7 @@ namespace Playground.Interview
         public int Compare(Interval interval1, Interval interval2)
         {
             // [1, 2] [1, 3]
-
-            if (interval1.StartTime == interval2.StartTime && interval1.EndTime == interval2.EndTime)
-            {
-                return 0;
-            }
-            else if (interval1.StartTime < interval2.StartTime)
-            {
-                return -1;
-            }
-            else if (interval1.EndTime < interval2.EndTime)
-            {
-                return -1;
-            }
-            return 1;
+            return interval1.StartTime.CompareTo(interval2.StartTime);
         }
     }
 }
