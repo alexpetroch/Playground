@@ -295,5 +295,19 @@ namespace Tests
         {
             Assert.That(StringQ.LongestPalindrome("abbcccbbbcaaccbababcbcabca") == "bbcccbb");
         }
+
+        [Test]
+        public void MaximumGap()
+        {
+            Assert.That(ArrayQ.MaximumGap(new List<int>() { 3, 5, 4, 2 }) == 2);
+        }
+
+        [Test]
+        public void FullJustify()
+        {
+            BackTrackingQ back = new BackTrackingQ();
+            List<string> words = new List<string>() { "This", "is", "an", "example", "of", "text", "justification." };
+            List<string> lines = back.FullJustify(words, 16);            
+        }
     }
 }

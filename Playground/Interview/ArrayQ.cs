@@ -249,5 +249,62 @@ namespace Playground.Interview
 
             return distinct;
         }
+
+        /// <summary>
+        /// Given an array A of integers, find the maximum of j - i subjected to the constraint of A[i] less or equal A[j]
+        /// If there is no solution possible, return -1
+        /// </summary>
+        public static int MaximumGap(List<int> A)
+        {
+            /*
+            1. Prepare intMin array from index 0
+            2. Prepare intMax array from index n-1
+            3. Iterate from the index 0 and compare intMin with intMax with maintaining max distance
+            */
+
+            int[] minFromStart = new int[A.Count];
+            int[] maxFromEnd = new int[A.Count];
+
+
+            // [3 5 4 2]
+            // [3 3 3 2]
+            int min = int.MaxValue;
+            for (int i = 0; i < A.Count; i++)
+            {
+                min = Math.Min(min, A[i]);
+                minFromStart[i] = min;
+            }
+
+            // [3 5 4 2]
+            // [5 5 4 2]
+            int max = int.MinValue;
+            for (int j = A.Count - 1; j >= 0; j--)
+            {
+                max = Math.Max(max, A[j]);
+                maxFromEnd[j] = max;
+            }
+
+            int startIndex = 0;
+            int endIndex = 0;
+            int maxDiff = -1;
+
+            // [3 3 3 2]
+            // [5 5 4 2]
+            while (startIndex < A.Count && endIndex < A.Count)
+            {
+                if (minFromStart[startIndex] <= maxFromEnd[endIndex])
+                {
+                    maxDiff = Math.Max(maxDiff, endIndex - startIndex);
+                    endIndex++;
+                }
+                else
+                {
+                    startIndex++;
+                }
+            }
+
+            return maxDiff;
+        }
+
     }
 }

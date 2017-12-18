@@ -8,6 +8,9 @@ namespace Playground.Interview
     {
         Dictionary<string, int> _wordBreakResult = new Dictionary<string, int>();
         Dictionary<string, string> _wordBreakSpaceResult = new Dictionary<string, string>();
+
+        List<string> ans = new List<string>();
+        Dictionary<string, int> memString = new Dictionary<string, int>();
         string _sentance = string.Empty;
         
         /// <summary>
@@ -146,7 +149,6 @@ namespace Playground.Interview
 
             steps[current] = CountStairs2(current - 1, steps) + CountStairs2(current - 2, steps);
             return steps[current];
-        }
-
+        }       
     }
 }

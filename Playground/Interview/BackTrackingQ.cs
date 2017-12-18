@@ -6,7 +6,7 @@ namespace Playground.Interview
     public class BackTrackingQ
     {
         List<List<int>> ans = new List<List<int>>();
-        private List<string> ansStr;
+        private List<string> ansStr = new List<string>();
 
         public List<List<int>> Subsets(List<int> list)
         {
@@ -118,6 +118,67 @@ namespace Playground.Interview
                 subSet.Add(i);
                 GenerateNumber(i + 1, subSet, maxElement, total);
             }
+        }
+
+        public List<string> FullJustify(List<string> words, int lineBreak)
+        {
+            ansStr.Clear();
+            FullJustify(words, lineBreak, 0);
+            return ansStr;
+        }
+
+        private void FullJustify(List<string> words, int lineBreak, int index)
+        {
+            if (index > words.Count)
+            {
+                return;
+            }
+
+            List<string> wordsToAdd = new List<string>();
+            int wordsLength = 0;
+
+            int currentIndex = index;
+            while (currentIndex < words.Count && wordsLength + wordsToAdd.Count * 1 < lineBreak)
+            {
+                wordsToAdd.Add(words[currentIndex]);
+                wordsLength += words[currentIndex].Length;
+                currentIndex++;
+            }
+
+            // Fill spaces
+            // The latest line
+
+            StringBuilder sb = new StringBuilder(wordsToAdd[0]);
+            if (currentIndex == words.Count)
+            {
+                for (int j = 1; j < wordsToAdd.Count; j++)
+                {
+                    sb.Append(" ");
+                    sb.Append(wordsToAdd[j]);
+                }
+            }
+            else
+            {
+                int average = 0;
+                if (wordsToAdd.Count > 1)
+                {
+                    average = (lineBreak - wordsLength) / (wordsToAdd.Count - 1);
+                }
+
+                for (int j = 1; j < wordsToAdd.Count; j++)
+                {
+                    sb.Append(' ', average);
+                    sb.Append(wordsToAdd[j]);
+                }
+            }
+
+            if (sb.Length < lineBreak)
+            {
+                sb.Append(' ', lineBreak - sb.Length);
+            }
+
+            ansStr.Add(sb.ToString());
+            FullJustify(words, lineBreak, currentIndex + 1);
         }
     }
 }
