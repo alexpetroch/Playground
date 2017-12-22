@@ -65,5 +65,11 @@ namespace Tests
             overlap1.AddInterval(new Interval() { StartTime = 9, EndTime = 12 });
             Assert.That(overlap1.MinRooms() == 2);
         }
+
+        [Test]
+        public static void MaxDoubleSliceSum()
+        {
+            Assert.That(MathQ.MaxDoubleSliceSum(new int[] {3, 2, 6, -1, 4, 5, -1, 2 }) == 17);
+        }
     }
 }
