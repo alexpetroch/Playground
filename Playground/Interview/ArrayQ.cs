@@ -306,5 +306,52 @@ namespace Playground.Interview
             return maxDiff;
         }
 
+        /// <summary>
+        /// Given n non-negative integers representing an elevation map where the width of each bar is 1, 
+        /// compute how much water it is able to trap after raining.
+        /// </summary>
+        public int RainWaterTrap(List<int> array)
+        {
+            int res = 0;
+
+            int left = 0;
+            int right = array.Count - 1;
+
+            int leftMax = 0;
+            int rightMax = 0;
+
+            while (left <= right)
+            {
+                if (array[left] < array[right])
+                {
+                    if (array[left] >= leftMax)
+                    {
+                        leftMax = array[left];
+                    }
+                    else
+                    {
+                        res += leftMax - array[left];
+                    }
+
+                    left++;
+                }
+                else
+                {
+                    if (array[right] >= rightMax)
+                    {
+                        rightMax = array[right];
+                    }
+                    else
+                    {
+                        res += rightMax - array[right];
+                    }
+
+                    right--;
+                }
+            }
+
+            return res;
+        }
+
     }
 }
