@@ -379,5 +379,12 @@ namespace Tests
             var node = list.InsertionSortList();
         }
 
+        [Test]
+        public static void RainWaterTrap()
+        {
+            List<int> traps = new List<int>() { 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1 };
+            Assert.That(ArrayQ.RainWaterTrap(traps) == 6);
+            Assert.That(ArrayQ.RainWaterTrap2(traps) == 6);
+        }
     }
 }

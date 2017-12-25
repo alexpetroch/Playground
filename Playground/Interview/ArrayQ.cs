@@ -310,7 +310,7 @@ namespace Playground.Interview
         /// Given n non-negative integers representing an elevation map where the width of each bar is 1, 
         /// compute how much water it is able to trap after raining.
         /// </summary>
-        public int RainWaterTrap(List<int> array)
+        public static int RainWaterTrap(List<int> array)
         {
             int res = 0;
 
@@ -348,6 +348,36 @@ namespace Playground.Interview
 
                     right--;
                 }
+            }
+
+            return res;
+        }
+
+        public static int RainWaterTrap2(List<int> array)
+        {
+            int res = 0;
+            int[] left = new int[array.Count];
+            int[] right = new int[array.Count];
+
+            // calculate max from left
+            // 0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1
+            left[0] = array[0];
+            for(int i = 1; i < array.Count; i++)
+            {
+                left[i] = Math.Max(array[i], left[i - 1]);
+            }
+
+            // calculate max from right
+            right[array.Count - 1] = array[array.Count - 1];
+            for (int j = array.Count - 2; j >= 0; j--)
+            {
+                right[j] = Math.Max(array[j], right[j + 1]);
+            }
+
+            // iterate and calculate difference
+            for (int k = 0; k < array.Count; k++)
+            {
+                res += Math.Min(left[k], right[k]) - array[k];
             }
 
             return res;
