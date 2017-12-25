@@ -149,6 +149,25 @@ namespace Playground.Interview
 
             steps[current] = CountStairs2(current - 1, steps) + CountStairs2(current - 2, steps);
             return steps[current];
-        }       
+        }
+
+        /// <summary>
+        ///  Given an array of non-negative integers, you are initially positioned at the first index of the array.
+        ///  Each element in the array represents your maximum jump length at that position.
+        ///  Determine if you are able to reach the last index.
+        /// </summary>
+        public bool CanJump(List<int> array)
+        {
+            int currJump = 0;
+            for (int i = 0; i < array.Count; i++)
+            {
+                if (currJump < 0) return false;
+
+                currJump = Math.Max(array[i], currJump);
+                currJump--;
+            }
+
+            return true;
+        }        
     }
 }

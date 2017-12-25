@@ -292,6 +292,49 @@ namespace Playground.DataStructure
             node.Right = SortedArrayToBST(list, middle + 1, end);
             return node;
         }
+
+        public Node Flatten()
+        {
+            /*
+             1
+            / \
+           2   5
+          / \   \
+         3   4   6
+
+         1
+          \
+           2
+            \
+             3
+              \
+               4
+                \
+                 5
+                  \
+                   6
+           */
+            var node = Root;
+            while (node != null)
+            {
+                if (node.Left != null)
+                {
+                    var rightMost = node.Left;
+                    while (rightMost.Right != null)
+                    {
+                        rightMost = rightMost.Right;
+                    }
+
+                    rightMost.Right = node.Right;
+                    node.Right = node.Left;
+                    node.Left = null;
+                }
+
+                node = node.Right;
+            }
+
+            return Root;
+        }        
     }
 
     public class BST<T> : Tree<T> where T:IComparable

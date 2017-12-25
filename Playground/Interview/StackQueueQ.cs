@@ -74,6 +74,40 @@
             return 0;
         }
 
+        /// <summary>
+        /// Given an array, find the nearest smaller element G[i] for every element A[i] in the array such that the element has an index smaller than i.
+        /// </summary>
+        public static List<int> PrevSmaller(List<int> array)
+        {
+            if (array == null || array.Count == 0) return null;
+
+            List<int> res = new List<int>();
+            Stack<int> stack = new Stack<int>();
+
+            for (int i = 0; i < array.Count; i++)
+            {
+                int smallest = -1;
+                while (stack.Count > 0)
+                {
+                    int top = stack.Peek();
+                    if (top >= array[i])
+                    {
+                        stack.Pop();
+                    }
+                    else
+                    {
+                        smallest = top;
+                        break;
+                    }
+                }
+
+                stack.Push(array[i]);
+                res.Add(smallest);
+            }
+
+            return res;
+        }
+
         private bool IsOperator(char symbol)
         {
             return symbol == '*' || symbol == '/' || symbol == '+' || symbol == '-';

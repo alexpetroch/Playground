@@ -309,5 +309,39 @@ namespace Tests
             List<string> words = new List<string>() { "This", "is", "an", "example", "of", "text", "justification." };
             List<string> lines = back.FullJustify(words, 16);            
         }
+
+        [Test]
+        public void PrevSmaller()
+        {
+            //Input: A: [4, 5, 2, 10, 8]
+            //Return: [-1, 4, -1, 2, 2]
+            var res = StackQueueQ.PrevSmaller(new List<int>() { 4, 5, 2, 10, 8 });
+            Assert.That(res[2] == -1);
+            Assert.That(res[3] == 2);
+            Assert.That(res[4] == 2);
+        }
+
+        [Test]
+        public void Flatten()
+        {
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(1)
+                {
+                    Left = new Tree<int>.Node(2)
+                    {
+                        Left = new Tree<int>.Node(3),
+                        Right = new Tree<int>.Node(4),
+                    },
+                    Right = new Tree<int>.Node(5)
+                    {
+                        Right = new Tree<int>.Node(6)
+                    }
+                }
+            };
+
+            var root = tree.Flatten();
+        }
+
     }
 }
