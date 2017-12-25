@@ -2,7 +2,7 @@
 
 namespace Playground.DataStructure
 {
-    public class LinkedList<T>
+    public class LinkedList<T> where T : IComparable
     {
         public class Node
         {
@@ -458,6 +458,71 @@ namespace Playground.DataStructure
             }
 
             return Head;
+        }
+
+        public Node InsertionSortList()
+        {
+            /*
+            Insertion sort
+            take second element -> iterate until the end
+                start from head until second element
+                swap if less than first element
+            */
+
+            Node node = Head.Next;
+            Node head = Head;
+            int elemSorted = 1;
+
+            while (node != null)
+            {
+                var next = node.Next;
+
+                int i = 0;
+                Node it = head;
+                Node prev = null;
+                while (i < elemSorted)
+                {
+                    // swap
+                    // 1 -> 3 -> 2
+                    // 2 - node
+                    // 3 - it
+
+                    if (it.Value.CompareTo(node.Value) > 0)
+                    {
+                        //it.Next = node.Next;
+                        var lastSorted = it;
+                        int jump = elemSorted - i - 1;
+                        while(jump > 0)
+                        {
+                            lastSorted = lastSorted.Next;
+                            jump--;
+                        }
+
+                        lastSorted.Next = node.Next;
+                        node.Next = it;
+
+                        if (prev == null)
+                        {
+                            head = node;
+                            head.Next = it;
+                        }
+                        else
+                        {
+                            prev.Next = node;
+                        }
+                        break;
+                    }
+
+                    prev = it;
+                    it = it.Next;
+                    i++;
+                }
+
+                elemSorted++;
+                node = next;
+            }
+
+            return head;
         }
     }
 }

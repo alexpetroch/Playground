@@ -49,7 +49,7 @@ namespace Playground.DataStructure
         }
     }
 
-    public class QueueL<T> : IQueue<T>
+    public class QueueL<T> : IQueue<T> where T : IComparable
     {
         LinkedList<T> _list = new LinkedList<T>();
 

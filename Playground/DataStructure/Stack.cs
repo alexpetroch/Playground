@@ -38,7 +38,7 @@ namespace Playground.DataStructure
         }
     }
 
-    public class StackL<T>: IStack<T>
+    public class StackL<T>: IStack<T> where T: IComparable
     {
         LinkedList<T> _list = new LinkedList<T>();
 

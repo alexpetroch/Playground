@@ -356,5 +356,28 @@ namespace Tests
             var root = tree.Flatten();
         }
 
+        [Test]
+        public void InsertionSortLinkedList()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            //3-> 5-> 66-> 68-> 42-> 73-> 25-> 84-> 63-> 72-> 20-> 77-> 38-> 8-> 99
+            list.Add(3);
+            list.Add(5);
+            list.Add(66);
+            list.Add(68);
+            list.Add(42);
+            list.Add(73);
+            list.Add(25);
+            list.Add(84);
+            list.Add(63);
+            list.Add(72);
+            list.Add(20);
+            list.Add(77);
+            list.Add(38);
+            list.Add(8);
+            list.Add(99);
+            var node = list.InsertionSortList();
+        }
+
     }
 }
