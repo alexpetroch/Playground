@@ -340,5 +340,39 @@ namespace Playground.Interview
 
             return sum;
         }
+
+        /// <summary>
+        /// https://codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/
+        /// </summary>
+
+        public static int MaxDoubleSliceSum(int[] array)
+        {
+            int[] maxStartingHere = new int[array.Length];
+            int[] maxEndingHere = new int[array.Length];
+
+            for (int i = 1; i < array.Length - 1; i++)
+            {
+                maxEndingHere[i] = Math.Max(0, maxEndingHere[i - 1] + array[i]);
+            }
+
+            for (int i = array.Length - 2; i > 0; i--)
+            {
+                maxStartingHere[i] = Math.Max(0, maxStartingHere[i + 1] + array[i]);
+            }
+
+            int max = 0;
+            int temp = 0;
+            for (int i = 1; i < array.Length - 1; i++)
+            {
+                temp = maxEndingHere[i - 1] + maxStartingHere[i + 1];
+                if (temp > max)
+                {
+                    max = temp;
+                    //Console.WriteLine(i + " " + maxEndingHere[i-1]  + " " + maxStartingHere[i+1]);
+                }
+            }
+
+            return max;
+        }
     }
 }

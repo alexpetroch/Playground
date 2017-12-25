@@ -129,7 +129,7 @@ namespace Playground.Interview
 
         private void FullJustify(List<string> words, int lineBreak, int index)
         {
-            if (index > words.Count)
+            if (index == words.Count)
             {
                 return;
             }
@@ -138,7 +138,7 @@ namespace Playground.Interview
             int wordsLength = 0;
 
             int currentIndex = index;
-            while (currentIndex < words.Count && wordsLength + wordsToAdd.Count * 1 < lineBreak)
+            while (currentIndex < words.Count && words[currentIndex].Length + wordsLength + wordsToAdd.Count * 1 <= lineBreak)
             {
                 wordsToAdd.Add(words[currentIndex]);
                 wordsLength += words[currentIndex].Length;
@@ -178,7 +178,7 @@ namespace Playground.Interview
             }
 
             ansStr.Add(sb.ToString());
-            FullJustify(words, lineBreak, currentIndex + 1);
+            FullJustify(words, lineBreak, currentIndex);
         }
     }
 }

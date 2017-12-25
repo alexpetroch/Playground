@@ -243,6 +243,27 @@ namespace Tests
         }
 
         [Test]
+        public static void HashTable()
+        {
+            SimpleHashTable<string, int> simpleHash = new SimpleHashTable<string, int>();
+            simpleHash.Add("hello", 1);
+            simpleHash.Add("world", 2);
+            simpleHash.Add("this", 3);
+            simpleHash.Add("is", 4);
+
+            Assert.That(simpleHash.ContainsKey("world") == true);
+            Assert.That(simpleHash.ContainsKey("nohash") == false);
+
+            Assert.That(simpleHash["is"] == 4);
+            Assert.That(simpleHash["hello"] == 1);
+            simpleHash["hello"] = 10;
+
+            Assert.That(simpleHash["hello"] == 10);
+            simpleHash.Remove("this");
+            Assert.That(simpleHash.ContainsKey("this") == false);
+        }
+
+        [Test]
         public static void BinarySearch()
         {
             int[] array = { 1, 2, 3, 4, 5 };

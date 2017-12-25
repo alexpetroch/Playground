@@ -291,6 +291,14 @@ namespace Tests
         }
 
         [Test]
+        public void BuildTreeFromInAndPostOrder()
+        {
+            List<int> inOrder = new List<int>() { 2, 1, 3 };
+            List<int> postOrder = new List<int>() { 2, 3, 1 };
+            var root = Tree<int>.BuildTreeFromInAndPostOrder(inOrder, postOrder);
+        }
+
+        [Test]
         public void LongestPalindrome()
         {
             Assert.That(StringQ.LongestPalindrome("abbcccbbbcaaccbababcbcabca") == "bbcccbb");
@@ -307,7 +315,12 @@ namespace Tests
         {
             BackTrackingQ back = new BackTrackingQ();
             List<string> words = new List<string>() { "This", "is", "an", "example", "of", "text", "justification." };
-            List<string> lines = back.FullJustify(words, 16);            
+            List<string> lines = back.FullJustify(words, 16);
+            Assert.That(lines.Count == 3);
+
+            words = new List<string>() { "What", "must", "be", "shall", "be." };
+            lines = back.FullJustify(words, 12);
+            Assert.That(lines.Count == 2);
         }
 
         [Test]

@@ -285,12 +285,89 @@ namespace Playground.DataStructure
                 return null;
             }
 
-
             int middle = start + (end - start) / 2;
             Node node = new Node(list[middle]);
             node.Left = SortedArrayToBST(list, start, middle - 1);
             node.Right = SortedArrayToBST(list, middle + 1, end);
             return node;
+        }
+
+        public static Node BuildTreeFromInAndPostOrder(List<T> inOrder, List<T> postOrder)
+        {            
+            int postOrderIndex = postOrder.Count - 1;
+            Node root = BuildTreeFromInAndPostOrder(inOrder, 0, inOrder.Count - 1, postOrder, ref postOrderIndex);
+            return root;
+        }
+
+        private static Node BuildTreeFromInAndPostOrder(List<T> inOrder, int start, int end, 
+            List<T> postOrder, ref int postOrderIndex)
+        {
+
+            if (start > end || postOrderIndex < 0)
+            {
+                return null;
+            }
+
+            Node node = new Node(postOrder[postOrderIndex]);
+            postOrderIndex--;
+
+            int rootIndex = InOrderIndex(inOrder, start, end, node.Value);
+            node.Right = BuildTreeFromInAndPostOrder(inOrder, rootIndex + 1, end, postOrder, ref postOrderIndex);
+            node.Left = BuildTreeFromInAndPostOrder(inOrder, start, rootIndex - 1, postOrder, ref postOrderIndex);
+            return node;
+        }
+
+        private static int InOrderIndex(List<T> inorder, int start, int end, T value)
+        {
+            for (int i = start; i <= end; i++)
+            {
+                if (inorder[i].Equals(value))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public List<List<T>> LevelOrderArrayByLevels()
+        {
+
+            System.Collections.Generic.Queue<Node> queue = new System.Collections.Generic.Queue<Node>();
+            List<List<T>> res = new List<List<T>>();
+
+            queue.Enqueue(Root);
+
+            while (true)
+            {
+                if (queue.Count == 0)
+                {
+                    break;
+                }
+
+                int nodeCount = queue.Count;
+
+                List<T> level = new List<T>();
+                while (nodeCount > 0)
+                {
+                    Node node = queue.Dequeue();
+                    level.Add(node.Value);
+                    if (node.Left != null)
+                    {
+                        queue.Enqueue(node.Left);
+                    }
+                    if (node.Right != null)
+                    {
+                        queue.Enqueue(node.Right);
+                    }
+
+                    nodeCount--;
+                }
+
+                res.Add(level);
+            }
+
+            return res;
         }
 
         public Node Flatten()
@@ -334,7 +411,8 @@ namespace Playground.DataStructure
             }
 
             return Root;
-        }        
+        }
+
     }
 
     public class BST<T> : Tree<T> where T:IComparable

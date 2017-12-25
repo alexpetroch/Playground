@@ -426,5 +426,38 @@ namespace Playground.DataStructure
 
             return left.Next;
         }
+
+        public Node RemoveNthFromEnd(int NthFromEnd)
+        {
+            Node node = Head;
+            Node follow = null; // len  - B - 1;
+            int jump = 0;
+            while (node.Next != null)
+            {
+                jump++;
+                node = node.Next;
+
+                if (jump == NthFromEnd)
+                {
+                    follow = Head;
+                }
+                else if (jump > NthFromEnd)
+                {
+                    follow = follow.Next;
+                }
+            }
+
+            if (follow == null)
+            {
+                return Head.Next;
+            }
+
+            if (follow.Next != null)
+            {
+                follow.Next = follow.Next.Next;
+            }
+
+            return Head;
+        }
     }
 }
