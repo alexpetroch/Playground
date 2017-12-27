@@ -180,5 +180,34 @@ namespace Playground.Interview
             ansStr.Add(sb.ToString());
             FullJustify(words, lineBreak, currentIndex);
         }
+
+        static List<List<int>> permuteRes = new List<List<int>>();
+        /// <summary>
+        /// Given a collection of numbers, return all possible permutations.
+        /// Example: [1,2,3] will have the following permutations:
+        /// [1,2,3]  [1,3,2]  [2,1,3] [2,3,1]  [3,1,2] [3,2,1]
+        /// </summary>
+        public static List<List<int>> Permute(List<int> A)
+        {
+            Permutate(A, 0);
+            return permuteRes;
+        }
+
+        private static  void Permutate(List<int> list, int pointer)
+        {
+            if (pointer == list.Count)
+            {
+                permuteRes.Add(list);
+                return;
+            }
+
+            for (int i = pointer; i < list.Count; i++)
+            {
+                List<int> permutation = new List<int>(list);
+                permutation[pointer] = list[i];
+                permutation[i] = list[pointer];
+                Permutate(permutation, pointer + 1);
+            }
+        }
     }
 }

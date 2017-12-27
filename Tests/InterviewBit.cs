@@ -386,5 +386,12 @@ namespace Tests
             Assert.That(ArrayQ.RainWaterTrap(traps) == 6);
             Assert.That(ArrayQ.RainWaterTrap2(traps) == 6);
         }
+
+        [Test]
+        public static void Permute()
+        {
+            List<int> list = new List<int>() { 1, 2, 3 };
+            Assert.That(BackTrackingQ.Permute(list).Count == 6);
+        }
     }
 }
