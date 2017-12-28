@@ -388,6 +388,13 @@ namespace Tests
         }
 
         [Test]
+        public static void Permute()
+        {
+            List<int> list = new List<int>() { 1, 2, 3 };
+            Assert.That(BackTrackingQ.Permute(list).Count == 6);
+        }
+
+        [Test]
         public static void GetListAnagrams()
         {
             List<string> input = new List<string>() { "cat", "dog", "god", "tca" };
