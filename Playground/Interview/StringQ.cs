@@ -165,5 +165,54 @@ namespace Playground.Interview
         {           
             return 3 * leftDots >= len;
         }
+
+        /// <summary>
+        /// Given an array of strings, return all groups of strings that are anagrams. Represent a group by a list of integers representing the index in the original list.
+        /// </summary>
+        public static List<List<int>> GetListAnagrams(List<string> arr)
+        {
+            /*
+            Store sorted string into hash with list of index
+            Add index if already anagram
+            Iterate through array and get index. If first element is the same add to the resulted array
+            */
+
+            Dictionary<string, List<int>> dict = new Dictionary<string, List<int>>();
+            List<List<int>> res = new List<List<int>>();
+            for (int i = 0; i < arr.Count; i++)
+            {
+                string sort = GetSort(arr[i]);
+                if (!dict.ContainsKey(sort))
+                {
+                    List<int> first = new List<int>();
+                    first.Add(i + 1);
+                    dict.Add(sort, first);
+                }
+                else
+                {
+                    List<int> elems = dict[sort];
+                    elems.Add(i + 1);
+                }
+            }
+
+            for (int j = 0; j < arr.Count; j++)
+            {
+                string sort = GetSort(arr[j]);
+                var elems = dict[sort];
+                if (elems[0] == j + 1)
+                {
+                    res.Add(elems);
+                }
+            }
+
+            return res;
+        }
+
+        public static string GetSort(string str)
+        {
+            char[] ch = str.ToCharArray();
+            Array.Sort(ch);
+            return new string(ch);
+        }
     }
 }

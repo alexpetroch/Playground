@@ -60,6 +60,7 @@
     <Compile Include="Interview\StackQueueQ.cs" />
     <Compile Include="Interview\StringQ.cs" />
     <Compile Include="OOD\Airport.cs" />
+    <Compile Include="OOD\CallCenter.cs" />
     <Compile Include="OOD\Chess.cs" />
     <Compile Include="OOD\FoodDelivery.cs" />
     <Compile Include="OOD\Furniture.cs" />

@@ -460,7 +460,7 @@ namespace Playground.DataStructure
             return Head;
         }
 
-        public Node InsertionSortList()
+        public Node InsertionSortList2()
         {
             /*
             Insertion sort
@@ -523,6 +523,49 @@ namespace Playground.DataStructure
             }
 
             return head;
+        }
+
+        public Node InsertionSortList()
+        {
+            Node unsortedHead = Head.Next;
+            Node sortedHead = Head;
+            Node lastSorted = Head;
+
+            while (unsortedHead != null)
+            {
+                Node cur = sortedHead;
+                Node prev = null;
+
+                while(cur != null && cur.Value.CompareTo(unsortedHead.Value) < 0)
+                {
+                    prev = cur;
+                    cur = cur.Next;
+                }
+
+                if(cur != unsortedHead)
+                {
+                    if(prev == null)
+                    {
+                        sortedHead = unsortedHead;
+                    }
+                    else
+                    {
+                        prev.Next = unsortedHead;
+                    }
+
+                    Node next = unsortedHead.Next;
+                    unsortedHead.Next = cur;
+                    lastSorted.Next = next;
+                    unsortedHead = next;
+                }
+                else
+                {
+                    lastSorted = unsortedHead;
+                    unsortedHead = unsortedHead.Next;
+                }                
+            }
+
+            return sortedHead;
         }
     }
 }

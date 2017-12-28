@@ -386,5 +386,13 @@ namespace Tests
             Assert.That(ArrayQ.RainWaterTrap(traps) == 6);
             Assert.That(ArrayQ.RainWaterTrap2(traps) == 6);
         }
+
+        [Test]
+        public static void GetListAnagrams()
+        {
+            List<string> input = new List<string>() { "cat", "dog", "god", "tca" };
+            var res = StringQ.GetListAnagrams(input);
+            Assert.That(res.Count == 2);
+        }
     }
 }

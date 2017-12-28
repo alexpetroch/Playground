@@ -40,5 +40,28 @@ namespace Tests
             curUser.PayOrder(order);
 
         }
+
+        [Test]
+        public static void CallCenter()
+        {
+            Employee dir = new Director("Brad");            
+            Employee man = new Manager("Jim", dir);
+            dir.AddSubordinater(man);
+
+            Employee sub1 = new Respondent("Alex", man);
+            Employee sub2 = new Respondent("Ken", man);
+            man.AddSubordinater(sub1);
+            man.AddSubordinater(sub2);
+
+            CallCenter callCenter = new Playground.OOD.CallCenter(new List<Employee>() { sub1, sub2});           
+            
+            Call call = new Call();
+            callCenter.TakeCall(call);
+            callCenter.FinishCall(call);
+
+            Call call2 = new Call();
+            callCenter.DispatchCall(call2);
+            callCenter.FinishCall(call2);
+        }
     }
 }
