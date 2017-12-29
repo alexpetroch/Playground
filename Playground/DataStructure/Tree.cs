@@ -139,6 +139,67 @@ namespace Playground.DataStructure
             return sb.ToString();
         }
 
+        public List<List<T>> ZigzagLevelOrder()
+        {
+            /*
+            have 2 stacks 
+            while both are not empty.
+            go through one stack and put to the other and visa varsa
+            */
+
+            System.Collections.Generic.Stack<Node> stackL = new System.Collections.Generic.Stack<Node>();
+            System.Collections.Generic.Stack<Node> stackR = new System.Collections.Generic.Stack<Node>();
+
+            stackL.Push(Root);
+
+            List<List<T>> res = new List<List<T>>();
+
+            while (stackL.Count > 0 || stackR.Count > 0)
+            {
+                List<T> level = new List<T>();
+                var stackFrom = stackL.Count > 0 ? stackL : stackR;
+                var stackTo = stackL.Count > 0 ? stackR : stackL;
+                bool left = stackFrom == stackL;
+
+                while (stackFrom.Count > 0)
+                {
+                    Node node = stackFrom.Pop();
+                    level.Add(node.Value);
+
+                    if(left)
+                    {
+                        if (node.Left != null)
+                        {
+                            stackTo.Push(node.Left);
+                        }
+
+                        if (node.Right != null)
+                        {
+                            stackTo.Push(node.Right);
+                        }
+                    }
+                    else
+                    {
+                        if (node.Right != null)
+                        {
+                            stackTo.Push(node.Right);
+                        }
+
+                        if (node.Left != null)
+                        {
+                            stackTo.Push(node.Left);
+                        }
+                    }
+
+                    
+                }
+
+                res.Add(level);
+            }
+
+            return res;
+        }
+
         private void PostOrder(Node node, StringBuilder sb)
         {
             if (node == null)
@@ -411,6 +472,59 @@ namespace Playground.DataStructure
             }
 
             return Root;
+        }
+
+        public Node ToDoubleLinedList()
+        {
+            ConvertToDll(Root);
+
+            Node head = Root;
+            while(head.Left != null)
+            {
+                head = head.Left;
+            }
+
+            return head;
+        }
+
+        private Node ConvertToDll(Node node)
+        {
+            if (node == null)
+            {
+                return node;
+            }
+
+            if (node.Left != null)
+            {
+                // Convert the left subtree
+                Node left = ConvertToDll(node.Left);
+
+                // take the rightmost elem
+                while (left.Right != null)
+                {
+                    left = left.Right;
+                }
+
+                left.Right = node;
+                node.Left = left;
+            }
+
+            if (node.Right != null)
+            {
+                // Convert the right subtree
+                Node right = ConvertToDll(node.Right);
+
+                // take the left most elem
+                while (right.Left != null)
+                {
+                    right = right.Left;
+                }
+
+                right.Left = node;
+                node.Right = right;
+            }
+
+            return node;
         }
 
     }

@@ -392,6 +392,7 @@ namespace Tests
         {
             List<int> list = new List<int>() { 1, 2, 3 };
             Assert.That(BackTrackingQ.Permute(list).Count == 6);
+            Assert.That(BackTrackingQ.Permute2(list).Count == 6);
         }
 
         [Test]
@@ -400,6 +401,28 @@ namespace Tests
             List<string> input = new List<string>() { "cat", "dog", "god", "tca" };
             var res = StringQ.GetListAnagrams(input);
             Assert.That(res.Count == 2);
+        }
+
+        [Test]
+        public void ZigZag()
+        {
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(1)
+                {
+                    Left = new Tree<int>.Node(2)
+                    {
+                        Left = new Tree<int>.Node(3),
+                        Right = new Tree<int>.Node(4),
+                    },
+                    Right = new Tree<int>.Node(5)
+                    {
+                        Right = new Tree<int>.Node(6)
+                    }
+                }
+            };
+
+            var res = tree.ZigzagLevelOrder();
         }
     }
 }

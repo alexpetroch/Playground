@@ -189,6 +189,7 @@ namespace Playground.Interview
         /// </summary>
         public static List<List<int>> Permute(List<int> A)
         {
+            permuteRes.Clear();
             Permutate(A, 0);
             return permuteRes;
         }
@@ -208,6 +209,46 @@ namespace Playground.Interview
                 permutation[i] = list[pointer];
                 Permutate(permutation, pointer + 1);
             }
+        }
+
+        public static List<List<int>> Permute2(List<int> A)
+        {
+            permuteRes.Clear();
+            if (A.Count == 1)
+            {
+                permuteRes.Add(A);
+                return permuteRes;
+            }
+
+            return Permutate2(A);
+        }
+
+        private static List<List<int>> Permutate2(List<int> orig)
+        {
+            List<List<int>> res = new List<List<int>>();
+            if (orig.Count == 2)
+            {
+                res.Add(new List<int>() { orig[0], orig[1] });
+                res.Add(new List<int>() { orig[1], orig[0] });
+                return res;
+            }
+
+            for (int i = 0; i < orig.Count; i++)
+            {
+                List<int> copy = new List<int>(orig);
+                int fixedElem = copy[i];
+                copy.RemoveAt(i);
+
+                var permForRest = Permutate2(copy);
+
+                for(int j = 0; j < permForRest.Count; j++)
+                {
+                    permForRest[j].Insert(0, fixedElem);
+                    res.Add(permForRest[j]);
+                }
+            }
+
+            return res;
         }
     }
 }

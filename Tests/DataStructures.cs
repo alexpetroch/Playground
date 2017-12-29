@@ -346,5 +346,23 @@ namespace Tests
                 Assert.That(merge1[i] == i + 1);
             }
         }
+
+        [Test]
+        public static void ToDoubleLinedList()
+        {
+            //              1
+            //      2               3
+
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(1)
+                {
+                    Left = new Tree<int>.Node(2),
+                    Right = new Tree<int>.Node(3)
+                }
+            };
+
+            tree.ToDoubleLinedList();
+        }
     }
 }
