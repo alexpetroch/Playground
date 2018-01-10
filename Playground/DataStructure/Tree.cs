@@ -105,6 +105,38 @@ namespace Playground.DataStructure
             PreOrder(node.Right, sb);
         }
 
+        public List<T> PreOrderIterative(Node root)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            // Root Left Right
+            System.Collections.Generic.Stack<Node> stack = new System.Collections.Generic.Stack<Node>();
+            stack.Push(root);
+
+            List<T> res = new List<T>();
+
+            while (stack.Count > 0)
+            {
+                Node node = stack.Pop();
+                res.Add(node.Value);
+
+                if (node.Right != null)
+                {
+                    stack.Push(node.Right);
+                }
+
+                if (node.Left != null)
+                {
+                    stack.Push(node.Left);
+                }
+            }
+
+            return res;
+        }
+
         public string PostOrder()
         {
             StringBuilder sb = new StringBuilder();
@@ -526,7 +558,6 @@ namespace Playground.DataStructure
 
             return node;
         }
-
     }
 
     public class BST<T> : Tree<T> where T:IComparable

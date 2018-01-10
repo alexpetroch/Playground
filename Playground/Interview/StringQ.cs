@@ -214,5 +214,54 @@ namespace Playground.Interview
             Array.Sort(ch);
             return new string(ch);
         }
+
+        /// <summary>
+        /// Implement atoi to convert a string to an integer
+        /// </summary>
+        public int Atoi(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return 0;
+            }
+
+            char[] array = str.ToCharArray();
+            int index = 0;
+
+            while (array[index] == ' ')
+            {
+                index++;
+                if (index >= array.Length)
+                {
+                    return 0;
+                }
+            }
+
+
+            bool negative = false;
+            if (array[index] == '-' || array[index] == '+')
+            {
+                negative = array[index] == '-';
+                index++;
+            }
+
+            int res = 0;
+            while (index < array.Length && char.IsNumber(array[index]))
+            {
+                int digit = array[index] - '0';
+                int multiply = res * 10;
+
+                // check overflow
+                if (multiply / 10 != res || multiply + digit < multiply)
+                {
+                    return negative ? int.MinValue : int.MaxValue;
+                }
+
+                res = multiply + digit;
+                index++;
+            }
+
+            return negative ? res * -1 : res;
+        }
     }
 }
