@@ -65,10 +65,12 @@
     <Compile Include="OOD\FoodDelivery.cs" />
     <Compile Include="OOD\Furniture.cs" />
     <Compile Include="OOD\OnlineReaderSystem.cs" />
+    <Compile Include="OOD\ParkLot.cs" />
     <Compile Include="Parallel\TaskParallel.cs" />
     <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SD\ShortUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

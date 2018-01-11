@@ -263,5 +263,42 @@ namespace Playground.Interview
 
             return negative ? res * -1 : res;
         }
+
+        public static int LengthOfLongestSubstring(string str)
+        {
+            Dictionary<char, int> pos = new Dictionary<char, int>();
+            char[] chars = str.ToCharArray();
+
+            int max = 0;
+            int noRepeatPos = 0;
+            int cur = 0;
+            for (int i = 0; i < chars.Length; i++)
+            {
+                char sym = chars[i];
+                if (!pos.ContainsKey(sym))
+                {
+                    pos.Add(sym, i);
+                    cur++;
+                }
+                else
+                {
+                    int len = i - noRepeatPos;
+                    max = Math.Max(max, len);
+
+                    int repPos = pos[sym];
+                    if (repPos + 1 > noRepeatPos)
+                    {
+                        noRepeatPos = repPos + 1;
+                    }
+
+                    pos[sym] = i;
+                    cur = i - noRepeatPos + 1;
+                }
+            }
+
+            max = System.Math.Max(max, cur);
+            return max;
+        }
+        
     }
 }
