@@ -250,5 +250,58 @@ namespace Playground.Interview
 
             return res;
         }
+
+        List<List<string>> parts = new List<List<string>>();
+        /// <summary>
+        /// Given a string s, partition s such that every string of the partition is a palindrome.
+        /// Return all possible palindrome partitioning of s.
+        /// For example, given s = "aab",
+        /// Return   [     ["a", "a", "b"]     ["aa", "b"],   ]
+        /// </summary>
+        public List<List<string>> PartitionPalindrome(string orig)
+        {
+            List<string> cur = new List<string>();
+            Partition(orig, cur, 0);
+            return parts;
+        }
+
+        private void Partition(string orig, List<string> cur, int index)
+        {
+            if(index == orig.Length)
+            {
+                parts.Add(cur);
+                return;
+            }
+
+            for (int i = index + 1; i <= orig.Length; i++)
+            {
+                string substring = orig.Substring(index, i - index);
+                if(IsPalindrome(substring))
+                {
+                    List<string> newOne = new List<string>(cur);
+                    newOne.Add(substring);
+                    Partition(orig, newOne, i);
+                }
+            }
+        }
+
+        private bool IsPalindrome(string str)
+        {
+            int low = 0;
+            int end = str.Length - 1;
+
+            while (low < end)
+            {
+                if (str[low] != str[end])
+                {
+                    return false;
+                }
+
+                low++;
+                end--;
+            }
+
+            return true;
+        }
     }
 }

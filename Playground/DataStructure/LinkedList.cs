@@ -567,5 +567,86 @@ namespace Playground.DataStructure
 
             return sortedHead;
         }
+
+        public Node ReverseBetween(int start, int end)
+        {
+            if (start > end)
+            {
+                return Head;
+            }
+
+            /*
+            start from head. 
+            calculate steps before B
+            find first element and mark it as endTail
+            do reversal and count iterations
+            when find the last one mark it as head and linked
+            endTail wit previos element 
+            */
+
+            int len = 0;
+            Node temp = Head;
+            while(temp != null)
+            {
+                temp = temp.Next;
+                len++;
+            }
+
+            if(end > len)
+            {
+                return Head;
+            }
+
+            Node node = Head;
+            Node prevNoRecursive = null;
+
+            int iter = 1;
+
+            Node endReverse = null;
+
+            while (node != null)
+            {
+                if (iter == start)
+                {
+                    endReverse = node;
+                    break;
+                }
+
+                prevNoRecursive = node;
+                node = node.Next;
+                iter++;
+            }
+
+            if (endReverse == null)
+            {
+                return Head;
+            }
+
+            // do reverse
+            Node prev = null;
+            while (node != null && iter <= end)
+            {
+                Node next = node.Next;
+                node.Next = prev;
+
+                prev = node;
+                node = next;
+
+                iter++;
+            }
+
+            // the latest things
+            if (prevNoRecursive != null)
+            {
+                prevNoRecursive.Next = prev;
+            }
+
+            if (node != null)
+            {
+                endReverse.Next = node;
+            }
+
+            return prevNoRecursive == null ? prev : Head;
+        }
     }
 }

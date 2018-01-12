@@ -71,5 +71,12 @@ namespace Tests
         {
             Assert.That(MathQ.MaxDoubleSliceSum(new int[] {3, 2, 6, -1, 4, 5, -1, 2 }) == 17);
         }
+
+        [Test]
+        public static void Dominator()
+        {
+            Assert.That(ArrayQ.Dominator(new int[] {1, 2, 1, 3, 1 }) == 4 );
+            Assert.That(ArrayQ.Dominator(new int[] { 1, 2, 3, 4, 1 }) == -1);
+        }
     }
 }
