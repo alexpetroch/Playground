@@ -214,5 +214,91 @@ namespace Playground.Interview
             Array.Sort(ch);
             return new string(ch);
         }
+
+        /// <summary>
+        /// Implement atoi to convert a string to an integer
+        /// </summary>
+        public int Atoi(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return 0;
+            }
+
+            char[] array = str.ToCharArray();
+            int index = 0;
+
+            while (array[index] == ' ')
+            {
+                index++;
+                if (index >= array.Length)
+                {
+                    return 0;
+                }
+            }
+
+
+            bool negative = false;
+            if (array[index] == '-' || array[index] == '+')
+            {
+                negative = array[index] == '-';
+                index++;
+            }
+
+            int res = 0;
+            while (index < array.Length && char.IsNumber(array[index]))
+            {
+                int digit = array[index] - '0';
+                int multiply = res * 10;
+
+                // check overflow
+                if (multiply / 10 != res || multiply + digit < multiply)
+                {
+                    return negative ? int.MinValue : int.MaxValue;
+                }
+
+                res = multiply + digit;
+                index++;
+            }
+
+            return negative ? res * -1 : res;
+        }
+
+        public static int LengthOfLongestSubstring(string str)
+        {
+            Dictionary<char, int> pos = new Dictionary<char, int>();
+            char[] chars = str.ToCharArray();
+
+            int max = 0;
+            int noRepeatPos = 0;
+            int cur = 0;
+            for (int i = 0; i < chars.Length; i++)
+            {
+                char sym = chars[i];
+                if (!pos.ContainsKey(sym))
+                {
+                    pos.Add(sym, i);
+                    cur++;
+                }
+                else
+                {
+                    int len = i - noRepeatPos;
+                    max = Math.Max(max, len);
+
+                    int repPos = pos[sym];
+                    if (repPos + 1 > noRepeatPos)
+                    {
+                        noRepeatPos = repPos + 1;
+                    }
+
+                    pos[sym] = i;
+                    cur = i - noRepeatPos + 1;
+                }
+            }
+
+            max = System.Math.Max(max, cur);
+            return max;
+        }
+        
     }
 }

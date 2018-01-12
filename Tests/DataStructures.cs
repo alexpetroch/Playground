@@ -172,6 +172,8 @@ namespace Tests
             Assert.That(tree.PreOrder() == "10,5,2,7,6,15,12,13,17,");
             Assert.That(tree.PostOrder() == "2,6,7,5,13,12,17,15,10,");
 
+            var test = tree.PreOrderIterative(tree.Root);
+
             Assert.That(tree.LevelOrder() == "10,5,15,2,7,12,17,6,13,");
         }
 
