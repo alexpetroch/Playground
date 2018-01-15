@@ -72,5 +72,14 @@ namespace Tests
             string urlShort = url.GetShortUrl(123123123);
             Assert.That(url.GetIdFromShortUrl(urlShort) == 123123123);
         }
+
+        public static void FS()
+        {
+            FileSystem fs = new FileSystem();
+            FSDir dir = fs.CreateDir("test\test1");
+
+            FSFile file = new FSFile("hello", dir, new byte[10]);
+            file.Delete();
+        }
     }
 }

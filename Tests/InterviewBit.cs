@@ -491,5 +491,11 @@ namespace Tests
             Assert.That(res[1] == 0); 
             Assert.That(res[2] == 1);
         }
+
+        [Test]
+        public void FractionToDecimal()
+        {
+            string res = ArrayQ.FractionToDecimal(-2147483648, -1);
+        }
     }
 }
