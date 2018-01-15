@@ -456,7 +456,9 @@ namespace Tests
             list.Add(38);
             list.Add(8);
             list.Add(99);
-            var node = list.ReverseBetween(4, 13);
+
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+            var node = listQ.ReverseBetween(4, 13);
             // 3-> 5-> 66-> 38-> 77-> 20-> 72-> 63-> 84-> 25-> 73-> 42-> 68-> 8-> 99 
         }
 

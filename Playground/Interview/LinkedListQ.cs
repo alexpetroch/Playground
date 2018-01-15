@@ -63,6 +63,87 @@ namespace Playground.Interview
             return prev;
         }
 
+        public LinkedList<T>.Node ReverseBetween(int start, int end)
+        {
+            if (start > end)
+            {
+                return Head;
+            }
+
+            /*
+            start from head. 
+            calculate steps before B
+            find first element and mark it as endTail
+            do reversal and count iterations
+            when find the last one mark it as head and linked
+            endTail wit previos element 
+            */
+
+            int len = 0;
+            LinkedList<T>.Node temp = Head;
+            while (temp != null)
+            {
+                temp = temp.Next;
+                len++;
+            }
+
+            if (end > len)
+            {
+                return Head;
+            }
+
+            LinkedList<T>.Node node = Head;
+            LinkedList<T>.Node prevNoRecursive = null;
+
+            int iter = 1;
+
+            LinkedList<T>.Node endReverse = null;
+
+            while (node != null)
+            {
+                if (iter == start)
+                {
+                    endReverse = node;
+                    break;
+                }
+
+                prevNoRecursive = node;
+                node = node.Next;
+                iter++;
+            }
+
+            if (endReverse == null)
+            {
+                return Head;
+            }
+
+            // do reverse
+            LinkedList<T>.Node prev = null;
+            while (node != null && iter <= end)
+            {
+                LinkedList<T>.Node next = node.Next;
+                node.Next = prev;
+
+                prev = node;
+                node = next;
+
+                iter++;
+            }
+
+            // the latest things
+            if (prevNoRecursive != null)
+            {
+                prevNoRecursive.Next = prev;
+            }
+
+            if (node != null)
+            {
+                endReverse.Next = node;
+            }
+
+            return prevNoRecursive == null ? prev : Head;
+        }
+
         public LinkedList<T>.Node ReverseListInGivenSize(int k)
         {
             var node = Head;
