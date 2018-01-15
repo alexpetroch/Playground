@@ -437,6 +437,37 @@ namespace Tests
         }
 
         [Test]
+        public void ReverseBeetween()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            //3-> 5-> 66-> 68-> 42-> 73-> 25-> 84-> 63-> 72-> 20-> 77-> 38-> 8-> 99
+            list.Add(3);
+            list.Add(5);
+            list.Add(66);
+            list.Add(68);
+            list.Add(42);
+            list.Add(73);
+            list.Add(25);
+            list.Add(84);
+            list.Add(63);
+            list.Add(72);
+            list.Add(20);
+            list.Add(77);
+            list.Add(38);
+            list.Add(8);
+            list.Add(99);
+            var node = list.ReverseBetween(4, 13);
+            // 3-> 5-> 66-> 38-> 77-> 20-> 72-> 63-> 84-> 25-> 73-> 42-> 68-> 8-> 99 
+        }
+
+        [Test]
+        public void PartitionPalindrome()
+        {
+            BackTrackingQ back = new BackTrackingQ();
+            var res = back.PartitionPalindrome("cccaa");
+        }
+
+        [Test]
         public void LengthOfLongestSubstring()
         {
             var len1 = StringQ.LengthOfLongestSubstring("adcdef");

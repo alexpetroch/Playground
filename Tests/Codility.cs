@@ -79,5 +79,12 @@ namespace Tests
             Assert.That(StringQ.IsAnagram("abcd", "dbac1") == false);
             Assert.That(StringQ.IsAnagram("abcde", "dbacf") == false);
         }
+
+        [Test]
+        public static void Dominator()
+        {
+            Assert.That(ArrayQ.Dominator(new int[] {1, 2, 1, 3, 1 }) == 4 );
+            Assert.That(ArrayQ.Dominator(new int[] { 1, 2, 3, 4, 1 }) == -1);
+        }
     }
 }

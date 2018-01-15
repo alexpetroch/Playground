@@ -383,5 +383,56 @@ namespace Playground.Interview
             return res;
         }
 
+        /// <summary>
+        /// Find an index of an array such that its value occurs at more than half of indices in the array.
+        /// </summary>
+        public static int Dominator (int[] array)
+        {
+            int value = 0;
+            int count = 0;
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (count == 0)
+                {
+                    count++;
+                    value = array[i];
+                }
+                else
+                {
+                    if (value == array[i])
+                    {
+                        count++;
+                    }
+                    else
+                    {
+                        count--;
+                    }
+                }
+            }
+
+            // check
+            int index = -1;
+            if (count > 0)
+            {
+                int check = 0;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if (array[i] == value)
+                    {
+                        check++;
+                        index = i;
+                    }
+                }
+
+                if (check > array.Length / 2)
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
+
     }
 }
