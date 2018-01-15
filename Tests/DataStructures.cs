@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Playground.DataStructure;
+using Playground.Interview;
 using System;
 
 namespace Tests
@@ -47,14 +48,16 @@ namespace Tests
             Assert.That(list.Head.Value == 1);
             Assert.That(list.Tail.Value == 4);
 
-            list.Reverse();
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
 
-            Assert.That(list.Head.Value == 4);
-            Assert.That(list.Tail.Value == 1);
+            listQ.Reverse();
+
+            Assert.That(listQ.Head.Value == 4);
+            Assert.That(listQ.Tail.Value == 1);
 
             // return list back
-            list.ReverseRecursive();
-            Assert.That(list.Head.Value == 1);
+            listQ.ReverseRecursive();
+            Assert.That(listQ.Head.Value == 1);
 
             list.Remove(3);
             Assert.IsNull(list.Find(3));

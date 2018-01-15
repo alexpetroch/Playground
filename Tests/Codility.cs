@@ -71,5 +71,13 @@ namespace Tests
         {
             Assert.That(MathQ.MaxDoubleSliceSum(new int[] {3, 2, 6, -1, 4, 5, -1, 2 }) == 17);
         }
+
+        [Test]
+        public static void IsAnagram()
+        {
+            Assert.That(StringQ.IsAnagram("abcd", "dbac") == true);
+            Assert.That(StringQ.IsAnagram("abcd", "dbac1") == false);
+            Assert.That(StringQ.IsAnagram("abcde", "dbacf") == false);
+        }
     }
 }

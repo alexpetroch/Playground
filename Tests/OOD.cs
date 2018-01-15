@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using Playground.OOD;
+using Playground.SD;
 using System.Collections.Generic;
 
 namespace Tests
@@ -24,10 +25,10 @@ namespace Tests
             var selectRest = restaraunts[0];
 
             var menu = selectRest.GetMenu();
-            var foodToOrder = menu.GetFoods()[0];
+            var foodToOrder = menu.GetFoods();
 
             Bucket bucket = new Bucket(selectRest);
-            bucket.Add(foodToOrder, 2);
+            bucket.Add(foodToOrder[0], 2);
 
             // build food with ingredients
             FoodBuilder foodBuild = new FoodBuilder(new Food());
@@ -62,6 +63,14 @@ namespace Tests
             Call call2 = new Call();
             callCenter.DispatchCall(call2);
             callCenter.FinishCall(call2);
+        }
+
+        [Test]
+        public static void ShortUrl()
+        {
+            ShortUrl url = new ShortUrl();
+            string urlShort = url.GetShortUrl(123123123);
+            Assert.That(url.GetIdFromShortUrl(urlShort) == 123123123);
         }
     }
 }

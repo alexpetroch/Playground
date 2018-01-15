@@ -137,7 +137,11 @@ namespace Tests
             list.Add(82);
             list.Add(21);
             list.Add(69);
-            var node = list.RotateRight(89);
+
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+            var node = listQ.RotateRight(89);
+
+
             Assert.That(node.Value == 69);
         }
 
@@ -170,7 +174,7 @@ namespace Tests
             list1.Add(4);
             list1.Add(5);
 
-            var node = Playground.DataStructure.LinkedList<int>.GetIntersectionNode(list.Head, list1.Head);
+            var node = LinkedListQ<int>.GetIntersectionNode(list.Head, list1.Head);
             Assert.That(node.Value == 4);
         }
 
@@ -198,7 +202,10 @@ namespace Tests
             list.Add(4);
             list.Add(5);
             list.Add(6);
-            Assert.That(list.ReverseListInGivenSize(2).Value == 2);
+
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+
+            Assert.That(listQ.ReverseListInGivenSize(2).Value == 2);
 
             Playground.DataStructure.LinkedList<int> list1 = new Playground.DataStructure.LinkedList<int>();
             list1.Add(1);
@@ -207,7 +214,8 @@ namespace Tests
             list1.Add(4);
             list1.Add(5);
             list1.Add(6);
-            Assert.That(list1.ReverseListInGivenSizeRecursive(list1.Head, 2).Value == 2);
+            listQ = new LinkedListQ<int>(list1);
+            Assert.That(listQ.ReverseListInGivenSizeRecursive(listQ.Head, 2).Value == 2);
         }
 
         [Test]
@@ -263,7 +271,8 @@ namespace Tests
             var node4 = list.Add(4);
             node4.Next = node2;
 
-            Assert.That(list.DetectCycle() == node2);            
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+            Assert.That(listQ.DetectCycle() == node2);            
         }
 
         [Test]
@@ -376,7 +385,9 @@ namespace Tests
             list.Add(38);
             list.Add(8);
             list.Add(99);
-            var node = list.InsertionSortList();
+
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+            var node = listQ.InsertionSortList();
         }
 
         [Test]
@@ -433,6 +444,19 @@ namespace Tests
 
             var len = StringQ.LengthOfLongestSubstring("Wnb9z9dMc7E8v1RTUaZPoDNIAXRlzkqLaa97KMWLzbitaCkRpiE4J4hJWhRcGnC8H6mwasgDfZ76VKdXhvEYmYrZY4Cfmf4HoSlchYWFEb1xllGKyEEmZOLPh1V6RuM7Mxd7xK72aNrWS4MEaUmgEn7L4rW3o14Nq9l2EN4HH6uJWljI8a5irvuODHY7A7ku4PJY2anSWnfJJE1w8p12Ks3oZRxAF3atqGBlzVQ0gltOwYmeynttUmQ4QBDLDrS4zn4VRZLosOITo4JlIqPD6t4NjhHThOjJxpMp9fICkrgJeGiDAwsb8a3I7Txz5BBKV9bEfMsKNhCuY3W0ZHqY0MhBfz1CbYCzwZZdM4p65ppP9s5QJcfjadmMMi26JKz0TVVwvNA8LP5Vi1QsxId4SI19jfcUH97wmZu0pbw1zFtyJ8GAp5yjjQTzFIboC1iRzklnOJzJld9TMaxqvBNBJKIyDjWrdfLOY8FGMOcPhfJ97Dph35zfxYyUf4DIqFi94lm9J0skYqGz9JT0kiAABQZDazZcNi80dSSdveSl6h3dJjHmlK8qHIlDsqFd5FMhlEirax8WA0v3NDPT8vPhwKpxcnVeu14Gcxr3h1wAXXV0y7Xy9qqB2NQ5HQLJ7cyXAckEYHsLCPSy28xcdNJatx1KLWohOQado4WywJbGvsFR17rKmvOPABweXnFD3odrbSMD4Na4nuBBswvMmFRTUOcf7jZi4z5JnJqXz6hitaPnaEtjoSEBq82a52nvqYy7hhldBoxen2et2OMadVEHeTYLL7GLsIhTP6UizHIuzcJMljo4lFgW5AyrfUlIBPAlhwaSiJtTvcbVZynDSM6RO1PqFKWKg2MHIgNhjuzENg2oFCfW7z5KJvEL9qWqKzZNc0o3BMRjS04NCHFvhtsteQoQRgz84XZBHBJRdekCdcVVXu9c01gYRAz7oIAxN3zKZb64EFKssfQ4HW971jv3H7x5E9dAszA0HrKTONyZDGYtHWt4QLhNsIs8mo4AIN7ecFKewyvGECAnaJpDn1MTTS4yTgZnm6N6qnmfjVt6ZU51F9BxH0jVG0kovTGSjTUkmb1mRTLQE5mTlVHcEz3yBOh4WiFFJjKJdi1HBIBaDL4r45HzaBvmYJPlWIomkqKEmQ4rLAbYG7C5rFfpMu8rHvjU7hP0JVvteGtaGn7mqeKsn7CgrJX1tb8t0ldaS3iUy8SEKAo5IZHNKOfEaij3nI4oRVzeVOZsH91pMsA4jRYgEohubPW8ciXwVrFi1qEWjvB8gfalyP60n1fHyjsiLW0T5uY1JzQWHKCbLVh7QFoJFAEV0L516XmzIo556yRH1vhPnceOCjebqgsmO78AQ8Ir2d4pHFFHAGB9lESn3OtJye1Lcyq9D6X93UakA3JKVKEt6JZDLVBMp4msOefkPKSw59Uix9d9kOQm8WCepJTangdNSOKaxblZDNJ5eHvEroYacBhd9UdafEitdF3nfStF7AhkSfQVC61YWWkKTNdx96OoJGTnxuqt4oFZNFtO7aMuN3IJAkw3m3kgZFRGyd3D3wweagNL9XlYtvZwejbjpkDOZz33C0jbEWaMEaUPw6BG49XqyQoUwtriguO0yvWyaJqD4ye3o0E46huKYAsdKAq6MLWMxF6tfyPVaoqOGd0eOBHbAF89XXmDd4AIkoFPXkAOW8hln5nXnIWP6RBbfEkPPbxoToMbV");
             Assert.That(len == 27);
+        }
+
+        [Test]
+        public void FeedbackSortingByTrie()
+        {
+            TrieQ trieQ = new TrieQ();
+            string goodWords = "cool_ice_wifi";
+            List<string> feedback = new List<string>() { "water_is_cool", "cold_ice_drink", "cool_wifi_speed" };
+            var res = trieQ.SortFeedbacks(goodWords, feedback);
+
+            Assert.That(res[0] == 2);
+            Assert.That(res[1] == 0); 
+            Assert.That(res[2] == 1);
         }
     }
 }

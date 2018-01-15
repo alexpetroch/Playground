@@ -261,7 +261,7 @@ namespace Playground.DataStructure
                 return false;
             }
 
-            if (!isSameTree(nodeA.Left, nodeB.Right))
+            if (!isSameTree(nodeA.Left, nodeB.Left))
             {
                 return false;
             }

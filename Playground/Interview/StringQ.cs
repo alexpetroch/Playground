@@ -215,6 +215,33 @@ namespace Playground.Interview
             return new string(ch);
         }
 
+        public static bool IsAnagram (string str1, string str2)
+        {
+            if(str1.Length != str2.Length)
+            {
+                return false;
+            }
+
+            int countSymbols = 256;
+            int[] count = new int[countSymbols];
+
+            for(int i = 0; i < str1.Length; i++)
+            {
+                count[str1[i]]++;
+                count[str2[i]]--;
+            }
+
+            for (int i = 0; i < countSymbols; i++)
+            {
+                if(count[i] != 0)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>
         /// Implement atoi to convert a string to an integer
         /// </summary>

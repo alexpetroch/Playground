@@ -16,7 +16,7 @@ namespace Playground.OOD
 
     public class Restaurant
     {
-        private Menu _menu;
+        private Menu _menu = new Menu();
         public Menu GetMenu()
         {
             return _menu;
