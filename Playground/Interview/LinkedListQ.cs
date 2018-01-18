@@ -42,6 +42,42 @@ namespace Playground.Interview
             }
         }
 
+        public void HalfReverse()
+        {
+            // define middle by fast pointer
+            var slow = _head;
+            var fast = _head;
+            LinkedList<T>.Node prev = null;
+
+            while (fast != null && fast.Next != null)
+            {
+                prev = slow;
+                slow = slow.Next;
+                fast = fast.Next.Next;
+            }
+
+            prev.Next = Reverse(slow);
+        }
+
+        /// <summary>
+        /// Reverse list starting from "start" node
+        public LinkedList<T>.Node Reverse(LinkedList<T>.Node startNode)
+        {
+            var node = startNode;
+            LinkedList<T>.Node prev = null;
+
+            while (node != null)
+            {
+                var next = node.Next;
+                node.Next = prev;
+
+                prev = node;
+                node = next;
+            }
+
+            return prev;
+        }
+
 
         public void ReverseRecursive()
         {
@@ -542,5 +578,57 @@ namespace Playground.Interview
 
             return sortedHead;
         }
+
+        /// <summary>
+        /// Merge k sorted linked lists and return it as one sorted list.
+        /// </summary>
+        public static LinkedList<T>.Node MergeSortedLinkedList(System.Collections.Generic.List<LinkedList<T>.Node> heads)
+        {
+
+            // find min -> update it in the array
+            // set this node and 
+            // repeat node->next until array list has not null elements
+
+            /* alternative approach: define priority queue and take elements from there
+             */
+
+            LinkedList<T>.Node head = GetMinNode(heads);
+            LinkedList<T>.Node node = head;
+
+            while (node != null)
+            {
+                node.Next = GetMinNode(heads);
+                node = node.Next;
+            }
+
+            return head;
+        }
+
+        private static LinkedList<T>.Node GetMinNode(System.Collections.Generic.List<LinkedList<T>.Node> lists)
+        {
+            LinkedList<T>.Node min = null;
+            int index = -1;
+
+            for (int i = 0; i < lists.Count; i++)
+            {
+                LinkedList<T>.Node cur = lists[i];
+                if (cur != null)
+                {
+                    if (min == null || min.Value.CompareTo(cur.Value) > 0)
+                    {
+                        min = cur;
+                        index = i;
+                    }
+                }
+            }
+
+            if (index != -1)
+            {
+                lists[index] = min.Next;
+            }
+
+            return min;
+        }
+
     }
 }

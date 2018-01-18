@@ -86,5 +86,21 @@ namespace Tests
             Assert.That(ArrayQ.Dominator(new int[] {1, 2, 1, 3, 1 }) == 4 );
             Assert.That(ArrayQ.Dominator(new int[] { 1, 2, 3, 4, 1 }) == -1);
         }
+
+        [Test]
+        public static void HalfReverse()
+        {
+            LinkedList<int> list = new LinkedList<int>();
+            list.Add(1);
+            list.Add(2);
+            list.Add(3);
+            list.Add(4);
+            list.Add(5);
+            list.Add(6);
+
+            LinkedListQ<int> listQ = new LinkedListQ<int>(list);
+            listQ.HalfReverse();
+        }
+        
     }
 }

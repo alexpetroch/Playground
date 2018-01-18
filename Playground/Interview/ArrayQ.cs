@@ -435,55 +435,65 @@ namespace Playground.Interview
             return -1;
         }
 
-        public static string FractionToDecimal(int A, int B)
+        /// <summary>
+        /// Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
+        /// If the fractional part is repeating, enclose the repeating part in parentheses
+        /// </summary>
+        public static string FractionToDecimal(int divisible, int divider)
         {
-            return string.Empty;
             /*
-            keep addSign
-            check divide => more than 1 -> just append
-            check divide => less than 0 -> multiple 10 and add 0 to result. 
-                            update sign if need it
-            how to define repeat after sign: the same number 1/3 -> 
+            calculate sign
+            calculate total part
+            calculate fraction part
+                maintain hash to find repeated number 
+                   if found -> detect index and put number in brackets
+            */
 
-            if (numerator == 0) {
-            return "0";
-        }
-        StringBuilder res = new StringBuilder();
-        // "+" or "-"
-        res.append(((numerator > 0) ^ (denominator > 0)) ? "-" : "");
-        long num = Math.abs((long)numerator);
-        long den = Math.abs((long)denominator);
-        
-        // integral part
-        res.append(num / den);
-        num %= den;
-        if (num == 0) {
-            return res.toString();
-        }
-        
-        // fractional part
-        res.append(".");
-        HashMap<Long, Integer> map = new HashMap<Long, Integer>();
-        map.put(num, res.length());
-        while (num != 0) {
-            num *= 10;
-            res.append(num / den);
-            num %= den;
-            if (map.containsKey(num)) {
-                int index = map.get(num);
-                res.insert(index, "(");
-                res.append(")");
-                break;
+            if (divider == 0)
+            {
+                throw new ArgumentException("divider");
             }
-            else {
-                map.put(num, res.length());
+
+            StringBuilder res = new StringBuilder();
+
+            if((divisible < 0 && divider > 0) || (divisible > 0 && divider < 0))
+            {
+                res.Append("-");
             }
+
+            long num = Math.Abs((long)divisible);
+            long div = Math.Abs((long)divider);        
+
+            // integral part
+            res.Append(num / div);
+
+            num %= div;
+            if (num == 0)
+            {
+                return res.ToString();
+            }        
+            // fractional part
+            res.Append(".");
+
+            Dictionary<long, int> map = new Dictionary<long, int>();
+            map.Add(num, res.Length);
+
+            while (num != 0) {
+                num *= 10;
+                res.Append(num / div);
+
+                num %= div;
+                if (map.ContainsKey(num)) {
+                    int index = map[num];
+                    res.Insert(index, '(');
+                    res.Append(")");
+                    break;
+                }
+                else {
+                    map.Add(num, res.Length);
+                }
+            }
+            return res.ToString();
         }
-        return res.toString();
-
-
-        */           
-        }
-
     }
 }

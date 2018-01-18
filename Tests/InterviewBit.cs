@@ -262,6 +262,35 @@ namespace Tests
         }
 
         [Test]
+        public static void InvertTree()
+        {
+            BST<int> bst = new BST<int>(int.MinValue, int.MaxValue)
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            var root = bst.InvertTree(bst.Root);
+        }
+
+        [Test]
         public static void DetectCycle()
         {
             Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
@@ -495,7 +524,46 @@ namespace Tests
         [Test]
         public void FractionToDecimal()
         {
-            string res = ArrayQ.FractionToDecimal(-2147483648, -1);
+            Assert.That(ArrayQ.FractionToDecimal(-2147483648, -1) == "2147483648");
+            Assert.That(ArrayQ.FractionToDecimal(-1, 3) == "-0.(3)");
+        }
+
+        [Test]
+        public void MergeSortedLinkedList()
+        {
+            Playground.DataStructure.LinkedList<int> list = new Playground.DataStructure.LinkedList<int>();
+            list.Add(1);
+            list.Add(10);
+            list.Add(20);
+
+            Playground.DataStructure.LinkedList<int> list1 = new Playground.DataStructure.LinkedList<int>();
+            list1.Add(4);
+            list1.Add(11);
+            list1.Add(13);
+
+            Playground.DataStructure.LinkedList<int> list2 = new Playground.DataStructure.LinkedList<int>();
+            list2.Add(3);
+            list2.Add(8);
+            list2.Add(9);
+
+            List<Playground.DataStructure.LinkedList<int>.Node> heads = new List<Playground.DataStructure.LinkedList<int>.Node>() { list.Head, list1.Head, list2.Head};
+            var node = LinkedListQ<int>.MergeSortedLinkedList(heads);
+            Assert.That(node.Value == 1);
+
+            int index = 1;
+            while (index != 4)
+            {
+                node = node.Next;
+                index++;
+            }
+
+            Assert.That(node.Value == 8);
+            while (index != 7)
+            {
+                node = node.Next;
+                index++;
+            }
+            Assert.That(node.Value == 11);
         }
     }
 }

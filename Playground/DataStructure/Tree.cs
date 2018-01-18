@@ -144,6 +144,31 @@ namespace Playground.DataStructure
             return sb.ToString();
         }
 
+        public Node InvertTree(Node node)
+        {
+            /*
+            take left element  and set it as right element
+                 right element and set it as left element
+
+            repeat 
+            */
+
+            if (node == null)
+            {
+                return null;
+            }
+
+            var left = node.Left;
+            var right = node.Right;
+
+            node.Right = left;
+            node.Left = right;
+
+            InvertTree(left);
+            InvertTree(right);
+
+            return node;
+        }
 
         // Breath First Search
         public string LevelOrder()
