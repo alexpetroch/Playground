@@ -439,11 +439,12 @@ namespace Playground.Interview
         {
             return string.Empty;
             /*
-            keep addSign
-            check divide => more than 1 -> just append
-            check divide => less than 0 -> multiple 10 and add 0 to result. 
-                            update sign if need it
-            how to define repeat after sign: the same number 1/3 -> 
+            define sign
+            calculate positive part
+            
+            calculate fractional part 
+             - maintainh dictionary with number and index
+             - update string in case of the same number and return         
 
             if (numerator == 0) {
             return "0";
