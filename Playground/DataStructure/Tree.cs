@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Playground.DataStructure
@@ -582,6 +583,53 @@ namespace Playground.DataStructure
             }
 
             return node;
+        }
+
+
+        List<List<T>> treeTraversal = new List<List<T>>();
+        Dictionary<int, List<T>> dict = new Dictionary<int, List<T>>();
+
+        public List<List<T>> VerticalOrderTraversal()
+        {
+            BuildVertOrderTraversal(Root, 0);
+
+            var list = dict.Keys.ToList();
+            list.Sort();
+
+            // Loop through keys.
+            foreach (var key in list)
+            {
+                var vertList = dict[key];
+                treeTraversal.Add(vertList);
+            }
+
+            return treeTraversal;
+        }
+
+        public void BuildVertOrderTraversal(Node node, int level)
+        {
+            if (node == null)
+            {
+                return;
+            }
+
+            // PreOrder traversal
+            // do stuff here
+            if (!dict.ContainsKey(level))
+            {
+                var newList = new List<T>();
+                newList.Add(node.Value);
+                dict.Add(level, newList);
+            }
+            else
+            {
+                var list = dict[level];
+                list.Add(node.Value);
+            }
+
+
+            BuildVertOrderTraversal(node.Left, level - 1);
+            BuildVertOrderTraversal(node.Right, level + 1);
         }
     }
 

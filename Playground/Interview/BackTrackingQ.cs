@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Playground.Interview
@@ -302,6 +303,118 @@ namespace Playground.Interview
             }
 
             return true;
+        }
+
+        List<List<string>> res = new List<List<string>>();
+
+        public List<List<string>> SolveQueens(int count)
+        {
+
+            if (count < 1)
+            {
+                return null;
+            }
+
+            List<string> empty = new List<string>();
+            for (int j = 0; j < count; j++)
+            {
+                char[] array = new char[count];
+                empty.Add(new String(array));
+            }
+
+            FillQueens(0, count, empty);
+            return res;
+        }
+
+        public void FillQueens(int row, int count, List<String> sofar)
+        {
+            if (row >= count)
+            {
+                res.Add(sofar);
+                return;
+            }
+
+            // go through row
+            for (int i = 0; i < count; i++)
+            {
+                //System.out.println(row);
+                StringBuilder currentRow = new StringBuilder(sofar[row]);
+
+                if (currentRow[i] != '.')
+                {
+                    List<String> newList = new List<String>(sofar);
+                    currentRow = new StringBuilder(newList[row]);
+
+                    currentRow[i] = 'Q';
+                    newList[row] = currentRow.ToString();
+
+                    UpdateDesk(row, i, newList);
+                    FillQueens(row + 1, count, newList);
+                }
+            }
+        }
+
+        public void UpdateDesk(int row, int column, List<String> attempt)
+        {
+            StringBuilder currentRow = new StringBuilder(attempt[row]);
+            // update row
+            for (int i = 0; i < attempt.Count; i++)
+            {
+                if (currentRow[i] != 'Q')
+                {
+                    currentRow[i] = '.';
+                }
+            }
+
+            attempt[row] = currentRow.ToString();
+
+            // update column
+            for (int i = 0; i < attempt.Count; i++)
+            {
+                StringBuilder currentColumn = new StringBuilder(attempt[i]);
+                if (currentColumn[column] != 'Q')
+                {
+                    currentColumn[column] = '.';
+                }
+                attempt[i] = currentColumn.ToString();
+            }
+
+            // update left diagonal
+            int j = 1;
+            while (row + j < attempt.Count)
+            {
+                currentRow = new StringBuilder(attempt[row + j]);
+                if (column + j < attempt.Count)
+                {
+                    currentRow[column + j] = '.';
+                }
+
+                if (column - j >= 0)
+                {
+                    currentRow[column - j] = '.';
+                }
+
+                attempt[row + j] = currentRow.ToString();
+                j++;
+            }
+
+            j = 1;
+            while (row - j >= 0)
+            {
+                currentRow = new StringBuilder(attempt[row - j]);
+                if (column + j < attempt.Count)
+                {
+                    currentRow[column + j] = '.';
+                }
+
+                if (column - j >= 0)
+                {
+                    currentRow[column - j] = '.';
+                }
+
+                attempt[row - j] = currentRow.ToString();
+                j++;
+            }
         }
     }
 }

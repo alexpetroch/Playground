@@ -369,5 +369,34 @@ namespace Tests
 
             tree.ToDoubleLinedList();
         }
+
+        [Test]
+        public static void VerticalOrder ()
+        {
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            var list = tree.VerticalOrderTraversal();
+        }
     }
 }

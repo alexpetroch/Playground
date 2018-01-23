@@ -3,7 +3,9 @@ using System.Collections.Generic;
 
 namespace Playground.OOD
 {
-    #pragma warning disable CS0169, CS0649, CS0414
+#pragma warning disable CS0169, CS0649, CS0414
+
+    // Command design patter with Factory
 
     public class CoffeeMachine
     {
@@ -21,7 +23,7 @@ namespace Playground.OOD
             if (current != null)
             {
                 throw new ApplicationException("Transaction in process");
-            }            
+            }
         }
 
         public void Rollback()
@@ -68,14 +70,14 @@ namespace Playground.OOD
     }
 
 
-    public abstract class Entity
+    public interface Entity
     {
-        public abstract double GetPrice();
+        double GetPrice();
     }
 
     public class Coffee : Entity
     {
-        public override double GetPrice()
+        public double GetPrice()
         {
             return 10;
         }
@@ -83,9 +85,14 @@ namespace Playground.OOD
 
     public class Capuchino : Entity
     {
-        public override double GetPrice()
+        Entity _entiry;
+        public Capuchino (Entity entiry)
         {
-            return 20;
+            _entiry = entiry;
+        }
+        public double GetPrice()
+        {
+            return _entiry.GetPrice() * 1.1;
         }
     }
 }
