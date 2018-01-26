@@ -2,20 +2,104 @@
 
 namespace Playground.OOD
 {  
-    abstract class FurnitureMaterial : FurnitureTest
+    interface IFireTest
     {
+        bool FireTest();
+    }
+
+    class WoodenFireTest : IFireTest
+    {
+        public bool FireTest()
+        {
+            return false;
+        }
+    }
+
+    class MetalFireTest : IFireTest
+    {
+        public bool FireTest()
+        {
+            return false;
+        }
+    }
+
+    class CharFireTest : IFireTest
+    {
+        public bool FireTest()
+        {
+            return false;
+        }
+    }
+
+    interface IStressTest
+    {
+        bool StressTest();
+    }
+
+    class WoodenStressTest : IStressTest
+    {
+        public bool StressTest()
+        {
+            return false;
+        }
+    }
+
+    class MetalStressTest : IStressTest
+    {
+        public bool StressTest()
+        {
+            return false;
+        }
+    }
+
+    class CharStressTest : IStressTest
+    {
+        public bool StressTest()
+        {
+            return false;
+        }
+    }   
+
+
+    abstract class FurnitureMaterial
+    {
+        protected IStressTest _stressTest;
+        protected IFireTest _fireTest;
+        public FurnitureMaterial()
+        {
+        }
+
         public abstract string Name
         {
             get;
         }
 
-        public abstract bool FireTest();
+        public virtual bool PerformFireTest()
+        {
+            if(_fireTest != null)
+            {
+                return _fireTest.FireTest();
+            }
 
-        public abstract bool StressTest();
+            return true;            
+        }
+
+        public virtual bool PerformStressTest()
+        {
+            if (_stressTest != null)
+            {
+                return _stressTest.StressTest();
+            }
+
+            return true;
+        }
     }
 
-    abstract class FurnitureDetail : FurnitureTest
+    abstract class FurnitureDetail 
     {
+        protected IStressTest _stressTest;
+        protected IFireTest _fireTest;
+
         private FurnitureMaterial _material;
         public FurnitureMaterial Material
         {
@@ -28,27 +112,48 @@ namespace Playground.OOD
         {
             _material = material;
         }
+
+        protected FurnitureDetail()
+        {
+        }
+
         public abstract string Name
         {
             get;
         }
 
-        public abstract bool FireTest();
+        public virtual bool PerformFireTest()
+        {
+            return _material.PerformFireTest() && _fireTest.FireTest();           
+        }
 
-        public abstract bool StressTest();
+        public virtual bool PerformStressTest()
+        {
+            return _material.PerformStressTest() && _stressTest.StressTest();
+        }
+    }
+
+    abstract class FurnitureDecorator : FurnitureDetail
+    {
+        FurnitureDetail _detail;
+        public FurnitureDecorator(FurnitureDetail detail)
+        {
+            _detail = detail;
+        }
+
+        public override string Name { get => "Name" + _detail.Name; }
     }
 
     class Char : FurnitureDetail
     {
+
         public Char(FurnitureMaterial material) : base(material)
         {
+            _fireTest = new CharFireTest();
+            _stressTest = new CharStressTest();
         }
 
-        public override string Name { get => "Char"; }
-
-        public override bool FireTest() => Material.FireTest();
-
-        public override bool StressTest() => Material.StressTest();
+        public override string Name { get => "Char"; }       
     }    
 
     class Table : FurnitureDetail
@@ -58,40 +163,30 @@ namespace Playground.OOD
         }
 
         public override string Name { get => "Table"; }
-
-        public override bool FireTest() => Material.FireTest();
-
-        public override bool StressTest() => Material.StressTest();
-    }
+    }   
 
     class Wooden : FurnitureMaterial
     {
-        public override string Name => "Wooden";
-
-        public override bool FireTest()
+        public Wooden() 
         {
-            return true;
+            _fireTest = new WoodenFireTest();
+            _stressTest = new WoodenStressTest();
         }
 
-        public override bool StressTest()
-        {
-            return true;
-        }
+        public override string Name => "Wooden";    
+        
     }
 
     class Metal : FurnitureMaterial
     {
+        public Metal()
+        {
+            _fireTest = new MetalFireTest();
+            _stressTest = new MetalStressTest();
+        }
+
         public override string Name => "MetalChar";
-
-        public override bool FireTest()
-        {
-            return true;
-        }
-
-        public override bool StressTest()
-        {
-            return true;
-        }
+       
     }
 
     class FurnitureComposite : FurnitureDetail
@@ -109,33 +204,24 @@ namespace Playground.OOD
             _details.Add(detail);
         }
 
-        public override bool FireTest()
+        public override bool PerformFireTest()
         {
             foreach (var detail in _details)
             {
-                detail.FireTest();
+                detail.PerformFireTest();
             }
 
             return false;
         }
 
-        public override bool StressTest()
+        public override bool PerformStressTest()
         {
             foreach (var detail in _details)
             {
-                detail.StressTest();
+                detail.PerformStressTest();
             }
 
             return true;
         }
     }
-
-    interface FurnitureTest
-    {
-        bool StressTest();
-
-        bool FireTest();
-    }
-
-
 }
