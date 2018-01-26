@@ -74,6 +74,7 @@
     <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SD\Instag.cs" />
     <Compile Include="SD\Pasterbin.cs" />
     <Compile Include="SD\ShortUrl.cs" />
   </ItemGroup>

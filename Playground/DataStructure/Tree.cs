@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Playground.DataStructure
 {
-    public class Tree<T> 
+    public class Tree<T> where T : IComparable
     {
         public class Node
         {
@@ -294,6 +294,31 @@ namespace Playground.DataStructure
 
             return isSameTree(nodeA.Right, nodeB.Right);
         }
+
+        public bool isSymmetric()
+        {
+            return isSymmetricTree(Root.Left, Root.Right);
+
+        }
+
+        public bool isSymmetricTree(Node left, Node right)
+        {
+
+            if (left == null && right == null)
+            {
+                return true;
+            }
+
+            if (left != null && right != null && left.Value.CompareTo(right.Value) == 0 &&
+            isSymmetricTree(left.Left, right.Right) && isSymmetricTree(left.Right, right.Left))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
         public int MaxHeight()
         {
