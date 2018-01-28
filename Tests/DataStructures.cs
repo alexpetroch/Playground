@@ -397,6 +397,7 @@ namespace Tests
             };
 
             var list = tree.VerticalOrderTraversal();
+            var list2 = tree.VerticalOrderTraversal_Level();
         }
     }
 }

@@ -656,6 +656,71 @@ namespace Playground.DataStructure
             BuildVertOrderTraversal(node.Left, level - 1);
             BuildVertOrderTraversal(node.Right, level + 1);
         }
+
+        public List<List<T>> VerticalOrderTraversal_Level()
+        {
+            /*
+            Level Order traversal
+            Have a queue
+            Have a queue of levels and put them into hash
+            Maintain the max and min value to iterate throuh resulted keys to
+            generate array
+ 
+            */
+
+            treeTraversal.Clear();
+            dict.Clear();
+
+            System.Collections.Generic.Queue<Node> qNodes = new System.Collections.Generic.Queue<Node>();
+            Queue<int> qLevels = new Queue<int>();
+
+            qNodes.Enqueue(Root);
+            qLevels.Enqueue(0);
+
+            int min = int.MaxValue;
+            int max = int.MinValue;
+
+            while (qNodes.Count > 0)
+            {
+                int level = qLevels.Dequeue();
+                var node = qNodes.Dequeue();
+
+                min = Math.Min(level, min);
+                max = Math.Max(level, max);
+
+                if (dict.ContainsKey(level))
+                {
+                    dict[level].Add(node.Value);
+                }
+                else
+                {
+                    List<T> newList = new List<T>() { node.Value };
+                    dict.Add(level, newList);
+                }
+
+                if (node.Left != null)
+                {
+                    qNodes.Enqueue(node.Left);
+                    qLevels.Enqueue(level - 1);
+                }
+
+                if (node.Right != null)
+                {
+                    qNodes.Enqueue(node.Right);
+                    qLevels.Enqueue(level + 1);
+                }
+            }
+
+            for (int i = min; i <= max; i++)
+            {
+                if (dict.ContainsKey(i))
+                {
+                    treeTraversal.Add(dict[i]);
+                }
+            }
+
+            return treeTraversal;
+        }
     }
 
     public class BST<T> : Tree<T> where T:IComparable

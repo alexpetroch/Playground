@@ -43,5 +43,10 @@
         Photos in distributed file system
             a) Shard by UserId (let have 100 shards and for each photo append userId as 64 bytes)
             b) Shard by PhotoId. Since we need to provide photos then it would be better choice
+
+    High Level:
+                Read Service -> Cache -> Db
+    Client ->   write Service -> Async -> Db
+
      */
 }

@@ -167,6 +167,67 @@ namespace Playground.Interview
             }
 
             return true;
-        }        
+        }
+
+        public List<List<int>> memory = new List<List<int>>();
+
+        /// <summary>
+        /// Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right 
+        /// which minimizes the sum of all numbers along its path
+        /// You can only move either down or right at any point in time.
+        /// </summary>
+        public int MinPathSum(List<List<int>> A)
+        {
+            /*
+            Input matrix: mxn - non negative
+            path from top left -> bottom right with min sum
+
+            How we can go: down or right
+            Start from top left and go to the all other points with sum calc
+            Iterate/Recurce the same until rich the right bottom
+            */
+
+            for (int i = 0; i < A.Count; i++)
+            {
+                List<int> list = new List<int>();
+                for (int j = 0; j < A[i].Count; j++)
+                {
+                    list.Add(-1);
+                }
+
+                memory.Add(list);
+            }
+
+
+            return CalculateMinPath(A, A.Count - 1, A[0].Count - 1);
+        }
+
+        private int CalculateMinPath(List<List<int>> A, int row, int column)
+        {
+            // wrong path
+            if (row < 0 || column < 0)
+            {
+                return int.MaxValue;
+            }
+
+            // if reach check value and return;
+            if (row == 0 && column == 0)
+            {
+                return A[0][0];
+            }
+
+            if (memory[row][column] != -1)
+            {
+                return memory[row][column];
+            }
+
+
+            // DP[i][j] = A[i][j] + min(DP[i-1][j],DP[i][j-1]).
+
+            memory[row][column] = A[row][column] +
+            System.Math.Min(CalculateMinPath(A, row - 1, column),
+                            CalculateMinPath(A, row, column - 1));
+            return memory[row][column];
+        }
     }
 }

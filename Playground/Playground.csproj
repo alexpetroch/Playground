@@ -55,6 +55,7 @@
     <Compile Include="Interview\BackTrackingQ.cs" />
     <Compile Include="Interview\Bits.cs" />
     <Compile Include="Interview\DynamicQ.cs" />
+    <Compile Include="Interview\HashQ.cs" />
     <Compile Include="Interview\IntervalsQ.cs" />
     <Compile Include="Interview\LinkedListQ.cs" />
     <Compile Include="Interview\MathQ.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Parallel\ReaderWriterLock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SD\Drop.cs" />
     <Compile Include="SD\Instag.cs" />
     <Compile Include="SD\Pasterbin.cs" />
     <Compile Include="SD\ShortUrl.cs" />

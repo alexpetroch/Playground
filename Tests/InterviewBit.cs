@@ -259,7 +259,7 @@ namespace Tests
             };
 
             int test = bst.isBalanced(bst.Root);
-        }
+        }        
 
         [Test]
         public static void InvertTree()
