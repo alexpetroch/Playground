@@ -414,12 +414,7 @@ namespace Playground.DataStructure
 
         public static Node SortedArrayToBST(List<T> list)
         {
-
-            int middle = list.Count / 2;
-            Node root = new Node(list[middle]);
-            root.Left = SortedArrayToBST(list, 0, middle - 1);
-            root.Right = SortedArrayToBST(list, middle + 1, list.Count - 1);
-            return root;
+            return SortedArrayToBST(list, 0, list.Count - 1);
         }
 
         private static Node SortedArrayToBST(List<T> list, int start, int end)

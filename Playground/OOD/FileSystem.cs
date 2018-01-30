@@ -5,6 +5,15 @@ namespace Playground.OOD
 {
     #pragma warning disable CS0169, CS0649
 
+    /*
+    1. There are several file systems: FAT32, NTFS. Can be more
+    2. Each file system can create file and directory
+    3. NTFS has extened permission options
+    4. File length is less in FAT 32
+    5. Directory contains files         
+    */
+
+
     public class FileSystem
     {
         public FSEntry Find(string path)

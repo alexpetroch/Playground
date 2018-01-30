@@ -24,6 +24,21 @@ namespace Playground.OOD
             {
                 throw new ApplicationException("Transaction in process");
             }
+
+            current = new Transaction();
+            current.StateChanged += Current_StateChanged;       
+        }
+
+        private void Current_StateChanged(TransactionState state)
+        {
+            if(state == TransactionState.Cooking)
+            {
+                // do something
+            }
+            else if (state == TransactionState.Finish)
+            {
+                // update resources
+            }
         }
 
         public void Rollback()
@@ -43,12 +58,16 @@ namespace Playground.OOD
         public Entity entryToPrepare;
         TransactionState state;
 
+        public delegate void TransactionEventRaiser(TransactionState state);
+        public event TransactionEventRaiser StateChanged;
+
         public void AddMoney(int money)
         {
             CurrentMoney += money;
             if(CurrentMoney > entryToPrepare.GetPrice())
-            {
+            {                
                 state = TransactionState.Cooking;
+                StateChanged?.Invoke(state);
             }
         }
     }
@@ -66,7 +85,21 @@ namespace Playground.OOD
     {
         public int Water;
         public int Sugar;
-        public int Milk;        
+        public int Milk;
+        private List<Entity> _entities;
+
+        public void InitEntities (List<Entity> entity)
+        {
+            // init 
+            _entities = entity;
+        }
+        public void AddEntity() { }
+        public void RemoveEntity() { }
+        public bool CheckResources (Entity entity)
+        {
+            //return entity.Check();
+            return true;
+        }
     }
 
 
