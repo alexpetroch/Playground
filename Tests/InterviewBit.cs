@@ -565,5 +565,24 @@ namespace Tests
             }
             Assert.That(node.Value == 11);
         }
+
+        [Test]
+        public void GetPermutation()
+        {
+            BackTrackingQ back = new BackTrackingQ();
+            string res = back.GetPermutation(4, 13);
+            Assert.That(back.GetPermutation(2, 2) == "21");
+        }
+
+        [Test]
+        public void GeneratePermutation()
+        {
+            BackTrackingQ back = new BackTrackingQ();
+            var res = back.GeneratePermutation(3);
+            Assert.That(res.Count == 6);
+
+            res = back.GeneratePermutation(4);
+            Assert.That(res.Count == 24);
+        }
     }
 }
