@@ -416,5 +416,122 @@ namespace Playground.Interview
                 j++;
             }
         }
+
+        List<string> perm = new List<string>();
+        public List<string> GeneratePermutation (int n)
+        {
+            List<int> values = new List<int>();
+            for(int i = 0; i < n; i++)
+            {
+                values.Add(i+1);
+            }
+
+            return Generate(values);
+        }
+
+        private List<string> Generate(List<int> values)
+        {
+            if(values.Count == 2)
+            {
+                List<string> answ = new List<string>();
+                answ.Add(values[0].ToString() + values[1].ToString());
+                answ.Add(values[1].ToString() + values[0].ToString());
+                return answ;
+            }
+
+            List<string> permCurrent = new List<string>();
+
+            for (int i = 0; i < values.Count; i++)
+            {
+                int cur = values[i];
+                List<int> remain = new List<int>(values);
+                remain.RemoveAt(i);
+
+                List<string> perm = Generate(remain);
+
+                for(int j = 0; j < perm.Count; j++)
+                {
+                    permCurrent.Add(cur.ToString() + perm[j]);
+                }
+            }
+
+            return permCurrent;
+        }
+
+
+
+
+        private int[] factorial;
+        /// <summary>
+        /// Given n and k, return the kth permutation sequence.
+        /// For example, given n = 3, k = 4, ans = "231" (since 123, 132, 231 and so on
+        /// </summary>
+
+        public string GetPermutation(int n, int k)
+        {
+            factorial = new int[n+1];
+            SetFactorialValues(n);
+
+            if (k == 0 || k > factorial[n])
+            {
+                return string.Empty;
+            }
+
+            List<int> values = new List<int>();
+            for (int i = 0; i < n; i++)
+            {
+                values.Add(i + 1);
+            }
+
+            StringBuilder res = new StringBuilder();
+
+            // let use k is 0 based
+            GetPermutation(n, k - 1, values, res);
+            return res.ToString();
+        }
+
+
+        private void GetPermutation(int n, int k, List<int> values, StringBuilder res)
+        {
+            if (n == 1)
+            {
+                res.Append(values[0]);
+                return;
+            }
+
+            int f = factorial[n - 1];
+            int index = k / f;
+
+            int value = values[index];
+            res.Append(value);
+
+            values.RemoveAt(index);
+
+            k = k % f;
+            GetPermutation(n - 1, k, values, res);
+        }     
+
+       
+        private int SetFactorialValues(int n)
+        {
+           if (n > 12)
+           {
+               return int.MaxValue;
+           }
+
+           if(factorial[n] != 0)
+           {
+               return factorial[n];
+           }
+            
+            if(n < 2)
+            {
+                factorial[1] = 1;
+                return 1;
+            }
+
+            factorial[n] = n * SetFactorialValues(n-1);
+            return factorial[n];
+        }
     }
 }
