@@ -75,11 +75,26 @@ namespace Tests
 
         public static void FS()
         {
-            FileSystem fs = new FileSystem();
-            FSDir dir = fs.CreateDir("test\test1");
+            FileSystem fs = new NTFSFileSystem();
+            var fsentity = fs.Find("somepath");
 
-            FSFile file = new FSFile("hello", dir, new byte[10]);
-            file.Delete();
+            // if not found
+            if(fsentity == null)
+            {
+                // create under root
+                fs.CreateDir(null, "ee");
+            }
+
+            // repeat the same for fat32. Creating file system could be in factory
+            fs = new Fat32FileSystem();
+            fsentity = fs.Find("somepath");
+
+            // if not found
+            if (fsentity == null)
+            {
+                // create under root
+                fs.CreateDir(null, "ee");
+            }
         }
     }
 }

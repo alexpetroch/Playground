@@ -584,5 +584,14 @@ namespace Tests
             res = back.GeneratePermutation(4);
             Assert.That(res.Count == 24);
         }
+
+        [Test]
+        public void CountConnectivity ()
+        {
+            GraphQ graph = new GraphQ();
+            //List<string> list = new List<string>() { "OOOXOOO", "OOXXOXO", "OXOOOXO" };
+            List<string> list = new List<string>() { "XXX", "XXX", "XXX" };            
+            graph.Black(list);
+        }
     }
 }

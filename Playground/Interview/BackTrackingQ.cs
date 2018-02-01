@@ -458,9 +458,6 @@ namespace Playground.Interview
             return permCurrent;
         }
 
-
-
-
         private int[] factorial;
         /// <summary>
         /// Given n and k, return the kth permutation sequence.
