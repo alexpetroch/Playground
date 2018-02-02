@@ -889,5 +889,90 @@ namespace Playground.DataStructure
 
             return false;
         }
+        public T LeastCommonAncestor (T value1, T value2)
+        {
+
+            /*
+            Build path from node to the root
+            Until find node
+            Make paths equals
+            Start from paths to find common point
+            */
+
+            List<T> empty = new List<T>();
+            List<T> path1 = FindAndBuildPath(Root, value1, empty);
+            List<T> path2 = FindAndBuildPath(Root, value2, empty);
+
+            if (path1 == null || path2 == null)
+            {
+                return default(T);
+            }
+
+            if (value1.CompareTo(value2) == 0)
+            {
+                return value1;
+            }
+
+            int index1 = path1.Count - 1;
+            int index2 = path2.Count - 1;
+
+            while (index1 != index2)
+            {
+                if (index1 > index2)
+                {
+                    if (path1[index1].CompareTo(value2) != 0)
+                    {
+                        index1--;
+                    }
+                    else
+                    {
+                        return value2;
+                    }
+                }
+                else
+                {
+                    if (path2[index2].CompareTo(value1) != 0)
+                    {
+                        index2--;
+                    }
+                    else
+                    {
+                        return value1;
+                    }
+                }
+            }
+
+            while (index1 >= 0 && path1[index1].CompareTo(path2[index2]) != 0)
+            {
+                index1--;
+                index2--;
+            }
+
+            return index1 >= 0 ? path1[index1] : default(T);
+        }
+
+        public List<T> FindAndBuildPath(Node node, T value, List<T> pathSoFar)
+        {
+            if (node == null)
+            {
+                return null;
+            }
+
+            if (node.Value.CompareTo(value) == 0)
+            {
+                return pathSoFar;
+            }
+
+            List<T> newPath = new List<T>(pathSoFar);
+            newPath.Add(node.Value);
+
+            List<T> found = FindAndBuildPath(node.Left, value, newPath);
+            if (found == null)
+            {
+                found = FindAndBuildPath(node.Right, value, newPath);
+            }
+
+            return found;
+        }
     }
 }
