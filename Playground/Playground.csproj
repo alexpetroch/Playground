@@ -81,6 +81,7 @@
     <Compile Include="SD\Instag.cs" />
     <Compile Include="SD\Pasterbin.cs" />
     <Compile Include="SD\ShortUrl.cs" />
+    <Compile Include="SD\Tw.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

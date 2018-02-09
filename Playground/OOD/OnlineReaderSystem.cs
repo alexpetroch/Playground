@@ -15,7 +15,7 @@ namespace Playground.OOD
 
     }
 
-    class BookReaderProgress
+    public class BookReaderProgress
     {
         int id;
         Book book;
@@ -33,44 +33,66 @@ namespace Playground.OOD
     }
 
 
-    class Library
+    public class Library
     {
-        Dictionary<int, Book> library;
+        List<Book> _books = new List<Book>();
         public void AddBook(Book book)
         {
-
+            _books.Add(book);
         }
 
-        public Book Find(IBookSeach strategy, Dictionary<string, object> values)
+        public IEnumerable<Book> Find(IBookSeach strategy, Dictionary<string, object> values)
         {
-            return strategy.Seach(values);
-        }
-    }
-
-    class Book
-    {
-
-    }
-
-    interface IBookSeach
-    {
-        Book Seach(Dictionary<string, object> parameters);
-        
-    }
-
-    class TitleSeach : IBookSeach
-    {
-        public Book Seach(Dictionary<string, object> parameters)
-        {
-            throw new System.NotImplementedException();
+            return strategy.Seach(_books, values);
         }
     }
 
-    class AuthorSeach : IBookSeach
+    public class Book
     {
-        public Book Seach(Dictionary<string, object> parameters)
+
+    }
+
+    public interface IBookSeach
+    {
+        IEnumerable<Book> Seach(IEnumerable<Book> books, Dictionary<string, object> parameters);
+    }
+
+    public class TitleSeach : IBookSeach
+    {
+        public IEnumerable<Book> Seach(IEnumerable<Book> books, Dictionary<string, object> parameters)
         {
-            throw new System.NotImplementedException();
+            // search by title
+            return new List<Book>();
+        }
+    }
+
+    public class AuthorSeach : IBookSeach
+    {
+
+        public IEnumerable<Book> Seach(IEnumerable<Book> books, Dictionary<string, object> parameters)
+        {
+            // search by title
+            return new List<Book>();
+        }
+    }
+
+    public class CompoundSearch : IBookSeach
+    {
+        List<IBookSeach> _seaches = new List<IBookSeach>();
+        public void AddSeach(IBookSeach bookSeach)
+        {
+            _seaches.Add(bookSeach);
+        }
+
+        public IEnumerable<Book> Seach(IEnumerable<Book> books, Dictionary<string, object> parameters)
+        {
+            IEnumerable<Book> res = books;
+            foreach(var seachAlgo in _seaches)
+            {
+                res = seachAlgo.Seach(res, parameters);
+            }
+
+            return res;
         }
     }
 

@@ -592,6 +592,47 @@ namespace Tests
             //List<string> list = new List<string>() { "OOOXOOO", "OOXXOXO", "OXOOOXO" };
             List<string> list = new List<string>() { "XXX", "XXX", "XXX" };            
             graph.Black(list);
+
+            List<int> b = new List<int>() { 1, 2, 3 };
+            List<int> c = new List<int>() { 2, 3, 1 };
+            Assert.That(graph.IsCyclic(3, b, c) == true);
+
+            b = new List<int>() { 1, 2 };
+            c = new List<int>() { 2, 1 };
+            Assert.That(graph.IsCyclic(2, b, c) == true);
+
+            b = new List<int>() { 1, 2 };
+            c = new List<int>() { 2, 3 };
+            Assert.That(graph.IsCyclic(3, b, c) == false);
+        }
+
+        [Test]
+        public static void IsSumExistTree()
+        {
+            BST<int> bst = new BST<int>(int.MinValue, int.MaxValue)
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            Assert.That(bst.IsSumExist(22) == true);
         }
     }
 }

@@ -67,9 +67,56 @@ namespace Playground.Interview
 
             return count;
         }
+
+        /// <summary>
+        /// Find shortest unique prefix to represent each word in the list.
+        /// Example:  Input: [zebra, dog, duck, dove]  Output: {z, dog, du, dov
+        /// where we can see that  zebra = z dog = dog duck = du dove = dov
+        /// </summary>
+        public List<string> GetPrefix(List<string> words)
+        {
+            /*
+            Build trie.
+            Take word and mark it as first prefix.
+            Go through word. 
+            If there are more than one branch then mark next item as next suffix
+
+            Test case: zebra, dog, duck
+
+            zebra -> z.. traverse. no more keys and find word. add substring as (0,1)
+            dog -> d, exist then increment i++ and take next element, do..dog.  add substring as (0,2)
+
+            // Corner cases: TBD
+            */
+
+            Trie trie = new Trie();
+            foreach (string str in words)
+            {
+                trie.Insert(str);
+            }
+
+            List<string> res = new List<string>();
+            foreach (string word in words)
+            {
+                int charsCount = 1;
+                var node = trie.Root;
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (node.Childs.Keys.Count > 1)
+                    {
+                        charsCount = i + 1;
+                    }
+
+                    node = node.Childs[word[i]];
+                }
+
+                string strPrefix = word.Substring(0, charsCount);
+                res.Add(strPrefix);
+            }
+
+            return res;
+        }
     }
-
-
 
     public class WordReviewComparatorDescending : IComparer<WordReview>
     {

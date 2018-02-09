@@ -520,5 +520,122 @@ namespace Playground.Interview
 
             return maxProfit;
         }
+
+        /// <summary>
+        /// Remove duplicates from Sorted Array
+        /// Given a sorted array, remove the duplicates in place such that each element appears only once and return the new length.
+        /// </summary>
+        public int RemoveDuplicates(List<int> sortedArray)
+        {
+            /*
+            keep iterate through array
+            keep index and keep distinctIndex
+            value is the same keep distinctIndex
+            value is not the same increment distinctIndex
+            */
+
+            if (sortedArray == null || sortedArray.Count == 0)
+            {
+                return 0;
+            }
+        
+            int distinctIndex = 0;
+            for (int i = 0; i < sortedArray.Count - 1; i++)
+            {
+                if (sortedArray[i] != sortedArray[i + 1])
+                {
+                    distinctIndex++;
+                    sortedArray[distinctIndex] = sortedArray[i + 1];
+                }
+            }
+
+            return distinctIndex + 1;
+        }       
+
+        /// <summary>
+        ///  O(n) solution
+        /// Remove duplicates from Sorted Array
+        /// Given a sorted array, remove the duplicates in place such that each element appears only once and return the new length.
+        /// </summary>   
+
+        public int CanCompleteCircuit(List<int> gas, List<int> cost)
+        {
+
+            /*
+                Need to define whther we can return to the same position.
+                start from i. 
+                    and get gas[i] count inrement with previos count.
+                    check how much to go to next station. if more than 0 then move, otherwise stop
+
+                have two loops. starting from first element.
+                   start from second one and update remaining gas and decrement cost with next index.
+                   iterate until both indexes are the same
+            */
+
+            int totalGas = 0;
+            int totalCost = 0;
+            int index = 0;
+            int curLeft = 0;
+
+            for (int i = 0; i < gas.Count; i++)
+            {
+                totalGas += gas[i];
+                totalCost += cost[i];
+                curLeft += (gas[i] - cost[i]);
+
+                if (curLeft < 0)
+                {
+                    curLeft = 0;
+                    index = i + 1;
+                }
+            }
+
+            if (totalGas >= totalCost)
+            {
+                return index;
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// O(n2) solution
+        /// You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). 
+        /// You begin the journey with an empty tank at one of the gas stations.
+        /// Return the minimum starting gas station’s index if you can travel around the circuit once, otherwise return -1.
+        /// </summary>
+        public int CanCompleteCircuit2(List<int> gas, List<int> cost)
+        {
+            /*
+                Need to define whether we can return to the same position.
+                start from i. 
+                    and get gas[i] count increment with previews count.
+                    check how much to go to next station. if more than 0 then move, otherwise stop
+
+                have two loops. starting from first element.
+                   start from second one and update remaining gas and decrement cost with next index.
+                   iterate until both indexes are the same
+            */
+
+            for (int i = 0; i < gas.Count; i++)
+            {
+                if (gas[i] < cost[i]) continue;
+
+                int remaining = gas[i] - cost[i];
+                int index = (i + 1) % gas.Count;
+                while (index != i && remaining >= 0)
+                {
+                    remaining += gas[index] - cost[index];
+                    index = (index + 1) % gas.Count;
+                }
+
+                if (index == i && remaining >= 0)
+                {
+                    return index;
+                }
+            }
+
+            return -1;
+        }
     }
 }

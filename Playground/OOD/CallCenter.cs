@@ -30,20 +30,57 @@ namespace Playground.OOD
                 employeeToHandle = employeeToHandle.Boss;
             }
 
-            call.AssignTo(employeeToHandle);
+            MakeCallCommand command = new MakeCallCommand(call, employeeToHandle);
+            command.Execute();
         }
 
         public void DispatchCall(Call call)
         {
             var employeeToHandle = free.Dequeue();
-            call.AssignTo(employeeToHandle);
+            MakeCallCommand command = new MakeCallCommand(call, employeeToHandle);
+            command.Execute();            
         }
 
         public void FinishCall(Call call)
         {
             // store additional information and close the call
-            call.Finish();
+            FinishCallCommand command = new FinishCallCommand(call);
+            command.Execute();
             free.Enqueue(call.HandlingPerson);           
+        }
+    }
+
+    interface ICommand
+    {
+        void Execute();
+    }
+
+    class MakeCallCommand : ICommand
+    {
+        private Call _call;
+        private Employee _employer;
+        public MakeCallCommand(Call call, Employee employer)
+        {
+            _call = call;
+            _employer = employer;
+        }
+        public void Execute()
+        {       
+            _call.AssignTo(_employer);
+        }
+    }
+
+    class FinishCallCommand : ICommand
+    {
+        private Call _call;
+        private Employee _employer;
+        public FinishCallCommand(Call call)
+        {
+            _call = call;
+        }
+        public void Execute()
+        {
+            _call.Finish();
         }
     }
 

@@ -317,9 +317,7 @@ namespace Playground.DataStructure
 
             return false;
         }
-
-
-
+        
         public int MaxHeight()
         {
             return MaxHeight(Root);
@@ -1038,6 +1036,148 @@ namespace Playground.DataStructure
             }
 
             return found;
+        }
+
+        /// <summary>
+        /// Given a binary search tree T, where each node contains a positive integer, and an integer K, 
+        /// you have to find whether or not there exist two different nodes A and B such that A.value + B.value = K.
+        /// Return 1 to denote that two such nodes exist.Return 0, otherwise.
+        /// </summary>
+        public bool IsSumExist(T sum)
+        {
+            if (sum.CompareTo(Root.Value) == 0)
+            {
+                return false;
+            }
+
+            System.Collections.Generic.Stack<Node> normal = new System.Collections.Generic.Stack<Node>();
+            System.Collections.Generic.Stack<Node> reverse = new System.Collections.Generic.Stack<Node>();
+
+
+            // done1, val1 and curr1 are used for normal inorder traversal using s1
+            // done2, val2 and curr2 are used for reverse inorder traversal using s2
+            bool done1 = false, done2 = false;
+            int val1 = 0, val2 = 0;
+            Node curr1 = Root;
+            Node curr2 = Root;
+
+            // The loop will break when we either find a pair or one of the two
+            // traversals is complete
+            while (true)
+            {
+                // Find next node in normal Inorder traversal. See following post
+                while (!done1)
+                {
+                    if (curr1 != null)
+                    {
+                        normal.Push(curr1);
+                        curr1 = curr1.Left;
+                    }
+                    else
+                    {
+                        if (normal.Count == 0)
+                            done1 = true;
+                        else
+                        {
+                            curr1 = normal.Pop();
+                            val1 = Convert.ToInt32(curr1.Value);
+                            curr1 = curr1.Right;
+                            done1 = true;
+                        }
+                    }
+                }
+
+                // Find next node in REVERSE Inorder traversal. 
+                // The only difference between above and below loop is, in below loop
+                // right subtree is traversed before left subtree
+                while (!done2)
+                {
+                    if (curr2 != null)
+                    {
+                        reverse.Push(curr2);
+                        curr2 = curr2.Right;
+                    }
+                    else
+                    {
+                        if (reverse.Count == 0)
+                            done2 = true;
+                        else
+                        {
+                            curr2 = reverse.Pop();
+                            val2 = Convert.ToInt32(curr2.Value);
+                            curr2 = curr2.Left;
+                            done2 = true;
+                        }
+                    }
+                }
+
+                // If we find a pair, then print the pair and return. The first
+                // condition makes sure that two same values are not added
+                if ((val1 != val2) && (val1 + val2).CompareTo(sum) == 0)
+                {
+                    return true;
+                }
+
+                // If sum of current values is smaller, then move to next node in
+                // normal inorder traversal
+                else if ((val1 + val2).CompareTo(sum) < 0)
+                    done1 = false;
+
+                // If sum of current values is greater, then move to next node in
+                // reverse inorder traversal
+                else if ((val1 + val2).CompareTo(sum) > 0)
+                    done2 = false;
+
+                // If any of the inorder traversals is over, then there is no pair
+                // so return false
+                if (val1 >= val2)
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// O(n2) - solution
+        /// Given a binary search tree T, where each node contains a positive integer, and an integer K, 
+        /// you have to find whether or not there exist two different nodes A and B such that A.value + B.value = K.
+        /// Return 1 to denote that two such nodes exist.Return 0, otherwise.
+        /// </summary>
+        public int IsSumExistOption2(int sum)
+        {
+
+            if (sum.CompareTo(Root.Value) == 0)
+            {
+                return 0;
+            }
+
+            int rootValue = Convert.ToInt32(Root.Value);
+            if (sum - rootValue < rootValue)
+            {
+                return IsSumExist(Root.Left, Root, sum) ? 1 : 0;
+            }
+
+            return IsSumExist(Root, Root.Right, sum) ? 1 : 0;
+        }
+
+        private bool IsSumExist(Node left, Node rigth, int sum)
+        {
+            if (left == null || rigth == null)
+            {
+                return false;
+            }
+
+            int curSum = Convert.ToInt32(left.Value) + Convert.ToInt32(rigth.Value);
+            if (curSum == sum && left != rigth)
+            {
+                return true;
+            }
+
+            if (curSum < sum)
+            {
+                return IsSumExist(left.Right, rigth, sum) || IsSumExist(left, rigth.Right, sum);
+            }
+
+            // more than sum	
+            return IsSumExist(left.Left, rigth, sum) || IsSumExist(left, rigth.Left, sum);
         }
     }
 }
