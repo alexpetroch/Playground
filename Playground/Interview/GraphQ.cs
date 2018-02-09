@@ -64,6 +64,62 @@ namespace Playground.Interview
                     && !visited[newRow, newCol] && list[newRow][newCol] == 'X')
                     DFS(visited, list, newRow, newCol);
             }          
-        }        
+        }
+
+        public class GraphNode
+        {
+            public int id;
+            public List<GraphNode> dids;
+            public GraphNode(int id)
+            {
+                this.id = id;
+                this.dids = new List<GraphNode>();
+            }
+        }
+
+        public bool IsCyclic(int countCources, List<int> courcesList, List<int> prerList)
+        {
+            var nodes = new List<GraphNode>();
+            for (int i = 1; i <= countCources; i++)
+            {
+                nodes.Add(new GraphNode(i));
+            }
+
+            for (int i = 0; i < courcesList.Count; i++)
+            {
+                nodes[courcesList[i] - 1].dids.Add(nodes[prerList[i] - 1]);
+            }
+
+            foreach (var node in nodes)
+            {
+                if (BFS(node) == 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public int BFS(GraphNode g)
+        {
+            var q = new Queue<GraphNode>();
+            q.Enqueue(g);
+            var visited = new HashSet<GraphNode>();
+            while (q.Count != 0)
+            {
+                var node = q.Dequeue();
+                foreach (var n in node.dids)
+                {
+                    if (visited.Contains(n))
+                    {
+                        return 0;
+                    }
+                    q.Enqueue(n);
+                }
+                visited.Add(node);
+            }
+            return 1;
+        }       
     }    
 }

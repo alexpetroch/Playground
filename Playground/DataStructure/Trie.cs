@@ -2,21 +2,25 @@
 
 namespace Playground.DataStructure
 {
+    public class TrieNode
+    {
+        public Dictionary<char, TrieNode> Childs;
+        public bool EndWord;
+        public char Key;
+    }
+
     public class Trie
     {
-        class Node
+        private TrieNode _root;
+        public TrieNode Root
         {
-            public Dictionary<char, Node> Childs;
-            public bool EndWord;
-            public char Key;
+            get { return _root; }
         }
-
-        private Node root;
 
         public Trie()
         {
-            root = new Node();            
-            root.Childs = new Dictionary<char, Node>();
+            _root = new TrieNode();            
+            _root.Childs = new Dictionary<char, TrieNode>();
         }
 
         public bool Find (string value)
@@ -27,7 +31,7 @@ namespace Playground.DataStructure
             }
 
             value = value.ToLowerInvariant();
-            Node current = root;
+            TrieNode current = _root;
             for (int i = 0; i < value.Length; i++)
             {
                 if(!current.Childs.ContainsKey(value[i]))
@@ -49,14 +53,13 @@ namespace Playground.DataStructure
             }
 
             value = value.ToLowerInvariant();
-
-            Node current = root;
+            TrieNode current = _root;
             for (int i = 0; i < value.Length; i++)
             {
                 if (!current.Childs.ContainsKey(value[i]))
                 {
-                    var node = new Node();
-                    node.Childs = new Dictionary<char, Node>();
+                    var node = new TrieNode();
+                    node.Childs = new Dictionary<char, TrieNode>();
                     node.Key = value[i];
                     current.Childs.Add(value[i], node);                   
                 }

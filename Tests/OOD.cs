@@ -73,6 +73,7 @@ namespace Tests
             Assert.That(url.GetIdFromShortUrl(urlShort) == 123123123);
         }
 
+        [Test]
         public static void FS()
         {
             FileSystem fs = new NTFSFileSystem();
@@ -95,6 +96,25 @@ namespace Tests
                 // create under root
                 fs.CreateDir(null, "ee");
             }
+        }
+
+        [Test]
+        public static void OnlineReaderSystem()
+        {
+            Library lib = new Library();
+            lib.AddBook(new Book());
+            lib.AddBook(new Book());
+            lib.AddBook(new Book());
+
+            TitleSeach titleSeach = new TitleSeach();
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+            parameters.Add("Author", "value");
+            lib.Find(titleSeach, parameters);
+
+            CompoundSearch seachMany = new CompoundSearch();
+            seachMany.AddSeach(titleSeach);
+            seachMany.AddSeach(new AuthorSeach());
+            lib.Find(seachMany, parameters);
         }
     }
 }

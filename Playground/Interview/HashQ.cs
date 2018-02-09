@@ -99,5 +99,96 @@ namespace Playground.Interview
 
             return true;
         }
+
+        /// <summary>
+        /// You are given an array of N integers, A1, A2 ,…, AN and an integer K. Return the of count of distinct numbers in all windows of size K.
+        /// Formally, return an array of size N-K+1 where i’th element in this array contains number of distinct elements in sequence Ai, Ai+1 ,…, Ai+k-1.
+        /// For example, A =[1, 2, 1, 3, 4, 3] and K = 3
+        /// All windows of size K are [1, 2, 1] [2, 1, 3] [1, 3, 4] [3, 4, 3]
+        /// So, we return an array[2, 3, 3, 2].
+        /// </summary>
+        public List<int> DistinctNumbers(List<int> arr, int windowSize)
+        {
+            /*
+            Define arrays of size = windowSize. 
+            Count distinct elements in each array.
+            Add this number to res array
+            Return res array.
+
+            Input: Arr size 10000
+                   windowSize < arrSize
+
+            Constraints:
+                  Arr - null, return empty array
+                  WindowSize > Arr size -> empty array
+
+            Create a hashTable of windowSize + count elements
+            Calculate distinct numbers.
+            Put number to the list
+
+            Iterate through reaming elements
+            Update previous one + Add a new one.
+            If value previews is removed add distinct, if add and it exists keep distinct, otherwise increment
+            */
+
+            /*
+            Test cases: {} 1 - >return empty
+                        {1,2,1,3,4,1} window = 3 
+                            -> d = 2, add
+                        -> cycle: 1->removed, 3->added 2-1-3 ->d-3
+                        -> i = 5, to be removed = 2;					
+            */
+
+            List<int> res = new List<int>();
+            if (arr == null || arr.Count < windowSize)
+            {
+                return res;
+            }
+
+
+            Dictionary<int, int> hash = new Dictionary<int, int>();
+
+            // fill the size
+            int distinct = 0;
+            for (int i = 0; i < windowSize; i++)
+            {
+                if (!hash.ContainsKey(arr[i]))
+                {
+                    hash.Add(arr[i], 0);
+                    distinct++;
+                }
+
+                hash[arr[i]]++;
+            }
+
+            res.Add(distinct);
+
+            for (int i = windowSize; i < arr.Count; i++)
+            {
+                int removed = arr[i - windowSize];  // 0 index to be removed 
+                int added = arr[i];                 // 3 index
+
+                hash[removed]--;
+                if (hash[removed] == 0)
+                {
+                    distinct--;
+                }
+
+                if (!hash.ContainsKey(added))
+                {
+                    hash.Add(added, 0);
+                }
+
+                if (hash[added] == 0)
+                {
+                    distinct++;
+                }
+
+                hash[added]++;
+                res.Add(distinct);
+            }
+
+            return res;
+        }
     }
 }
