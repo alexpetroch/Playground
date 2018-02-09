@@ -229,5 +229,39 @@ namespace Playground.Interview
                             CalculateMinPath(A, row, column - 1));
             return memory[row][column];
         }
+
+        int[] memo;
+        /// <summary>
+        /// Given A, how many structurally unique BST’s (binary search trees) that store values 1...A?
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        public int NumUniqueBinarySearchTrees(int n)
+        {
+            memo = new int[n + 1];
+            return CalculateTrees(n);
+        }
+
+        private int CalculateTrees(int n)
+        {
+            if (n == 1 || n == 0)
+            {
+                return 1;
+            }
+
+            if (memo[n] != 0)
+            {
+                return memo[n];
+            }
+
+            int count = 0;
+            for (int i = 1; i <= n; i++)
+            {
+                count += CalculateTrees(i - 1) * CalculateTrees(n - i);
+            }
+
+            memo[n] = count;
+            return count;
+        }
     }
 }
