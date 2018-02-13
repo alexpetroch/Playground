@@ -507,6 +507,71 @@ namespace Playground.DataStructure
             return res;
         }
 
+        public int MinDepth(Node Root)
+        {
+            /*
+            Level Order traversal
+            Maintain level.
+            When find first leaf return
+            */
+
+            System.Collections.Generic.Queue<Node> queue = new System.Collections.Generic.Queue<Node>();
+            System.Collections.Generic.Queue<int> levels = new System.Collections.Generic.Queue<int>();
+
+            queue.Enqueue(Root);
+            levels.Enqueue(1);
+
+            int min = int.MaxValue;
+            while (queue.Count > 0)
+            {
+                Node node = queue.Dequeue();
+                int level = levels.Dequeue();
+
+                if (node.Left == null && node.Right == null)
+                {
+                    return level;
+                }
+
+                if (node.Left != null)
+                {
+                    queue.Enqueue(node.Left);
+                    levels.Enqueue(level + 1);
+                }
+
+                if (node.Right != null)
+                {
+                    queue.Enqueue(node.Right);
+                    levels.Enqueue(level + 1);
+                }
+            }
+
+            return min;
+        }
+
+        public int MinDepth2(Node node)
+        {
+            /*
+            Level Order traversal
+            Maintain level.
+            When find first leaf return
+            */
+
+            if (node == null) return 0;
+            if (node.Left == null && node.Right == null) return 1;
+
+            if (node.Left == null)
+            {
+                return 1 + MinDepth2(node.Right);
+            }
+
+            if (node.Right == null)
+            {
+                return 1 + MinDepth2(node.Left);
+            }
+
+            return 1 + Math.Min(MinDepth2(node.Left), MinDepth2(node.Right));
+        }
+
         public Node Flatten()
         {
             /*
