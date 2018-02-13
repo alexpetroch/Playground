@@ -521,6 +521,12 @@ namespace Playground.Interview
             return maxProfit;
         }
 
+        public int maxProfit2(List<int> stocks)
+        {
+            return 0;
+
+        }
+
         /// <summary>
         /// Remove duplicates from Sorted Array
         /// Given a sorted array, remove the duplicates in place such that each element appears only once and return the new length.
