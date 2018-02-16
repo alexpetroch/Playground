@@ -521,10 +521,81 @@ namespace Playground.Interview
             return maxProfit;
         }
 
-        public int maxProfit2(List<int> stocks)
+        /// <summary>
+        /// Say you have an array for which the ith element is the price of a given stock on day i.
+        /// Design an algorithm to find the maximum profit.You may complete at most two transactions.
+        /// </summary>
+        public int MaxProfitIn2Transactions(List<int> stocks)
         {
-            return 0;
+            if(stocks == null || stocks.Count > 0)
+            {
+                return 0;
+            }
 
+            // calculate profit before i position and store into the left
+            int[] left = new int[stocks.Count];
+            int min = stocks[0];
+            for (int i = 1; i < stocks.Count; i++)
+            {
+                min = Math.Min(min, stocks[i]);
+                left[i] = stocks[i] - min;
+            }
+
+            // calculate profit after i position and store into the right
+            // 3 1 3 1 4 2
+
+
+            int[] right = new int[stocks.Count];
+            min = stocks[stocks.Count -1];
+            for (int i = stocks.Count - 2 ; i >= 0; i--)
+            {
+                min = Math.Min(min, stocks[i]);
+                right[i] = stocks[i] - min; 
+            }
+
+            // define the max between two arrays
+            int maxProfit = 0;
+            for (int i = 0; i < stocks.Count; i++)
+            {
+                maxProfit = Math.Max(maxProfit, left[i] + right[i]);
+            }
+            
+            return maxProfit;
+        }
+
+        public static void RotateMatrixDiagonal(int[,] matrix)
+        {
+            /*
+            n * n - matrix		
+
+            1 2 3     1 4 7  -> 00 01 02
+            4 5 6     2 5 8     10 11 21
+            7 8 9     3 6 9     20 12 22    
+
+            if diagonal - i == j skip
+            else swap [i,j] = [j,i]
+            
+            index -> i < size - index
+            */
+
+            int rowSize = matrix.GetLength(0);
+            int colSize = matrix.GetLength(1);
+
+            for (int i = 0; i < rowSize; i++)
+            {
+                for(int j = i; j < colSize; j++)
+                {
+                    // diagonal
+                    if(i == j)
+                    {
+                        continue;
+                    }
+
+                    int temp = matrix[i, j];
+                    matrix[i, j] = matrix[j, i];
+                    matrix[j, i] = temp;
+                }          
+            }
         }
 
         /// <summary>

@@ -630,5 +630,28 @@ namespace Playground.Interview
             return min;
         }
 
+        /// <summary>
+        /// Given a sorted linked list, delete all duplicates such that each element appear only once.
+        /// </summary>
+        public LinkedList<T>.Node DeleteDuplicates(LinkedList<T>.Node head)
+        {
+            var node = head.Next;
+            var noDupNode = head;
+
+            while (node != null)
+            {
+                if (noDupNode.Value.CompareTo(node.Value) != 0)
+                {
+                    noDupNode.Next = node;
+                    noDupNode = noDupNode.Next;
+                }
+
+                node = node.Next;
+            }
+
+            noDupNode.Next = null;
+            return head;
+        }
+
     }
 }

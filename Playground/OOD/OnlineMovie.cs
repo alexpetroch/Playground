@@ -29,6 +29,10 @@ Booking
 using System;
 using System.Collections.Generic;
 
+
+
+#pragma warning disable CS0169, CS0649
+
 namespace Playground.OOD
 {
     class UseCases
@@ -36,19 +40,48 @@ namespace Playground.OOD
         void Start()
         {
             MovieSchedule schedule = new MovieSchedule();
+            CinemaManager cinemaManager = new CinemaManager();
+
+            // show the latest movies
             var movies = schedule.GetPlayingMovie();
 
-            // select movie and find cinemas
+            // show cinemas for selected movie
+            var cinemas = cinemaManager.GetCinemaToWatch(movies[0]);
+
+            // show times for particular ciname and movie
+            var moviesView = schedule.GetMoviesView(cinemas[0], movies[0]);
+
+            var seats = moviesView[0].GetAvailableSeats();
+
         }
     }
 
-
     class MovieSchedule
     {
-        // find movie view
+       
         public List<Movie> GetPlayingMovie ()
         {
             return new List<Movie>();
+        }
+
+        public List<MovieView> GetMoviesView(Cinema cinema, Movie movie)
+        {
+            return new List<MovieView>();
+        }
+    }
+
+    class CinemaManager
+    {
+        // list of cinemas
+        // find by location
+        public List<Cinema> GetCinemaByLocation()
+        {
+            return new List<Cinema>();
+        }
+
+        public List<Cinema> GetCinemaToWatch(Movie movie)
+        {
+            return new List<Cinema>();
         }
     }
 
@@ -62,28 +95,32 @@ namespace Playground.OOD
     {
         Cinema cinema;
         DateTime time;
-        List<OrderSeat> seats;
+        List<Seat> seats;
+
+        public List<Seat> GetAvailableSeats()
+        {
+            return new List<Seat>();
+        }
+    }
+
+    class MoviewTicket
+    {
+        int id;
+        Seat seat;
+        Movie movie;
+        Cinema cinema;
     }
 
     class Cinema
     {
         // get all views
-    }
-
-    class Hall
-    {
-        List<Seat> seats;
+        List<MovieView> activeMovieForTicketOrder;
     }
 
     class Seat
     {
         int row;
         int column;
-    }
-
-    class OrderSeat
-    {
-        public OrderSeat(Seat seat)  { }
         public SeatState state;
     }
 

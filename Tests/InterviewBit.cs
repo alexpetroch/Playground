@@ -106,6 +106,9 @@ namespace Tests
 
             ArrayQ.RotateMatrix(matrix2);
             ArrayQ.RotateMatrix(matrix1);
+
+            int[,] matrix3 = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+            ArrayQ.RotateMatrixDiagonal(matrix3);
         }
         [Test]
         public static void WordBreak()
@@ -634,5 +637,38 @@ namespace Tests
 
             Assert.That(bst.IsSumExist(22) == true);
         }
+
+        [Test]
+        public static void MaxPathSumInTree()
+        {
+            Tree<int> tree = new Tree<int>()
+            {
+                Root = new Tree<int>.Node(10)
+                {
+                    Left = new Tree<int>.Node(5)
+                    {
+                        Left = new Tree<int>.Node(2),
+                        Right = new Tree<int>.Node(7)
+                        {
+                            Left = new Tree<int>.Node(6)
+                        },
+                    },
+                    Right = new Tree<int>.Node(15)
+                    {
+                        Left = new Tree<int>.Node(12)
+                        {
+                            Right = new Tree<int>.Node(13)
+                        },
+                        Right = new Tree<int>.Node(17)
+                    }
+                }
+            };
+
+            DynamicQ dyn = new DynamicQ();
+            Assert.That(dyn.MaxPathSumInTree(tree.Root) == 68);
+        }
+
+
+
     }
 }

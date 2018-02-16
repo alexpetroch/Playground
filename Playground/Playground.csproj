@@ -64,6 +64,7 @@
     <Compile Include="Interview\StringQ.cs" />
     <Compile Include="Interview\TrieQ.cs" />
     <Compile Include="OOD\Airport.cs" />
+    <Compile Include="OOD\ATM.cs" />
     <Compile Include="OOD\CallCenter.cs" />
     <Compile Include="OOD\Chess.cs" />
     <Compile Include="OOD\FileSystem.cs" />

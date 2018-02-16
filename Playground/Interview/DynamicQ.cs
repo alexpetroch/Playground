@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Playground.DataStructure;
+using System;
 using System.Collections.Generic;
 
 namespace Playground.Interview
@@ -262,6 +263,39 @@ namespace Playground.Interview
 
             memo[n] = count;
             return count;
+        }
+
+        public int MaxPathSumInTree(Tree<int>.Node root)
+        {
+            if (root == null)
+            {
+                return 0;
+            }
+
+            int max = int.MinValue;
+            MaxPathSumInSubTree(root, ref max);            
+            return max;
+        }
+
+        private int MaxPathSumInSubTree(Tree<int>.Node node, ref int max)
+        {
+            if (node == null)
+            {
+                return 0;
+            }
+
+            int sumLeft = MaxPathSumInSubTree(node.Left, ref max);
+            int sumRight = MaxPathSumInSubTree(node.Right, ref max);
+
+            // Max with one child node
+            int maxParent = Math.Max(node.Value, node.Value + Math.Max(sumLeft, sumRight));
+
+            // Max Top represents the sum where the node is 'considered as it would be the root' 
+            int maxTop = Math.Max(maxParent, node.Value + sumLeft + sumRight);
+
+            // Store the Maximum Result.
+            max = Math.Max(max, maxTop);
+            return maxParent;
         }
     }
 }
