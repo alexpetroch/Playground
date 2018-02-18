@@ -62,6 +62,7 @@
     <Compile Include="Interview\MathQ.cs" />
     <Compile Include="Interview\StackQueueQ.cs" />
     <Compile Include="Interview\StringQ.cs" />
+    <Compile Include="Interview\TreeQ.cs" />
     <Compile Include="Interview\TrieQ.cs" />
     <Compile Include="OOD\Airport.cs" />
     <Compile Include="OOD\ATM.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="OOD\FileSystem.cs" />
     <Compile Include="OOD\FoodDelivery.cs" />
     <Compile Include="OOD\Furniture.cs" />
+    <Compile Include="OOD\Elevator.cs" />
     <Compile Include="OOD\OnlineMovie.cs" />
     <Compile Include="OOD\OnlineReaderSystem.cs" />
     <Compile Include="OOD\ParkLot.cs" />

@@ -143,33 +143,7 @@ namespace Playground.DataStructure
             StringBuilder sb = new StringBuilder();
             PostOrder(_root, sb);
             return sb.ToString();
-        }
-
-        public Node InvertTree(Node node)
-        {
-            /*
-            take left element  and set it as right element
-                 right element and set it as left element
-
-            repeat 
-            */
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            var left = node.Left;
-            var right = node.Right;
-
-            node.Right = left;
-            node.Left = right;
-
-            InvertTree(left);
-            InvertTree(right);
-
-            return node;
-        }
+        }        
 
         // Breath First Search
         public string LevelOrder()
@@ -197,67 +171,6 @@ namespace Playground.DataStructure
             return sb.ToString();
         }
 
-        public List<List<T>> ZigzagLevelOrder()
-        {
-            /*
-            have 2 stacks 
-            while both are not empty.
-            go through one stack and put to the other and visa varsa
-            */
-
-            System.Collections.Generic.Stack<Node> stackL = new System.Collections.Generic.Stack<Node>();
-            System.Collections.Generic.Stack<Node> stackR = new System.Collections.Generic.Stack<Node>();
-
-            stackL.Push(Root);
-
-            List<List<T>> res = new List<List<T>>();
-
-            while (stackL.Count > 0 || stackR.Count > 0)
-            {
-                List<T> level = new List<T>();
-                var stackFrom = stackL.Count > 0 ? stackL : stackR;
-                var stackTo = stackL.Count > 0 ? stackR : stackL;
-                bool left = stackFrom == stackL;
-
-                while (stackFrom.Count > 0)
-                {
-                    Node node = stackFrom.Pop();
-                    level.Add(node.Value);
-
-                    if(left)
-                    {
-                        if (node.Left != null)
-                        {
-                            stackTo.Push(node.Left);
-                        }
-
-                        if (node.Right != null)
-                        {
-                            stackTo.Push(node.Right);
-                        }
-                    }
-                    else
-                    {
-                        if (node.Right != null)
-                        {
-                            stackTo.Push(node.Right);
-                        }
-
-                        if (node.Left != null)
-                        {
-                            stackTo.Push(node.Left);
-                        }
-                    }
-
-                    
-                }
-
-                res.Add(level);
-            }
-
-            return res;
-        }
-
         private void PostOrder(Node node, StringBuilder sb)
         {
             if (node == null)
@@ -269,55 +182,7 @@ namespace Playground.DataStructure
             PostOrder(node.Right, sb);
             sb.Append(node.Value.ToString() + ",");
         }
-
-        public bool isSameTree(Node nodeA, Node nodeB)
-        {
-            if (nodeA == null && nodeB == null)
-            {
-                return true;
-            }
-
-            if ((nodeA == null && nodeB != null) || (nodeA != null && nodeB == null))
-            {
-                return false;
-            }
-
-            if (!nodeA.Value.Equals(nodeB.Value))
-            {
-                return false;
-            }
-
-            if (!isSameTree(nodeA.Left, nodeB.Left))
-            {
-                return false;
-            }
-
-            return isSameTree(nodeA.Right, nodeB.Right);
-        }
-
-        public bool isSymmetric()
-        {
-            return isSymmetricTree(Root.Left, Root.Right);
-
-        }
-
-        public bool isSymmetricTree(Node left, Node right)
-        {
-
-            if (left == null && right == null)
-            {
-                return true;
-            }
-
-            if (left != null && right != null && left.Value.CompareTo(right.Value) == 0 &&
-            isSymmetricTree(left.Left, right.Right) && isSymmetricTree(left.Right, right.Left))
-            {
-                return true;
-            }
-
-            return false;
-        }
-        
+ 
         public int MaxHeight()
         {
             return MaxHeight(Root);
@@ -408,26 +273,7 @@ namespace Playground.DataStructure
             }
 
             return HasPathSum(node.Right, sum - value);
-        }
-
-        public static Node SortedArrayToBST(List<T> list)
-        {
-            return SortedArrayToBST(list, 0, list.Count - 1);
-        }
-
-        private static Node SortedArrayToBST(List<T> list, int start, int end)
-        {
-            if (start > end)
-            {
-                return null;
-            }
-
-            int middle = start + (end - start) / 2;
-            Node node = new Node(list[middle]);
-            node.Left = SortedArrayToBST(list, start, middle - 1);
-            node.Right = SortedArrayToBST(list, middle + 1, end);
-            return node;
-        }
+        }       
 
         public static Node BuildTreeFromInAndPostOrder(List<T> inOrder, List<T> postOrder)
         {            
@@ -929,29 +775,8 @@ namespace Playground.DataStructure
 
             return nodeSeek;
             
-        }
-
-        public bool isValidBST()
-        {
-            return CheckValidBST(Root, _min, _max);
         }        
 
-        private bool CheckValidBST(Node node, T min, T max)
-        {
-            if (node == null)
-            {
-                return true;
-            }
-
-            if (node.Value.CompareTo(min) > 0 && node.Value.CompareTo(max) < 0 &&
-                CheckValidBST(node.Left, min, node.Value) &&
-                CheckValidBST(node.Right, node.Value, max))
-            {
-                return true;
-            }
-
-            return false;
-        }
         public T LeastCommonAncestor (T value1, T value2)
         {
 
@@ -1178,6 +1003,6 @@ namespace Playground.DataStructure
 
             // more than sum	
             return IsSumExist(left.Left, rigth, sum) || IsSumExist(left, rigth.Left, sum);
-        }
+        }       
     }
 }

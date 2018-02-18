@@ -762,5 +762,101 @@ namespace Playground.Interview
 
             return -1;
         }
+
+        /// <summary>
+        /// Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+        /// For example:  Given the array[-2, 1, -3, 4, -1, 2, 1, -5, 4],         
+        /// the contiguous subarray[4, -1, 2, 1] has the largest sum = 6.
+        /// </summary>
+        public int MaxSubArray(List<int> arr)
+        {
+            /*
+            declare max, maxSoFar;
+            iterate array
+                if value > maxSoFar
+                   update maxSoFar
+            update max
+            */
+
+            if (arr == null || arr.Count == 0)
+            {
+                return 0;
+            }
+
+            int max = arr[0];
+            int maxSoFar = arr[0];
+
+            for (int i = 1; i < arr.Count; i++)
+            {
+                maxSoFar = maxSoFar + arr[i];
+                if (maxSoFar < arr[i])
+                {
+                    maxSoFar = arr[i];
+                }
+
+                max = Math.Max(max, maxSoFar);
+            }
+
+            return max;
+        }
+
+        /// <summary>
+        /// Given an array nums, there is a sliding window of size k which is moving from the very left of the array to the very right. You can only see the k numbers in the window. 
+        /// Each time the sliding window moves right by one position.
+        /// </summary>
+        public static int[] MaxSlidingWindow(int[] nums, int k)
+        {
+            /*
+            Put values into sorted dictionary. Better way to use max heap
+            Maintain dictionary to the end: add/remove elements
+            */
+
+            if (nums == null || nums.Length == 0)
+            {
+                return nums;
+            }
+
+            SortedList<int, int> list = new SortedList<int, int>();
+            for (int i = 0; i < k; i++)
+            {
+                if (!list.ContainsKey(nums[i]))
+                {
+                    list.Add(nums[i], 0);
+                }
+
+                list[nums[i]]++;
+            }
+
+            if(nums.Length <= k)
+            {
+                return new int[] { list.Keys[list.Keys.Count - 1] };
+            }
+
+            int[] res = new int[nums.Length - k + 1];
+            int count = list.Keys.Count;
+            res[0] = list.Keys[count - 1];
+
+            for (int i = k; i < nums.Length; i++)
+            {
+                int removed = nums[i - k];
+                int added = nums[i];
+
+                list[removed]--;
+                if (list[removed] == 0)
+                {
+                    list.Remove(removed);
+                }
+
+                if (!list.ContainsKey(added))
+                {
+                    list.Add(added, 0);
+                }
+                list[added]++;
+
+                res[i - k + 1] = list.Keys[k - 1];
+            }
+
+            return res;
+        }
     }
 }

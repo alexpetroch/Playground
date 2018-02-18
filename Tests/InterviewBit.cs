@@ -290,7 +290,8 @@ namespace Tests
                 }
             };
 
-            var root = bst.InvertTree(bst.Root);
+            TreeQ treeQ = new TreeQ();
+            var root = treeQ.InvertTree(bst.Root);
         }
 
         [Test]
@@ -328,7 +329,7 @@ namespace Tests
         public void SortedArrayToBST()
         {
             List<int> list = new List<int>() { 1, 2 };
-            var root = Tree<int>.SortedArrayToBST(list);
+            var root = TreeQ.SortedArrayToBST(list);
         }
 
         [Test]
@@ -465,7 +466,8 @@ namespace Tests
                 }
             };
 
-            var res = tree.ZigzagLevelOrder();
+            var treeQ = new TreeQ();
+            var res = treeQ.ZigzagLevelOrder(tree.Root);
         }
 
         [Test]
@@ -668,7 +670,19 @@ namespace Tests
             Assert.That(dyn.MaxPathSumInTree(tree.Root) == 68);
         }
 
+        [Test]
+        public void GenUniqueBST()
+        {
+            TreeQ treeQ = new TreeQ();
+            var roots = treeQ.GenUniqueBST(3);
+            Assert.That(roots.Count == 5);
+        }
 
-
+        [Test]
+        public void MaxSlidingWindow()
+        {
+            int[] array1 = { 1,3,1,2,0,5 };
+            var res = ArrayQ.MaxSlidingWindow(array1, 3);
+        }        
     }
 }

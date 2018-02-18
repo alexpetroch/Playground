@@ -211,7 +211,9 @@ namespace Tests
                 }
             };
 
-            Assert.That(bst.isValidBST() == true);
+            TreeQ treeQ = new TreeQ();
+
+            Assert.That(treeQ.isValidBST(bst.Root) == true);
             Assert.That(bst.MaxHeight() == 4);
             
             Assert.That(bst.InOrder() == "2,5,6,7,10,12,13,15,17,");
@@ -244,7 +246,7 @@ namespace Tests
                 }
             };
 
-            Assert.That(notBST.isValidBST() == false);
+            Assert.That(treeQ.isValidBST(notBST.Root) == false);
         }
 
         [Test]

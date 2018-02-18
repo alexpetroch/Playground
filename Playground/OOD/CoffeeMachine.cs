@@ -17,7 +17,6 @@ namespace Playground.OOD
             return new List<Entity>();
         }
 
-
         public void StartTransaction(Entity entityToPrepare)
         {
             if (current != null)
