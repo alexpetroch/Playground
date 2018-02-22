@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Playground.Interview
@@ -506,8 +507,7 @@ namespace Playground.Interview
 
             k = k % f;
             GetPermutation(n - 1, k, values, res);
-        }     
-
+        }
        
         private int SetFactorialValues(int n)
         {
@@ -529,6 +529,67 @@ namespace Playground.Interview
 
             factorial[n] = n * SetFactorialValues(n-1);
             return factorial[n];
+        }
+
+        IList<IList<int>> comSum;
+
+        /// <summary>
+        /// Given a set of candidate numbers (C) (without duplicates) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+        /// The same repeated number may be chosen from C unlimited number of times.
+        /// Note: All numbers(including target) will be positive integers.
+        /// The solution set must not contain duplicate combinations.
+        /// For example, given candidate set[2, 3, 6, 7] and target 7, A solution set is:  [ [7], [2, 2, 3] ]
+        /// </summary>
+
+        public IList<IList<int>> CombinationSum(int[] numbers, int target)
+        {
+
+            comSum = new List<IList<int>>();
+            if (numbers == null || numbers.Length == 0)
+            {
+                return comSum;
+            }
+
+            /*
+            recursive approach 
+
+            start with first element
+            add into the list and repeat until sum == target
+            if more than return
+
+            2 3 - target 7
+
+            2 > more return, 3 more return 
+            2 3 > more return 
+            2 3	== 7 add to target
+                 2
+            2 3	
+            */
+
+
+            List<int> empty = new List<int>();
+            BuildCombinationSum(numbers, target, empty, 0);
+            return comSum;
+        }
+
+        private void BuildCombinationSum(int[] numbers, int target, List<int> sofar, int index)
+        {
+            if (target == 0)
+            {
+                comSum.Add(sofar);
+                return;
+            }
+            else if (target < 0)
+            {
+                return;
+            }
+
+            for (int i = index; i < numbers.Length; i++)
+            {
+                List<int> newList = new List<int>(sofar);
+                newList.Add(numbers[i]);
+                BuildCombinationSum(numbers, target - numbers[i], newList, i);
+            }
         }
     }
 }

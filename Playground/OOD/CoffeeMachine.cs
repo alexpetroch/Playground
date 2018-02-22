@@ -5,79 +5,150 @@ namespace Playground.OOD
 {
 #pragma warning disable CS0169, CS0649, CS0414
 
-    // Command design patter with Factory
+    // State pattern
+    // Ready state -> Select drink -> Add money -> Prepare Drink and return additional money -> Update machine resources -> Ready state
+    //             <-              <- Rollback   
 
-    public class CoffeeMachine
+    public interface IState
     {
-        Transaction current;
+        void SelectDrink();
+
+        void AddMoney(int count);
+
+        void ReturnMoney();
+    }
+
+    public interface ICoffeeMachine
+    {
+        void SetState(IState state);
+        IConsoleMenu ConsoleMenu { get;  }
+
+        Entity SelectedEntity { get; set; }
+    }
+
+    public interface IConsoleMenu
+    {
+        Entity ReadEntity();
+    }
+
+    public class CoffeeMachine : ICoffeeMachine
+    {
         MachineResources resources = new MachineResources();
+        IState _state = null;
+
+        private IConsoleMenu _consoleMenu = new SimpleConsoleMenu();
+
+        public CoffeeMachine()
+        {
+            _state = new ReadyState(this);
+        }
+
+        public IConsoleMenu ConsoleMenu
+        {
+            get
+            {
+                return _consoleMenu;
+            }
+        }
+
+        private Entity _selectedEntity;
+        public Entity SelectedEntity
+        {
+            get { return _selectedEntity; }
+            set { _selectedEntity = value; }
+        }
+
 
         public List<Entity> GetAvailableResources()
         {
             return new List<Entity>();
         }
 
-        public void StartTransaction(Entity entityToPrepare)
-        {
-            if (current != null)
-            {
-                throw new ApplicationException("Transaction in process");
-            }
-
-            current = new Transaction();
-            current.StateChanged += Current_StateChanged;       
-        }
-
-        private void Current_StateChanged(TransactionState state)
-        {
-            if(state == TransactionState.Cooking)
-            {
-                // do something
-            }
-            else if (state == TransactionState.Finish)
-            {
-                // update resources
-            }
-        }
-
-        public void Rollback()
-        {
-            if (current == null)
-            {
-                throw new ApplicationException("No transaction");
-            }
-
-            int returnMoney = current.CurrentMoney;
-        }
-    }
-
-    public class Transaction
-    {
-        public int CurrentMoney;
-        public Entity entryToPrepare;
-        TransactionState state;
-
-        public delegate void TransactionEventRaiser(TransactionState state);
-        public event TransactionEventRaiser StateChanged;
-
         public void AddMoney(int money)
         {
-            CurrentMoney += money;
-            if(CurrentMoney > entryToPrepare.GetPrice())
-            {                
-                state = TransactionState.Cooking;
-                StateChanged?.Invoke(state);
-            }
+            _state.AddMoney(money);
+        }
+
+        public void ReturnMoney()
+        {
+            _state.ReturnMoney();
+        }
+
+        public void SelectDrink()
+        {
+            SelectedEntity = ConsoleMenu.ReadEntity();
+            _state.SelectDrink();
+        }
+
+        public void SetState(IState state)
+        {
+            _state = state;
         }
     }
 
-    public enum TransactionState
+    public class SimpleConsoleMenu : IConsoleMenu
     {
-        Init,
-        MoneyInComplete,
-        Cooking,
-        Rollback,
-        Finish
+        public Entity ReadEntity()
+        {
+            // let use coffee just as default
+            return new Capuchino(new Coffee());
+        }
+    }
+
+    public class ReadyState : IState
+    {
+        private ICoffeeMachine _coffeeMachine;
+
+        public ReadyState(ICoffeeMachine coffeeMachine)
+        {
+            _coffeeMachine = coffeeMachine;
+        }
+
+        public void AddMoney(int count)
+        {
+            throw new InvalidOperationException("Please select drink");
+        }
+
+        public void ReturnMoney()
+        {
+            throw new InvalidOperationException("Please select drink");
+        }
+
+        public void SelectDrink()
+        {
+            _coffeeMachine.SetState(new AddMoneyState(_coffeeMachine));
+        }
+    }
+
+    public class AddMoneyState : IState
+    {
+        public ICoffeeMachine _coffeeMachine;
+
+        public AddMoneyState(ICoffeeMachine coffeeMachine)
+        {
+            _coffeeMachine = coffeeMachine;
+        }
+
+        private int _money = 0;
+
+        public void AddMoney(int count)
+        {
+            _money += count;
+            if(_money > _coffeeMachine.SelectedEntity.GetPrice())
+            {
+                _coffeeMachine.SetState(new ReadyState(_coffeeMachine));
+            }
+        }
+
+        public void ReturnMoney()
+        {
+            throw new InvalidOperationException("Please select drink");
+        }
+
+        public void SelectDrink()
+        {
+            throw new InvalidOperationException("Entity has been selected");
+        }
     }
 
     public class MachineResources
@@ -100,8 +171,7 @@ namespace Playground.OOD
             return true;
         }
     }
-
-
+    
     public interface Entity
     {
         double GetPrice();

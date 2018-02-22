@@ -5,6 +5,13 @@ using System.Collections.Generic;
 
 namespace Playground.OOD
 {
+
+    /*
+     Command pattern: Declare interface with execute method. Create concreate command and pass instances to real object
+     ICommand -> ConcreateCommand(someInstance) -> concreateCommand.execute() {someInsatnce.DoSomething ()}
+         
+    */
+
     public class CallCenter
     {
         public List<Employee> avalEmpl = new List<Employee>();

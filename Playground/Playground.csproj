@@ -83,6 +83,7 @@
     <Compile Include="SD\Drop.cs" />
     <Compile Include="SD\Face.cs" />
     <Compile Include="SD\Instag.cs" />
+    <Compile Include="SD\Netf.cs" />
     <Compile Include="SD\Pasterbin.cs" />
     <Compile Include="SD\ShortUrl.cs" />
     <Compile Include="SD\Tw.cs" />

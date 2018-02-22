@@ -2,6 +2,7 @@
 using Playground.DataStructure;
 using Playground.Interview;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tests
 {
@@ -683,6 +684,13 @@ namespace Tests
         {
             int[] array1 = { 1,3,1,2,0,5 };
             var res = ArrayQ.MaxSlidingWindow(array1, 3);
+        }
+
+        [Test]
+        public void LongestSubsequence()
+        {
+            int[] array1 = { 0, 8, 4, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15 };
+            Assert.That(ArrayQ.LongestSubsequence(array1.ToList()) == 6);
         }        
     }
 }

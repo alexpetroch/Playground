@@ -627,7 +627,7 @@ namespace Playground.Interview
             }
 
             return distinctIndex + 1;
-        }       
+        }
 
         /// <summary>
         ///  O(n) solution
@@ -854,6 +854,89 @@ namespace Playground.Interview
                 list[added]++;
 
                 res[i - k + 1] = list.Keys[k - 1];
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Find the longest increasing subsequence of a given sequence / array.
+        /// In other words, find a subsequence of array in which the subsequence’s elements are in strictly increasing order, and in which the subsequence is as long as possible.
+        /// This subsequence is not necessarily contiguous, or unique. In this case, we only care about the length of the longest increasing subsequence.
+        /// </summary>
+        public static int LongestSubsequence(List<int> arr)
+        {
+            /*
+            0 2
+            (!) longest increasing subsequence 
+
+              3, 11, 7, 15
+              1  2
+
+              1  1   1   1	
+              1  2   1	 1 
+
+              7 i = 3 [1, 2, 1]
+              1  2  2 
+
+            */
+
+            if (arr == null || arr.Count == 0) return 0;
+
+            int[] max = new int[arr.Count];
+            for (int i = 0; i < max.Length; i++)
+            {
+                max[i] = 1;
+            }
+
+            for (int i = 1; i < arr.Count; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    if (arr[j] < arr[i] && max[j] + 1 > max[i])
+                    {
+                        max[i] = max[j] + 1;
+                    }
+                }
+            }
+
+            int maxValue = int.MinValue;
+            for (int i = 0; i < max.Length; i++)
+            {
+                maxValue = Math.Max(maxValue, max[i]);
+            }
+
+            return maxValue;
+        }
+
+        /// <summary>
+        /// Given an array of integers, sort the array into a wave like array and return it, 
+        /// In other words, arrange the elements into a sequence such that a1 >= a2 <= a3 >= a4 <= a5
+        /// Example Given[1, 2, 3, 4] One possible answer : [2, 1, 4, 3]
+        /// </summary>
+        public List<int> Wave(List<int> A)
+        {
+            A.Sort();
+            List<int> res = new List<int>();
+
+            /*
+            swap to elements
+            0 1 then 
+            2 3 and so on
+            */
+
+            for (int i = 0, j = 1; j < A.Count; i += 2, j += 2)
+            {
+                int first = A[j];
+                int second = A[i];
+
+                res.Add(first);
+                res.Add(second);
+            }
+
+            if (A.Count % 2 == 1)
+            {
+                res.Add(A[A.Count - 1]);
             }
 
             return res;
