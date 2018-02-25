@@ -941,5 +941,67 @@ namespace Playground.Interview
 
             return res;
         }
+
+        /// <summary>
+        /// Count all the possible paths from bottom left to top right of NxN grid
+        /// with the constraints that y should be more or equal to x
+        /// </summary>
+
+        public static int NumOfPathsToDest(int n)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+
+            int[,] grid = new int[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                grid[0, i] = 1;
+            }
+
+            for (int x = 1; x < n; x++)
+            {
+                for (int y = x; y < n; y++)
+                {
+                    grid[x, y] = grid[x - 1, y] + grid[x, y - 1];
+                }
+            }
+
+            return grid[n - 1, n - 1];
+        }
+
+        public static int NumOfPathsToDest2(int n)
+        {
+            if (n == 0)
+            {
+                return 0;
+            }
+
+            int[,] grid = new int[n, n];
+            CalcululateNumOfPaths(n - 1, n - 1, grid);
+            return grid[n - 1, n - 1];
+        }
+
+        public static int CalcululateNumOfPaths(int x, int y, int[,] grid)
+        {
+            if(x < 0 || y < 0 || x < y)
+            {
+                return 0;
+            }
+            else if (x == 0 && y == 0)
+            {
+                grid[0, 0] = 1;
+                return 1;
+            }
+            else if (grid[x, y] > 0)
+            {
+                return grid[x, y];
+            }
+
+
+            grid[x, y] = CalcululateNumOfPaths(x - 1, y, grid) + CalcululateNumOfPaths(x, y - 1, grid);
+            return grid[x, y];
+        }
     }
 }

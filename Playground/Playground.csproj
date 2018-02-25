@@ -72,6 +72,7 @@
     <Compile Include="OOD\FoodDelivery.cs" />
     <Compile Include="OOD\Furniture.cs" />
     <Compile Include="OOD\Elevator.cs" />
+    <Compile Include="OOD\Guitar.cs" />
     <Compile Include="OOD\OnlineMovie.cs" />
     <Compile Include="OOD\OnlineReaderSystem.cs" />
     <Compile Include="OOD\ParkLot.cs" />
