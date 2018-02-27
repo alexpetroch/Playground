@@ -60,6 +60,7 @@
     <Compile Include="Interview\IntervalsQ.cs" />
     <Compile Include="Interview\LinkedListQ.cs" />
     <Compile Include="Interview\MathQ.cs" />
+    <Compile Include="Interview\Median.cs" />
     <Compile Include="Interview\StackQueueQ.cs" />
     <Compile Include="Interview\StringQ.cs" />
     <Compile Include="Interview\TreeQ.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="SD\Instag.cs" />
     <Compile Include="SD\Netf.cs" />
     <Compile Include="SD\Pasterbin.cs" />
+    <Compile Include="SD\Recommend.cs" />
     <Compile Include="SD\ShortUrl.cs" />
     <Compile Include="SD\Tw.cs" />
   </ItemGroup>

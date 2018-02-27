@@ -1003,5 +1003,88 @@ namespace Playground.Interview
             grid[x, y] = CalcululateNumOfPaths(x - 1, y, grid) + CalcululateNumOfPaths(x, y - 1, grid);
             return grid[x, y];
         }
+
+        /// <summary>
+        /// Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+        /// For example, Given[3, 2, 1, 5, 6, 4] and k = 2, return 5.
+        /// </summary>
+        public int FindKthLargest(int[] nums, int k)
+        {
+            /*
+              QuickSort partition problem
+              Make partition -> find k from the beginning
+            */
+
+            // make k - 0 - based index 
+            Shuffle(nums);
+            return FindKthLargest(nums, k, 0, nums.Length - 1);
+        }
+
+        private void Shuffle(int[] arr)
+        {
+            Random random = new Random();
+            for (int ind = 0; ind < arr.Length; ind++)
+            {
+                int randomIndex = random.Next(ind + 1);
+                Swap(arr, ind, randomIndex);
+            }
+        }
+
+        private int FindKthLargest(int[] nums, int k, int start, int end)
+        {
+            if (start > end)
+            {
+                return -1;
+            }
+
+            int partition = Partition(nums, start, end);
+            int indexLargest = nums.Length - k;
+
+
+            if (partition == indexLargest)
+            {
+                return nums[partition];
+            }
+            else if (indexLargest > partition)
+            {
+                return FindKthLargest(nums, k, partition + 1, end);
+            }
+
+            return FindKthLargest(nums, k, start, partition - 1);
+        }
+
+        private int Partition(int[] nums, int start, int end)
+        {
+            if (start > end)
+            {
+                return -1;
+            }
+
+            int partValue = nums[end];
+
+            int i = end - 1;
+            int j = end - 1;
+
+            while (i >= start)
+            {
+                if (partValue <= nums[i])
+                {
+                    Swap(nums, i, j);
+                    j--;
+                }
+
+                i--;
+            }
+
+            Swap(nums, j + 1, end);
+            return j + 1;
+        }
+
+        private void Swap(int[] nums, int index1, int index2)
+        {
+            int temp = nums[index1];
+            nums[index1] = nums[index2];
+            nums[index2] = temp;
+        }
     }
 }
