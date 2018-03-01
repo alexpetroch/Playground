@@ -49,6 +49,7 @@
     <Compile Include="Codility.cs" />
     <Compile Include="DataStructures.cs" />
     <Compile Include="InterviewBit.cs" />
+    <Compile Include="Leet.cs" />
     <Compile Include="OOD.cs" />
     <Compile Include="Parallel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
