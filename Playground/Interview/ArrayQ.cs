@@ -1003,5 +1003,33 @@ namespace Playground.Interview
             grid[x, y] = CalcululateNumOfPaths(x - 1, y, grid) + CalcululateNumOfPaths(x, y - 1, grid);
             return grid[x, y];
         }
+
+        /// <summary>
+        /// Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), prove that at least one duplicate number must exist. 
+        /// Assume that there is only one duplicate number, find the duplicate one.
+        /// </summary>
+        public static int FindDuplicate (int[] array)
+        {
+            if (array.Length > 1)
+            {
+                int slow = array[0];
+                int fast = array[array[0]];
+                while (slow != fast)
+                {
+                    slow = array[slow];
+                    fast = array[array[fast]];
+                }
+
+                fast = 0;
+                while (fast != slow)
+                {
+                    fast = array[fast];
+                    slow = array[slow];
+                }
+
+                return slow;
+            }
+            return -1;
+        }
     }
 }
