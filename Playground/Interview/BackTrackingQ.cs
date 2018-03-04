@@ -196,7 +196,7 @@ namespace Playground.Interview
             return permuteRes;
         }
 
-        private static  void Permutate(List<int> list, int pointer)
+        private static void Permutate(List<int> list, int pointer)
         {
             if (pointer == list.Count)
             {
@@ -243,7 +243,7 @@ namespace Playground.Interview
 
                 var permForRest = Permutate2(copy);
 
-                for(int j = 0; j < permForRest.Count; j++)
+                for (int j = 0; j < permForRest.Count; j++)
                 {
                     permForRest[j].Insert(0, fixedElem);
                     res.Add(permForRest[j]);
@@ -269,7 +269,7 @@ namespace Playground.Interview
 
         private void Partition(string orig, List<string> cur, int index)
         {
-            if(index == orig.Length)
+            if (index == orig.Length)
             {
                 parts.Add(cur);
                 return;
@@ -278,7 +278,7 @@ namespace Playground.Interview
             for (int i = index + 1; i <= orig.Length; i++)
             {
                 string substring = orig.Substring(index, i - index);
-                if(IsPalindrome(substring))
+                if (IsPalindrome(substring))
                 {
                     List<string> newOne = new List<string>(cur);
                     newOne.Add(substring);
@@ -419,12 +419,12 @@ namespace Playground.Interview
         }
 
         List<string> perm = new List<string>();
-        public List<string> GeneratePermutation (int n)
+        public List<string> GeneratePermutation(int n)
         {
             List<int> values = new List<int>();
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
-                values.Add(i+1);
+                values.Add(i + 1);
             }
 
             return Generate(values);
@@ -432,7 +432,7 @@ namespace Playground.Interview
 
         private List<string> Generate(List<int> values)
         {
-            if(values.Count == 2)
+            if (values.Count == 2)
             {
                 List<string> answ = new List<string>();
                 answ.Add(values[0].ToString() + values[1].ToString());
@@ -450,7 +450,7 @@ namespace Playground.Interview
 
                 List<string> perm = Generate(remain);
 
-                for(int j = 0; j < perm.Count; j++)
+                for (int j = 0; j < perm.Count; j++)
                 {
                     permCurrent.Add(cur.ToString() + perm[j]);
                 }
@@ -467,7 +467,7 @@ namespace Playground.Interview
 
         public string GetPermutation(int n, int k)
         {
-            factorial = new int[n+1];
+            factorial = new int[n + 1];
             SetFactorialValues(n);
 
             if (k == 0 || k > factorial[n])
@@ -488,7 +488,6 @@ namespace Playground.Interview
             return res.ToString();
         }
 
-
         private void GetPermutation(int n, int k, List<int> values, StringBuilder res)
         {
             if (n == 1)
@@ -508,26 +507,26 @@ namespace Playground.Interview
             k = k % f;
             GetPermutation(n - 1, k, values, res);
         }
-       
+
         private int SetFactorialValues(int n)
         {
-           if (n > 12)
-           {
-               return int.MaxValue;
-           }
+            if (n > 12)
+            {
+                return int.MaxValue;
+            }
 
-           if(factorial[n] != 0)
-           {
-               return factorial[n];
-           }
-            
-            if(n < 2)
+            if (factorial[n] != 0)
+            {
+                return factorial[n];
+            }
+
+            if (n < 2)
             {
                 factorial[1] = 1;
                 return 1;
             }
 
-            factorial[n] = n * SetFactorialValues(n-1);
+            factorial[n] = n * SetFactorialValues(n - 1);
             return factorial[n];
         }
 
@@ -591,5 +590,186 @@ namespace Playground.Interview
                 BuildCombinationSum(numbers, target - numbers[i], newList, i);
             }
         }
+
+        IList<IList<string>> moves = new List<IList<string>>();
+        public IList<IList<string>> FindLadders (string startWord, string endWord, IList<string> wordList)
+        {
+            /*
+              start and end the same length
+              we need to transform from start to end
+   
+              hit -> cog 
+              if the same add to res list
+              if not find the list with only one transform 
+                  -> hot -> add and remove from wordList
+                         if no words returns  
+                         else repeat procedure
+			 
+              put init word to the list
+              */
+
+           List<string> init = new List<string>();
+           init.Add(startWord);
+           FindWords(startWord, endWord, wordList, init);
+           return moves;
+         }
+
+        public void FindWords(string startWord, string endWord, IList<string> wordList, List<string> cur)
+        {
+            if (startWord.Equals(endWord))
+            {
+                if (moves.Count > 0 && moves[0].Count > cur.Count)
+                {
+                    moves.Clear();
+                }
+
+                if (moves.Count == 0 || moves[0].Count == cur.Count)
+                {
+                    moves.Add(cur);
+                }
+
+                return;
+            }
+
+            // Find the list with only one diff
+            var list = FindOnlyOneDiff(startWord, wordList);
+            for (int i = 0; i < list.Count; i++)
+            {
+                List<string> newCur = new List<string>(cur);
+                newCur.Add(list[i]);
+
+                List<string> newWordList = new List<string>(wordList);
+                newWordList.Remove(list[i]);
+
+                FindWords(list[i], endWord, newWordList, newCur);
+            }
+        }
+
+        public List<string> FindOnlyOneDiff(string startWord, IList<string> wordList)
+        {
+            List<string> list = new List<string>();
+            int[] symbols = new int[26];
+            char[] startWordChars = startWord.ToCharArray();
+
+            for (int i = 0; i < wordList.Count; i++)
+            {
+                char[] cur = wordList[i].ToCharArray();
+                int diff = 0;
+                for (int j = 0; j < cur.Length; j++)
+                {
+                    if(cur[j] != startWordChars[j])
+                    {
+                        diff++;
+                    }
+
+                    if(diff > 1)
+                    {
+                        break;
+                    }
+                }
+
+                if (diff == 1)
+                {
+                    list.Add(wordList[i]);
+                }
+            }
+
+            return list;
+        }
+
+        class WordNode
+        {
+            public String word;
+            public int numSteps;
+            public WordNode pre;
+
+            public WordNode(String word, int numSteps, WordNode pre)
+            {
+                this.word = word;
+                this.numSteps = numSteps;
+                this.pre = pre;
+            }
+        }
+
+        public IList<IList<String>> FindLadders2(string startWord, string endWord, IList<string> wordList)
+        {
+            Queue<WordNode> queue = new Queue<WordNode>();
+            queue.Enqueue(new WordNode(startWord, 1, null));
+
+            int minStep = 0;
+
+            HashSet<string> visited = new HashSet<string>();
+            HashSet<string> unvisited = new HashSet<string>();
+            
+            foreach(string str in wordList)
+            {
+                unvisited.Add(str);
+            }
+
+            int preNumSteps = 0;
+
+            while (queue.Count > 0)
+            {
+                WordNode top = queue.Dequeue();
+                string word = top.word;
+                int currNumSteps = top.numSteps;
+
+                if (word.Equals(endWord))
+                {
+                    if (minStep == 0)
+                    {
+                        minStep = top.numSteps;
+                    }
+
+                    if (top.numSteps == minStep && minStep != 0)
+                    {
+                        List<string> path = new List<string>();
+                        path.Add(top.word);
+                        while (top.pre != null)
+                        {
+                            path.Insert(0, top.pre.word);
+                            top = top.pre;
+                        }
+                        moves.Add(path);
+                        continue;
+                    }
+                }
+
+                if (preNumSteps < currNumSteps)
+                {
+                    foreach (string str in visited)
+                    {                        
+                        unvisited.Remove(str);
+                    }
+                }
+
+                preNumSteps = currNumSteps;
+
+                char[] arr = word.ToCharArray();
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    for (char c = 'a'; c <= 'z'; c++)
+                    {
+                        char temp = arr[i];
+                        if (arr[i] != c)
+                        {
+                            arr[i] = c;
+                        }
+
+                        String newWord = new String(arr);
+                        if (unvisited.Contains(newWord))
+                        {
+                            queue.Enqueue(new WordNode(newWord, top.numSteps + 1, top));
+                            visited.Add(newWord);
+                        }
+
+                        arr[i] = temp;
+                    }
+                }
+            }
+
+            return moves;
+        }
     }
+
 }

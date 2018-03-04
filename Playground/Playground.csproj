@@ -90,6 +90,7 @@
     <Compile Include="SD\Recommend.cs" />
     <Compile Include="SD\ShortUrl.cs" />
     <Compile Include="SD\Tw.cs" />
+    <Compile Include="SD\WebCr.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

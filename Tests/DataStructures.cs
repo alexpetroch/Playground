@@ -307,6 +307,14 @@ namespace Tests
 
             cache.Set(6, 14);
             Assert.That(cache.Get(5) == -1);
+
+            LRUCache cache2 = new LRUCache(2);
+            cache2.Put(2, 1);
+            cache2.Put(1, 1);
+            cache2.Get(2);
+            cache2.Put(4, 1);
+            cache2.Get(1);
+            cache2.Get(2);
         }
 
         [Test]
