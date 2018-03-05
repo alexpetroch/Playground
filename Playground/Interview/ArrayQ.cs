@@ -1093,6 +1093,7 @@ namespace Playground.Interview
         /// </summary>
         public static int FindDuplicate (int[] array)
         {
+            //{ 4, 2, 1, 4, 3, 5 };
             if (array.Length > 1)
             {
                 int slow = array[0];

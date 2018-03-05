@@ -81,31 +81,28 @@ namespace Playground.Interview
         {
             intervals.Sort(new IntervalComparison()); 
 
-            // Stable -> Merge
+            SortedSet<int> sorted = new SortedSet<int>();
+            sorted.Add(intervals[0].EndTime);
+
+            // keep min element
+            // [[1,8],[6,20],[9,16],[13,17]]
+            // if min is more than start time than add element
+            // else 
+
             int minRooms = 1;
-            int minSoFar = 1;
-            int minEnd = intervals[0].EndTime;
+
             for (int i = 1; i < intervals.Count; i++)
             {
-                if (intervals[i - 1].EndTime > intervals[i].StartTime)
-                {
-                    if(minSoFar == 1)
-                    {
-                        minSoFar++;
-                        minEnd = Math.Min(intervals[i - 1].EndTime, intervals[i].EndTime);
-                    }
-                    else if (minEnd > intervals[i].StartTime)
-                    {
-                        minSoFar++;
-                        minEnd = Math.Min(minEnd, intervals[i].EndTime);
-                    }
-                    minRooms = Math.Max(minSoFar, minRooms);
-                }
-                else
-                {
-                    minEnd = intervals[i].EndTime;
-                    minSoFar = 1;
-                }
+               if(sorted.Min > intervals[i].StartTime)
+               {
+                  minRooms++;                  
+               }
+               else
+               {
+                   sorted.Remove(sorted.Min);
+               }
+
+               sorted.Add(intervals[i].EndTime);
             }
 
             return minRooms;
