@@ -591,5 +591,66 @@ namespace Playground.Interview
                 BuildCombinationSum(numbers, target - numbers[i], newList, i);
             }
         }
+
+        List<string> letters = new List<string>();
+        public IList<string> LetterCombinations(string digits)
+        {
+            letters.Clear();
+            CombineLetter(digits, 0, string.Empty);
+            return letters;
+        }
+
+        private void CombineLetter(string digits, int index, string cur)
+        {
+            if (index >= digits.Length)
+            {
+                letters.Add(cur);
+                return;
+            }
+
+            List<string> combinations = GetDigitCombinations(digits[index]);
+            if(combinations.Count > 0)
+            {
+                for (int j = 0; j < combinations.Count; j++)
+                {
+                    CombineLetter(digits, index + 1, cur + combinations[j]);
+                }
+            }
+            else
+            {
+                CombineLetter(digits, index + 1, cur);
+            }      
+
+        }
+
+        private List<string> GetDigitCombinations(char digit)
+        {
+            if (digit == ' ')
+            {
+                return new List<string>();
+            }
+
+            switch (digit)
+            {
+                case '2':
+                    return new List<string>(new string[] { "a", "b", "c" });
+                case '3':
+                    return new List<string>(new string[] { "d", "e", "f" });
+                case '4':
+                    return new List<string>(new string[] { "g", "h", "i" });
+                case '5':
+                    return new List<string>(new string[] { "j", "k", "l" });
+                case '6':
+                    return new List<string>(new string[] { "m", "n", "o" });
+                case '7':
+                    return new List<string>(new string[] { "p", "q", "r", "s" });
+                case '8':
+                    return new List<string>(new string[] { "t", "u", "v" });
+                case '9':
+                    return new List<string>(new string[] { "w", "x", "y", "z" });
+            }
+
+            return new List<string>();
+        }
     }
 }

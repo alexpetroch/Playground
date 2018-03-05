@@ -297,5 +297,32 @@ namespace Playground.Interview
             max = Math.Max(max, maxTop);
             return maxParent;
         }
+
+        /// <summary>
+        /// You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed,
+        /// the only constraint stopping you from robbing each of them is that adjacent houses have security system connected and 
+        /// it will automatically contact the police if two adjacent houses were broken into on the same night.
+        /// Given a list of non-negative integers representing the amount of money of each house, determine the maximum amount of money you can rob tonight without alerting the police.
+        /// </summary>
+        public static int Rob(int[] nums)
+        {
+
+            if (nums == null || nums.Length == 0)
+            {
+                return 0;
+            }
+
+            int n = nums.Length;
+            int prevNo = 0;
+            int prevYes = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int temp = prevNo;
+                prevNo = System.Math.Max(prevNo, prevYes);
+                prevYes = nums[i] + temp;
+            }
+
+            return System.Math.Max(prevNo, prevYes);
+        }
     }
 }

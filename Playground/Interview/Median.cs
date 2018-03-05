@@ -22,6 +22,24 @@ namespace Playground.Interview
 
         public void AddNum(int num)
         {
+            AddValue(maxHeap, num, ref maxHeapSize);
+
+            int maxHeapValue = maxHeap.Keys.First();
+            RemoveValue(maxHeap, maxHeapValue, ref maxHeapSize);
+
+            AddValue(minHeap, maxHeapValue, ref minHeapSize);
+
+            if (maxHeapSize < minHeapSize)
+            {
+                int minHeapValue = minHeap.Keys.First();
+                RemoveValue(minHeap, minHeapValue, ref minHeapSize);
+
+                AddValue(maxHeap, minHeapValue, ref maxHeapSize);
+            }
+        }
+
+        public void AddNum2(int num)
+        {
             /*
             count size of heaps. if the same
             get max from maxHeap
@@ -45,8 +63,7 @@ namespace Playground.Interview
                 // corner case
                 if (maxHeapSize == 0)
                 {
-                    maxHeap.Add(num, 1);
-                    maxHeapSize++;
+                    AddValue(maxHeap, num, ref maxHeapSize);
                     return;
                 }
 
@@ -56,22 +73,11 @@ namespace Playground.Interview
                 // in the middle
                 if ((num > maxHeapValue && num < minHeapValue) || num <= maxHeapValue)
                 {
-                    if (!maxHeap.ContainsKey(num))
-                    {
-                        maxHeap.Add(num, 0);
-                    }
-
-                    maxHeap[num]++;
-                    maxHeapSize++;
+                    AddValue(maxHeap, num, ref maxHeapSize);
                 }
                 else /*(num >= minHeapValue)*/
                 {
-                    if (!minHeap.ContainsKey(num))
-                    {
-                        minHeap.Add(num, 0);
-                    }
-                    minHeap[num]++;
-                    minHeapSize++;
+                    AddValue(minHeap, num, ref minHeapSize);
                 }
             }
             else
@@ -98,64 +104,77 @@ namespace Playground.Interview
                 maxHeapValue = maxHeap.Keys.First();
 
                 // in the middle
-                if ((num > maxHeapValue && num < minHeapValue) || num <= maxHeapValue)
+                if (num > maxHeapValue && num < minHeapValue)
                 {
                     if (maxHeapSize > minHeapSize)
                     {
-                        maxHeap[maxHeapValue]--;
-                        if (maxHeap[maxHeapValue] == 0)
-                        {
-                            maxHeap.Remove(maxHeapValue);
-                        }
-
+                        AddValue(minHeap, num, ref minHeapSize);
+                    }
+                    else
+                    {
+                        AddValue(maxHeap, num, ref maxHeapSize);
+                    }
+                }
+                else if (num <= maxHeapValue)
+                {
+                    if (maxHeapSize > minHeapSize)
+                    {
+                        Rebalance(maxHeap, minHeap, maxHeapValue);
                         maxHeapSize--;
-
-                        if (!minHeap.ContainsKey(maxHeapValue))
-                        {
-                            minHeap.Add(maxHeapValue, 0);
-                        }
-
-                        minHeap[maxHeapValue]++;
                         minHeapSize++;
                     }
 
-                    if (!maxHeap.ContainsKey(num))
-                    {
-                        maxHeap.Add(num, 0);
-                    }
-
-                    maxHeap[num]++;
-                    maxHeapSize++;
+                    AddValue(maxHeap, num, ref maxHeapSize);
                 }
                 else /*(num >= minHeapValue)*/
                 {
                     if (minHeapSize > maxHeapSize)
                     {
-                        minHeap[minHeapValue]--;
-                        if (minHeap[minHeapValue] == 0)
-                        {
-                            minHeap.Remove(minHeapValue);
-                        }
-
+                        Rebalance(minHeap, maxHeap, minHeapValue);
                         minHeapSize--;
-
-                        if (!maxHeap.ContainsKey(minHeapValue))
-                        {
-                            maxHeap.Add(minHeapValue, 0);
-                        }
-
-                        maxHeap[minHeapValue]++;
                         maxHeapSize++;
                     }
 
-                    if (!minHeap.ContainsKey(num))
-                    {
-                        minHeap.Add(num, 0);
-                    }
-                    minHeap[num]++;
-                    minHeapSize++;
+                    AddValue(minHeap, num, ref minHeapSize);
                 }
             }
+        }
+
+        private void Rebalance(SortedDictionary<int, int> from, SortedDictionary<int, int> to, int value)
+        {
+            from[value]--;
+            if (from[value] == 0)
+            {
+                from.Remove(value);
+            }
+
+            if (!to.ContainsKey(value))
+            {
+                to.Add(value, 0);
+            }
+
+            to[value]++;
+        }
+
+        private void AddValue(SortedDictionary<int, int> to, int value, ref int size)
+        {
+            if (!to.ContainsKey(value))
+            {
+                to.Add(value, 0);
+            }
+            to[value]++;
+            size++;
+        }
+
+        private void RemoveValue(SortedDictionary<int, int> from, int value, ref int size)
+        {
+            from[value]--;
+            if (from[value] == 0)
+            {
+                from.Remove(value);
+            }
+
+            size--;
         }
 
         public double FindMedian()

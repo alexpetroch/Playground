@@ -87,9 +87,11 @@
     <Compile Include="SD\Instag.cs" />
     <Compile Include="SD\Netf.cs" />
     <Compile Include="SD\Pasterbin.cs" />
+    <Compile Include="SD\Rate.cs" />
     <Compile Include="SD\Recommend.cs" />
     <Compile Include="SD\ShortUrl.cs" />
     <Compile Include="SD\Tw.cs" />
+    <Compile Include="SD\TwSearch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

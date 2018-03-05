@@ -120,6 +120,84 @@ namespace Playground.Interview
                 visited.Add(node);
             }
             return 1;
-        }       
-    }    
+        }
+
+        class Point
+        {
+            public Point(int intI, int intJ)
+            {
+                i = intI;
+                j = intJ;
+            }
+
+            public int i;
+            public int j;
+        }
+
+
+        public int NumIslands(char[,] grid)
+        {
+            int col = grid.GetLength(0);
+            int row = grid.GetLength(1);
+
+            bool[,] visited = new bool[col, row];
+            int islands = 0;
+
+            for (int i = 0; i < col; i++)
+            {
+                for (int j = 0; j < row; j++)
+                {
+                    if (!visited[i, j])
+                    {
+                        if (grid[i, j] == '0')
+                        {
+                            visited[i, j] = true;
+                            continue;
+                        }
+
+                        VisitIsland(grid, visited, i, j);
+                        islands++;
+                    }
+                }
+            }
+
+            return islands++;
+        }
+
+        public void VisitIsland(char[,] grid, bool[,] visited, int i, int j)
+        {
+            int col = grid.GetLength(0);
+            int row = grid.GetLength(1);
+
+            Queue<Point> queue = new Queue<Point>();
+            queue.Enqueue(new Point(i, j));
+
+            while (queue.Count > 0)
+            {
+                Point point = queue.Dequeue();
+                visited[point.i, point.j] = true;
+
+                if (point.i + 1 < col && grid[point.i + 1, point.j] == '1' && !visited[point.i + 1, point.j])
+                {
+                    queue.Enqueue(new Point(point.i + 1, point.j));
+                }
+
+                if (point.j + 1 < row && grid[point.i, point.j + 1] == '1' && !visited[point.i, point.j + 1])
+                {
+                    queue.Enqueue(new Point(point.i, point.j + 1));
+                }
+
+                if (point.i - 1 >= 0 && grid[point.i - 1, point.j] == '1' && !visited[point.i - 1, point.j])
+                {
+                    queue.Enqueue(new Point(point.i - 1, point.j));
+                }
+
+                if (point.j - 1 >= 0 && grid[point.i, point.j - 1] == '1' && !visited[point.i, point.j - 1])
+                {
+                    queue.Enqueue(new Point(point.i, point.j - 1));
+                }
+            }
+        }
+
+    }
 }

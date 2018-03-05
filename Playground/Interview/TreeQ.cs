@@ -263,5 +263,64 @@ namespace Playground.Interview
 
             return targetNode != null ? targetNode.Value : -1;
         }
+
+        public class TreeNodeEx
+        {
+            public TreeNodeEx(Tree<int>.Node node, int level)
+            {
+                Node = node;
+                Level = level;
+            }
+
+            public Tree<int>.Node Node;
+            public int Level;
+        }
+
+        public IList<IList<int>> LevelOrder(Tree<int>.Node root)
+        {
+            if (root == null)
+            {
+                return null;
+            }
+
+            System.Collections.Generic.Queue<TreeNodeEx> queue = new System.Collections.Generic.Queue<TreeNodeEx>();
+            queue.Enqueue(new TreeNodeEx(root, 0));
+
+            IList<IList<int>> res = new List<IList<int>>();
+            List<int> empty = new List<int>();
+            res.Add(empty);
+
+            while (queue.Count > 0)
+            {
+                TreeNodeEx nodeEx = queue.Dequeue();
+                int level = nodeEx.Level;
+                var node = nodeEx.Node;
+
+
+                if (node.Left != null)
+                {
+                    queue.Enqueue(new TreeNodeEx(node.Left, level + 1));
+                }
+
+                if (node.Right != null)
+                {
+                    queue.Enqueue(new TreeNodeEx(node.Right, level + 1));
+                }
+
+                if (level > res.Count - 1)
+                {
+                    List<int> list = new List<int>();
+                    list.Add(node.Value);
+                    res.Add(list);
+                }
+                else
+                {
+                    IList<int> exist = res[level];
+                    exist.Add(node.Value);
+                }
+            }
+
+            return res;
+        }
     }
 }
