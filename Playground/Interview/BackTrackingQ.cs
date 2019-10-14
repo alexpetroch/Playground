@@ -770,8 +770,6 @@ namespace Playground.Interview
 
             return moves;
         }
-    }
-
 
         List<string> letters = new List<string>();
         public IList<string> LetterCombinations(string digits)
