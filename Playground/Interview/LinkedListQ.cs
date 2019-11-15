@@ -653,5 +653,38 @@ namespace Playground.Interview
             return head;
         }
 
+        /// <summary>
+        /// Given 1->2->3->4, you should return the list as 2->1->4->3.
+        /// </summary>
+        public void SwapNodesInPairs()
+        {
+            if (Head == null || Head.Next == null)
+                return;
+
+            LinkedList<T>.Node prev = null;
+            LinkedList<T>.Node cur = Head;
+            LinkedList<T>.Node next = Head.Next;
+
+            while (cur != null && next != null)
+            {
+                var nextNext = next.Next;
+                next.Next = cur;
+
+                if (prev != null)
+                {
+                    prev.Next = next;
+                }
+                else //first node
+                {
+                    _head = next;
+                }
+
+                prev = cur;
+                cur = nextNext;
+                next = nextNext != null && nextNext.Next != null ? nextNext.Next : null;
+            }
+
+            prev.Next = cur != null ? cur : null;
+        }
     }
 }
