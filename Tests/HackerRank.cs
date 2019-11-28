@@ -19,5 +19,18 @@ namespace Tests
         {
             Assert.That(MathQ.PowerSum(100, 2) == 2);
         }
+
+        [Test]
+        public static void MaxSubsetSum()
+        {
+            int[] arr = new int[] {3, 5, -7, 8, 10};
+            Assert.That(DynamicQ.MaxSubsetSum(arr) == 15);
+        }
+        
+        [Test]
+        public static void MinimumBrabes()
+        {
+
+        }
     }
 }

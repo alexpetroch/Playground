@@ -1115,5 +1115,33 @@ namespace Playground.Interview
             }
             return -1;
         }
+
+
+        static int minimumBribes(int[] q)
+        {
+
+            int count = 0;
+            int min = q.Length;
+            for (int i = 0; i < q.Length; i++)
+            {
+                int step = i + 1;
+                if (q[i] - step > 2)
+                {                    
+                    return -1;
+                }
+
+                // 1 2 5 3 4
+                /*
+                if(q[i] - step > 0)
+                {
+                    count += q[i] - step;
+                }
+                */
+                for (int j = System.Math.Max(0, q[i] - 2); j < i; j++)
+                    if (q[j] > q[i]) count++;
+            }
+
+            return count;
+        }
     }
 }
