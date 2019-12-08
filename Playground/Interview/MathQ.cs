@@ -375,7 +375,6 @@ namespace Playground.Interview
             return max;
         }
 
-        static int count = 0;
         /// <summary>
         /// https://www.hackerrank.com/challenges/the-power-sum/problem
         /// </summary>
@@ -386,39 +385,24 @@ namespace Playground.Interview
             // calclate pow of cur of n - if equal  then break if more than n exit
             // if less recurcivelly repeat step 2         
 
-            PowerSum(X, N, 0, 1, "");
-            return count;
+            return PowerSum(X, N, 1);
         }
 
-         static void PowerSum(int total, int power, int current, int iter, string str)
+        static int PowerSum(int total, int power, int value)
         {
-            if (current + System.Math.Pow(iter, power) > total)
+            int pow = (int)System.Math.Pow(value, power);
+            if(pow == total)
             {
-                return;
+                return 1;
+            }
+            else if (pow > total)
+            {
+                return 0;
             }
 
-            int end = (int)System.Math.Sqrt(total);
-
-            for (int i = iter; i <= end; i++)
-            {
-                str += "," + i.ToString();
-                Console.WriteLine("{0} {1} {2}", iter, i, current);
-                int value = current + (int)System.Math.Pow(i, power);
-                if (total == value)
-                {
-                    count++;
-                }
-                else if (value > total)
-                {
-                    return;
-                }
-                else
-                {
-                    PowerSum(total - value, power, value, iter + 1, str);
-                }
-            }
-
-            return;
+            int notIncludeValueInCalc = PowerSum(total, power, value + 1);
+            int IncludeValueInCalc = PowerSum(total - pow, power, value + 1);
+            return notIncludeValueInCalc + IncludeValueInCalc;
         }
     }
 }
