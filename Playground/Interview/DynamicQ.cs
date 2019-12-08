@@ -324,5 +324,47 @@ namespace Playground.Interview
 
             return System.Math.Max(prevNo, prevYes);
         }
+
+
+        static int[] mem;
+        public static int MaxSubsetSum(int[] arr) 
+        {
+
+            if(arr == null)
+            {
+                return 0;
+            }
+
+            if(arr.Length <= 2)
+            {
+                return arr.Length == 1 ? arr[0] : System.Math.Max(arr[0], arr[1]);
+            }
+
+            mem = new int[arr.Length];
+            for (int i = 0; i < arr.Length; i++)
+                mem[i] = arr[i];
+
+            maxSubsetSum(arr, 0);
+            maxSubsetSum(arr, 1);
+            int max = System.Math.Max(mem[0], mem[1]);
+            return max;
+        }
+
+        private static int maxSubsetSum(int[] arr, int index) 
+        {
+            if(index >= arr.Length)
+            {
+                return 0;
+            }
+
+            if(mem[index] != arr[index])
+            {
+                return mem[index];
+            }
+
+            int max2 = System.Math.Max(arr[index], arr[index] + maxSubsetSum(arr, index + 2));
+            mem[index] = System.Math.Max(max2, arr[index] + maxSubsetSum(arr, index + 3));
+            return mem[index];
+        }
     }
 }
