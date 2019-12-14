@@ -366,5 +366,42 @@ namespace Playground.Interview
             mem[index] = System.Math.Max(max2, arr[index] + maxSubsetSum(arr, index + 3));
             return mem[index];
         }
+
+        /// <summary>
+        /// You are given coins of different denominations and a total amount of money amount. 
+        /// Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+        /// Example 1:
+        /// Input: coins = [1, 2, 5], amount = 11
+        /// Output: 3. Explanation: 11 = 5 + 5 + 1
+        /// </summary>
+
+        public int CoinChange(int[] coins, int amount)
+        {
+            if (coins == null || coins.Length == 0)
+                return 0;
+
+            int[] dp = new int[amount + 1];
+            for (int i = 0; i < amount + 1; i++)
+                dp[i] = int.MaxValue;
+
+            dp[0] = 0;
+            for (int i = 0; i < coins.Length; i++)
+            {
+                for (int j = 1; j <= amount; j++)
+                {
+                    // dp[j - coins[i]] != Int32.MaxValue is key expression here
+                    // if it is not maxvalue then it can be reached 
+                    if (j - coins[i] >= 0 && dp[j - coins[i]] != Int32.MaxValue)
+                        dp[j] = Math.Min(dp[j - coins[i]] + 1, dp[j]);
+
+                }
+            }
+
+            if (dp[amount] == Int32.MaxValue)
+                return -1;
+
+            return dp[amount];
+        }
+
     }
 }

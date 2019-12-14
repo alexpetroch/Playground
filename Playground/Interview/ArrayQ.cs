@@ -1130,18 +1130,75 @@ namespace Playground.Interview
                     return -1;
                 }
 
-                // 1 2 5 3 4
-                /*
-                if(q[i] - step > 0)
-                {
-                    count += q[i] - step;
-                }
-                */
                 for (int j = System.Math.Max(0, q[i] - 2); j < i; j++)
                     if (q[j] > q[i]) count++;
             }
 
             return count;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/search-in-rotated-sorted-array/
+        /// </summary>
+        public static int SearchInRotatedSortedArray (int[] nums, int target)
+        {
+            if (nums == null || nums.Length == 0)
+                return -1;
+            
+            // find minIndex
+            int minIndex = 0;
+            int low = 0;
+            int high = nums.Length - 1;
+            int mid = 0;
+
+            while (low <= high)
+            {
+                mid = low + (high - low) / 2;
+                if (mid != nums.Length - 1 && nums[mid] > nums[mid + 1])
+                {
+                    minIndex = mid + 1;
+                    break;
+                }
+                else if (mid != 0 && nums[mid] < nums[mid - 1])
+                {
+                    minIndex = mid;
+                    break;
+                }
+
+                /*
+                  7, 1, 2, 3, 4, 5, 6   minIndex = 1;
+                  3  4  5  6  7  1  2   minIndex = 6;
+                  1  2  3  4  5  6  7   minIndex = 0;
+                 */
+                else if (nums[mid] < nums[nums.Length - 1])
+                {
+                    high = mid - 1;
+                }
+                else
+                {
+                    low = mid + 1;
+                }        
+            }
+
+            low = 0;
+            high = nums.Length - 1;
+
+            while (low <= high)
+            {
+                mid = low + (high - low) / 2;
+
+                int midShifted = (mid + minIndex) % nums.Length;
+
+                if (nums[midShifted] == target)
+                    return midShifted;
+
+                if (nums[midShifted] > target)
+                    high = mid - 1;
+                else
+                    low = mid + 1;
+            }
+
+            return -1;
         }
     }
 }
