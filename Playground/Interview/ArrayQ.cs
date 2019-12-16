@@ -1117,7 +1117,7 @@ namespace Playground.Interview
         }
 
 
-        static int minimumBribes(int[] q)
+        public static int minimumBribes(int[] q)
         {
 
             int count = 0;

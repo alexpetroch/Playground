@@ -31,7 +31,7 @@ namespace Tests
         public static void CoinChange()
         {
             DynamicQ dyn = new DynamicQ();
-            int res = dyn.CoinChange(new int[] { 3, 5}, 11);
+            int res = DynamicQ.CoinChange(new int[] { 3, 5}, 11);
             Assert.IsTrue(res == 3);
         }
 
