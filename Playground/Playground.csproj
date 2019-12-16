@@ -54,6 +54,7 @@
     <Compile Include="Interview\ArrayQ.cs" />
     <Compile Include="Interview\BackTrackingQ.cs" />
     <Compile Include="Interview\Bits.cs" />
+    <Compile Include="Interview\DictionaryQ.cs" />
     <Compile Include="Interview\DynamicQ.cs" />
     <Compile Include="Interview\GraphQ.cs" />
     <Compile Include="Interview\HashQ.cs" />

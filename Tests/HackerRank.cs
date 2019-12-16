@@ -30,7 +30,8 @@ namespace Tests
         [Test]
         public static void MinimumBrabes()
         {
-
+            int[] arr = new int[] { 1, 2, 5, 3, 4 };
+            Assert.That(ArrayQ.minimumBribes(arr) == 2);
         }
     }
 }

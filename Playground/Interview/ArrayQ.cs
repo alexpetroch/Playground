@@ -1117,7 +1117,7 @@ namespace Playground.Interview
         }
 
 
-        static int minimumBribes(int[] q)
+        public static int minimumBribes(int[] q)
         {
 
             int count = 0;
@@ -1137,6 +1137,7 @@ namespace Playground.Interview
                     count += q[i] - step;
                 }
                 */
+                // we are looking how far it move from the begining
                 for (int j = System.Math.Max(0, q[i] - 2); j < i; j++)
                     if (q[j] > q[i]) count++;
             }

@@ -26,5 +26,14 @@ namespace Tests
             listQ.SwapNodesInPairs();
             Assert.That(listQ.Head.Value == 2);
         }
+
+        [Test]
+        public static void TriplesInGeometricProgression()
+        {
+            System.Collections.Generic.List<long> list = new System.Collections.Generic.List<long>();
+            list.AddRange(new long[] { 1, 2, 1, 2, 4 });
+
+            Assert.That(DictionaryQ.CountTriplets(list, 2) == 3);
+        }
     }
 }
