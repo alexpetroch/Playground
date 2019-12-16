@@ -17,7 +17,7 @@ namespace Tests
         [Test]
         public static void PowerSum()
         {
-            Assert.That(MathQ.PowerSum(100, 2) == 2);
+            Assert.That(MathQ.PowerSum(100, 2) == 3);
         }
 
         [Test]

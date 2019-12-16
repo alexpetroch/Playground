@@ -28,6 +28,21 @@ namespace Tests
         }
 
         [Test]
+        public static void CoinChange()
+        {
+            DynamicQ dyn = new DynamicQ();
+            int res = dyn.CoinChange(new int[] { 3, 5}, 11);
+            Assert.IsTrue(res == 3);
+        }
+
+        [Test]
+        public static void SearchInRotatedSortedArray()
+        {
+            int index = ArrayQ.SearchInRotatedSortedArray(new int[] { 7, 1, 2, 3, 4, 5, 6 }, 2);
+            Assert.That(index == 2);
+        }      
+
+        [Test]
         public static void TriplesInGeometricProgression()
         {
             System.Collections.Generic.List<long> list = new System.Collections.Generic.List<long>();
