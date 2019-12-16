@@ -375,7 +375,7 @@ namespace Playground.Interview
         /// Output: 3. Explanation: 11 = 5 + 5 + 1
         /// </summary>
 
-        public int CoinChange(int[] coins, int amount)
+        public static int CoinChange(int[] coins, int amount)
         {
             if (coins == null || coins.Length == 0)
                 return 0;
