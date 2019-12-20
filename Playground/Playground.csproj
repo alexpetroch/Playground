@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStructure\Graph.cs" />
     <Compile Include="DataStructure\HashTable.cs" />
     <Compile Include="DataStructure\Trie.cs" />
     <Compile Include="DataStructure\LeastRecentlyUsedCache.cs" />

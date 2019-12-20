@@ -403,5 +403,104 @@ namespace Playground.Interview
             return dp[amount];
         }
 
+
+        public static bool IsMatch(string a, string b)
+        {
+            if (string.IsNullOrEmpty(a) && string.IsNullOrEmpty(b))
+                return true;
+
+            if (a.Length < b.Length || string.IsNullOrEmpty(b))
+                return false;
+
+            HashSet<string> failed = new HashSet<string>();
+            return IsMatch(a, b, failed);
+        }
+
+        private static bool IsMatch(string a, string b, HashSet<string> failed)
+        {
+            // Console.WriteLine("a = " + a + " b = " + b);
+
+            if (failed.Contains(a + "  " + b))
+            {
+                return false;
+            }
+
+            if (a.Length < b.Length)
+            {
+                failed.Add(a + "  " + b);
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(a) && string.IsNullOrEmpty(b) ||
+               a == b)
+                return true;
+
+            if (string.IsNullOrEmpty(b) && a.Length > 0)
+            {
+                foreach (char chA in a)
+                {
+                    if (IsUpper(chA))
+                    {
+                        failed.Add(a + "  " + b);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+
+            bool res = false;
+
+            // Capital letters
+            if (a[0] == b[0])
+            {
+                res = IsMatch(a.Substring(1, a.Length - 1), b.Substring(1, b.Length - 1), failed);
+                if(!res)
+                {
+                    failed.Add(a.Substring(1, a.Length - 1) + "  " + b.Substring(1, b.Length - 1));
+                }
+            }
+            else if (Char.ToUpper(a[0]) == b[0])
+            {
+                // two cases 
+                res = IsMatch(a.Substring(1, a.Length - 1), b.Substring(1, b.Length - 1), failed) || IsMatch(a.Substring(1, a.Length - 1), b, failed);
+                if(!res)
+                {
+                    failed.Add(a.Substring(1, a.Length - 1) + "  " + b.Substring(1, b.Length - 1));
+                    failed.Add(a.Substring(1, a.Length - 1) + "  " + b);
+                }
+            }
+            else if (IsUpper(a[0]) && a[0] != b[0])
+            {
+                res = false;                
+            }
+            else
+            {
+                res = IsMatch(a.Substring(1, a.Length - 1), b, failed);
+                if (!res)
+                {
+                    failed.Add(a.Substring(1, a.Length - 1) + "  " + b);
+                }
+            }
+
+            if (!res)
+            {
+                failed.Add(a + "  " + b);
+            }
+
+            return res;
+        }
+
+        public static bool IsLower(char ch)
+        {
+            return ch >= 'a' && ch <= 'z';
+        }
+
+        public static bool IsUpper(char ch)
+        {
+            return ch >= 'A' && ch <= 'Z';
+        }
+
     }
 }
