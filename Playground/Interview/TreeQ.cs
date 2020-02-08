@@ -331,7 +331,7 @@ namespace Playground.Interview
             int heigth = GetHeigth(root);
 
             int leftIndex = 0; int rightIndex = (int)System.Math.Pow(2, heigth) - 1;
-            int countNodesAtLastLevel = 1;
+            int countNodesAtLastLevel = 0;
             while (leftIndex <= rightIndex)
             {
                 int pivot = leftIndex + (rightIndex - leftIndex) / 2;
