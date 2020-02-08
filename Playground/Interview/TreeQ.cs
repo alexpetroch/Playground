@@ -322,5 +322,63 @@ namespace Playground.Interview
 
             return res;
         }
+
+        public int SizeCompleteBinaryTree(Tree<int>.Node root)
+        {
+            if (root == null)
+                return 0;
+
+            int heigth = GetHeigth(root);
+
+            int leftIndex = 0; int rightIndex = (int)System.Math.Pow(2, heigth) - 1;
+            int countNodesAtLastLevel = 1;
+            while (leftIndex <= rightIndex)
+            {
+                int pivot = leftIndex + (rightIndex - leftIndex) / 2;
+                if (NodeExists(pivot, heigth, root))
+                {
+                    countNodesAtLastLevel = pivot + 1;
+                    leftIndex = pivot + 1;
+                }                    
+                else
+                    rightIndex = pivot - 1;
+            }
+
+            return (int)System.Math.Pow(2, heigth) - 1 + countNodesAtLastLevel;
+        }
+
+        private bool NodeExists (int index, int heigth, Tree<int>.Node node)
+        {
+            int left = 0; int right = (int)System.Math.Pow(2, heigth) - 1;
+
+            for(int i = 0; i < heigth; i++)
+            {
+                int mid = left + (right - left) / 2;
+                if(index > mid)
+                {
+                    node = node.Right;
+                    left = mid + 1;
+                }
+                else
+                {
+                    node = node.Left;
+                    right = mid - 1;
+                }
+            }
+
+            return node != null;
+        }
+
+        private int GetHeigth(Tree<int>.Node node)
+        {
+            int count = 0;
+            while (node != null)
+            {
+                count++;
+                node = node.Right;
+            }
+
+            return count;
+        }
     }
 }

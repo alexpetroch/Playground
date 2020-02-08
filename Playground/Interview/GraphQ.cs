@@ -80,14 +80,14 @@ namespace Playground.Interview
         public bool IsCyclic(int countCources, List<int> courcesList, List<int> prerList)
         {
             var nodes = new List<GraphNode>();
-            for (int i = 1; i <= countCources; i++)
+            for (int i = 0; i < countCources; i++)
             {
                 nodes.Add(new GraphNode(i));
             }
 
             for (int i = 0; i < courcesList.Count; i++)
             {
-                nodes[courcesList[i] - 1].dids.Add(nodes[prerList[i] - 1]);
+                nodes[courcesList[i]].dids.Add(nodes[prerList[i]]);
             }
 
             foreach (var node in nodes)
