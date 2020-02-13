@@ -109,13 +109,6 @@ namespace Tests
             string res = graph.BreadthFirstSearch(0); // 0 1 2 3 4
             res = graph.DepthFirstSearch(0);          // 0 3 4 2 1
             res = graph.DepthFirstSearchRecurcive(0); // 0 1 4 2 3
-
-
-            graph = new Graph(2);
-            graph.AddEdge(0, 1);
-            graph.AddEdge(1, 0);
-
-            Assert.That(graph.IsCyclic(0) == true);
         }
 
 
@@ -126,8 +119,8 @@ namespace Tests
         public void CanFinishCource()
         {
             int numCourses = 8;
-            int[][] prerequisites = new int[6][] { new int[] { 1, 0 }, new int[] { 2, 6 }, new int[] { 1, 7 },
-                new int[] { 6,4 }, new int[] { 7,0 }, new int[] { 0, 5 } };
+            int[][] prerequisites = new int[7][] { new int[] { 1, 0 }, new int[] { 2, 6 }, new int[] { 1, 7 }, new int[] { 6, 4 },
+            new int[] { 7, 0 }, new int[] { 0, 5 }, new int[] { 5, 7 }};
 
             Graph graph = new Graph(numCourses);
 
@@ -141,16 +134,57 @@ namespace Tests
                 }
             }
 
-            bool isCyclic = false;
-            for (int i = 0; i < 8; i++)
-            {
-                //int[] cource = prerequisites[i];
-                //int from = cource[0];
-                isCyclic = graph.IsCyclic(i);
-                if (isCyclic) break;
-            }
+            bool isCyclic = graph.IsCyclic();
+            Assert.That(isCyclic == true);
+        }
 
-            Assert.That(isCyclic == false);
+        /// <summary>
+        /// https://leetcode.com/discuss/interview-question/476340/google-onsite-min-modifications
+        /// </summary>
+        [Test]
+        public void MinModificationsWays()
+        {
+            char[][] ways = new char[3][];
+            ways[0] = new char[] { 'R', 'R', 'D' };
+            ways[1] = new char[] { 'D', 'L', 'L' };
+            ways[2] = new char[] { 'R', 'R', 'R' }; 
+          
+            Assert.That(Graph.GetMinModifications(ways) == 0);
+        }
+
+        [Test]
+        public void SizeCompletedTree()
+        {
+            Tree<int> tree = new Tree<int>
+            {
+                Root = new Tree<int>.Node(1)
+                {
+                    //Left = new Tree<int>.Node(2)
+                    //{
+                    //    Left = new Tree<int>.Node(3)
+                    //    {
+                    //        Left = new Tree<int>.Node(9),
+                    //        Right = new Tree<int>.Node(10),
+                    //    },
+                    //    Right = new Tree<int>.Node(4)
+                    //    {
+                    //        Left = new Tree<int>.Node(11),
+                    //        Right = new Tree<int>.Node(12)
+                    //    }
+                    //},
+                    //Right = new Tree<int>.Node(5)
+                    //{
+                    //    Left = new Tree<int>.Node(6)
+                    //    {
+                    //        Left = new Tree<int>.Node(13),
+                    //    },
+                    //    Right = new Tree<int>.Node(7)
+                    //}
+                }
+            };
+
+            TreeQ treeQ = new TreeQ();
+            Assert.IsTrue(treeQ.SizeCompleteBinaryTree(tree.Root) == 1);
         }
 
         /// <summary>
