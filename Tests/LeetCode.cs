@@ -152,5 +152,15 @@ namespace Tests
 
             Assert.That(isCyclic == false);
         }
+
+        /// <summary>
+        /// https://leetcode.com/problems/longest-string-chain
+        /// </summary>
+        [Test]
+        public void LongestStrChain()
+        {
+            string[] words = new string[] { "sgtnz", "sgtz", "sgz", "ikrcyoglz", "ajelpkpx", "ajelpkpxm", "srqgtnz", "srqgotnz", "srgtnz", "ijkrcyoglz" };
+            Assert.That(DynamicQ.LongestStrChain(words) == 6);
+        }        
     }
 }

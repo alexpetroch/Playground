@@ -12,7 +12,7 @@ namespace Playground.Interview
         List<string> ans = new List<string>();
         Dictionary<string, int> memString = new Dictionary<string, int>();
         string _sentance = string.Empty;
-        
+
         /// <summary>
         /// https://www.interviewbit.com/problems/word-break/
         /// </summary>
@@ -27,7 +27,7 @@ namespace Playground.Interview
 
             _wordBreakResult.Clear();
             return WordBreak(A, hash);
-                
+
         }
 
         private int WordBreak(string word, HashSet<string> hash)
@@ -48,7 +48,7 @@ namespace Playground.Interview
                 if (hash.Contains(substring))
                 {
                     string rightString = word.Substring(i, word.Length - i);
-                    if(WordBreak(rightString, hash) == 1)
+                    if (WordBreak(rightString, hash) == 1)
                     {
                         _wordBreakResult.Add(word, 1);
                         return 1;
@@ -116,7 +116,7 @@ namespace Playground.Interview
         private static int CountStairs(int current, int max, int[] steps)
         {
             if (current == max)
-            {                
+            {
                 return 1;
             }
             else if (current > max)
@@ -273,7 +273,7 @@ namespace Playground.Interview
             }
 
             int max = int.MinValue;
-            MaxPathSumInSubTree(root, ref max);            
+            MaxPathSumInSubTree(root, ref max);
             return max;
         }
 
@@ -327,15 +327,15 @@ namespace Playground.Interview
 
 
         static int[] mem;
-        public static int MaxSubsetSum(int[] arr) 
+        public static int MaxSubsetSum(int[] arr)
         {
 
-            if(arr == null)
+            if (arr == null)
             {
                 return 0;
             }
 
-            if(arr.Length <= 2)
+            if (arr.Length <= 2)
             {
                 return arr.Length == 1 ? arr[0] : System.Math.Max(arr[0], arr[1]);
             }
@@ -350,14 +350,14 @@ namespace Playground.Interview
             return max;
         }
 
-        private static int maxSubsetSum(int[] arr, int index) 
+        private static int maxSubsetSum(int[] arr, int index)
         {
-            if(index >= arr.Length)
+            if (index >= arr.Length)
             {
                 return 0;
             }
 
-            if(mem[index] != arr[index])
+            if (mem[index] != arr[index])
             {
                 return mem[index];
             }
@@ -456,7 +456,7 @@ namespace Playground.Interview
             if (a[0] == b[0])
             {
                 res = IsMatch(a.Substring(1, a.Length - 1), b.Substring(1, b.Length - 1), failed);
-                if(!res)
+                if (!res)
                 {
                     failed.Add(a.Substring(1, a.Length - 1) + "  " + b.Substring(1, b.Length - 1));
                 }
@@ -465,7 +465,7 @@ namespace Playground.Interview
             {
                 // two cases 
                 res = IsMatch(a.Substring(1, a.Length - 1), b.Substring(1, b.Length - 1), failed) || IsMatch(a.Substring(1, a.Length - 1), b, failed);
-                if(!res)
+                if (!res)
                 {
                     failed.Add(a.Substring(1, a.Length - 1) + "  " + b.Substring(1, b.Length - 1));
                     failed.Add(a.Substring(1, a.Length - 1) + "  " + b);
@@ -473,7 +473,7 @@ namespace Playground.Interview
             }
             else if (IsUpper(a[0]) && a[0] != b[0])
             {
-                res = false;                
+                res = false;
             }
             else
             {
@@ -500,6 +500,57 @@ namespace Playground.Interview
         public static bool IsUpper(char ch)
         {
             return ch >= 'A' && ch <= 'Z';
+        }
+
+        public static int LongestStrChain(string[] words)
+        {
+
+            if (words == null || words.Length == 0)
+                return 0;
+
+            Array.Sort(words, (x, y) => x.Length.CompareTo(y.Length));
+            int[] dp = new int[words.Length];
+
+            int res = 0;
+            for (int i = 0; i < words.Length; i++)
+            {
+                dp[i] = 1;
+                for (int j = i - 1; j >= 0; j--)
+                {
+                    if (words[i].Length - words[j].Length != 1)
+                        continue;
+
+                    if (IsChain(words[j], words[i]))
+                        dp[i] = Math.Max(dp[i], dp[j] + 1);
+                }
+
+                res = Math.Max(dp[i], res);
+            }
+
+            return res;
+        }
+
+        private static bool IsChain(string str1, string str2)
+        {
+            int i = 0;
+            int j = 0;
+
+            int diff = 0;
+            while (i < str1.Length && j < str2.Length)
+            {
+                if (str1[i] == str2[j])
+                {
+                    i++;
+                    j++;
+                    continue;
+                }
+
+                j++;
+                if (++diff > 1)
+                    return false;
+            }
+
+            return true;
         }
 
     }

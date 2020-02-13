@@ -8,10 +8,7 @@ namespace Playground
     {
         static void Main(string[] args)
         {
-            Console.Read();
-
-            LinkedList<int> list = new LinkedList<int>();
-            
+            Console.Read();                      
         }
 
         static void Parallel()
